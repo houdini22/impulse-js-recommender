@@ -8,6 +8,7 @@ import {
   setCreateModalStep,
   getIndexes,
   buildIndex,
+  deleteIndex,
 } from "../../../reducers/snapshots";
 
 const mapDispatchToProps = {
@@ -17,7 +18,8 @@ const mapDispatchToProps = {
   setCreateModalIsVisible,
   setCreateModalStep,
   getIndexes,
-  buildIndex
+  buildIndex,
+  deleteIndex,
 }
 
 const mapStateToProps = (state) => ({

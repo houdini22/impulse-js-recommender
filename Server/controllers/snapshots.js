@@ -58,7 +58,15 @@ router.get('/get_indexes', async (req, res) => {
 
 router.post('/build_index', async (req, res) => {
   const data = req.body
-  db.query('UPDATE _jsrs_indexes SET is_built = 1 WHERE id = ?', [data.index_id]).then((response) => {
+  db.query('UPDATE _jsrs_indexes SET is_built = 1 WHERE id = ?', [data.index_id]).then(() => {
+    res.json({
+      status: 'OK'
+    })
+  })
+})
+
+router.delete('/delete/:id', async (req, res) => {
+  db.query('DELETE FROM _jsrs_indexes WHERE id = ?', [req.params.id]).then(() => {
     res.json({
       status: 'OK'
     })

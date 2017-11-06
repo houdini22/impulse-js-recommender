@@ -18,3 +18,17 @@ body {
 .page-actions {
   margin-bottom: 35px;
 }
+
+.navbar-light .navbar-brand {
+  color: #fff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.table-row-actions {
+  & > * {
+    margin-right: 5px;
+  }
+}

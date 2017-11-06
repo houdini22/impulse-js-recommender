@@ -9,6 +9,9 @@ export const SET_CREATE_MODAL_IS_VISIBLE = 'snapshots::set_create_modal_is_visib
 export const SET_CREATE_MODAL_STEP = 'snapshots::set_create_modal_step'
 export const INDEXES_LOADED = 'snapshots::indexes_loaded'
 export const BUILD_INDEX = 'snapshots::build_index'
+export const BUILDING_IN_PROGRESS = 'snapshots::building_in_progress'
+export const APPEND_NEW_SNAPSHOT_VALUES = 'snapshots::append_new_snapshot_values'
+export const CLEAR_NEW_SNAPSHOT = 'snapshots::clear_new_snapshot'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -28,10 +31,12 @@ export const getRatingFields = (table_name) => (dispatch) => {
   })
 }
 
-export const createSnapshot = (values) => (dispatch) => {
+export const createSnapshot = () => (dispatch, getState) => {
+  const values = getState().snapshots.newSnapshot
   http.post('/snapshots/create_snapshot', values).then((response) => {
     dispatch(setCreateModalIsVisible(false))
     dispatch(getIndexes())
+    dispatch({ type: CLEAR_NEW_SNAPSHOT })
   })
 }
 
@@ -52,10 +57,26 @@ export const getIndexes = () => (dispatch) => {
   })
 }
 
+export const setBuildingInProgress = (value) => (dispatch) => {
+  dispatch({ type: BUILDING_IN_PROGRESS, payload: value })
+}
+
 export const buildIndex = (index_id) => (dispatch) => {
+  dispatch(setBuildingInProgress(true))
   http.post('/snapshots/build_index', {
     index_id
-  }).then((response) => {
+  }).then(() => {
+    dispatch(getIndexes())
+    dispatch(setBuildingInProgress(false))
+  })
+}
+
+export const appendNewSnapshotValues = (data) => (dispatch) => {
+  dispatch({ type: APPEND_NEW_SNAPSHOT_VALUES, payload: data })
+}
+
+export const deleteIndex = (id) => (dispatch) => {
+  http.delete(`/snapshots/delete/${id}`).then(() => {
     dispatch(getIndexes())
   })
 }
@@ -67,6 +88,8 @@ export const actions = {
   setCreateModalIsVisible,
   setCreateModalStep,
   getIndexes,
+  buildIndex,
+  deleteIndex,
 }
 // ------------------------------------
 // Action Handlers
@@ -101,6 +124,24 @@ const ACTION_HANDLERS = {
       ...state,
       indexes: payload,
     }
+  },
+  [BUILDING_IN_PROGRESS]: (state, { payload }) => {
+    return {
+      ...state,
+      buildingInProgress: payload,
+    }
+  },
+  [APPEND_NEW_SNAPSHOT_VALUES]: (state, { payload }) => {
+    return {
+      ...state,
+      newSnapshot: { ...state.newSnapshot, ...payload }
+    }
+  },
+  [CLEAR_NEW_SNAPSHOT]: (state) => {
+    return {
+      ...state,
+      newSnapshot: {}
+    }
   }
 }
 // ------------------------------------
@@ -112,7 +153,9 @@ const initialState = {
   tables: [],
   rating_fields: [],
   snapshots: [],
-  indexes: []
+  indexes: [],
+  buildingInProgress: false,
+  newSnapshot: {}
 }
 
 export default function userReducer(state = initialState, action) {
