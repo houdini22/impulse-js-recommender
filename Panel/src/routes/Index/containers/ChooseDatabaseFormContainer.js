@@ -1,15 +1,14 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
-import Step4Form from '../components/Step4Form'
-import { setCreateModalStep, appendNewSnapshotValues, getRatingFields } from '../../../reducers/snapshots'
+import ChooseDatabaseForm from '../components/ChooseDatabaseForm'
+import { setCreateModalStep, appendNewSnapshotValues } from '../../../reducers/snapshots'
+import { getDatabases } from '../../../reducers/databases'
 
-const FORM_NAME = 'index-step-4-form'
+const FORM_NAME = 'index-choose-database-form'
 
 const validate = (values) => {
   const requiredFields = [
-    'ratings_field_item_id',
-    'ratings_field_category_id',
-    'ratings_field_value',
+    'database_id',
   ]
 
   const errors = {}
@@ -34,26 +33,19 @@ const _reduxForm = reduxForm({
   onSubmit,
   validate,
   initialValues: {
-    ratings_field_item_id: '',
-    ratings_field_category_id: '',
-    ratings_field_value: ''
+    database_id: '',
   },
-})(Step4Form)
+})(ChooseDatabaseForm)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const {
-    ratings_field_item_id,
-    ratings_field_category_id,
-    ratings_field_value
-  } = selector(state, 'ratings_field_item_id', 'ratings_field_category_id', 'ratings_field_value')
+  const database_id = selector(state, 'database_id')
   return {
-    ratings_field_item_id,
-    ratings_field_category_id,
-    ratings_field_value,
-    snapshots: { ...state.snapshots }
+    database_id,
+    snapshots: { ...state.snapshots },
+    databases: { ...state.databases },
   }
 }, {
-  getRatingFields
+  getDatabases
 })(_reduxForm)

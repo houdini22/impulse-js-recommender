@@ -27,4 +27,12 @@ router.post('/', async (req, res) => {
   })
 })
 
+router.delete('/:id', async (req, res) => {
+  db.query('DELETE FROM _jsrs_databases WHERE id = ?', [req.params.id]).then(() => {
+    res.json({
+      status: 'OK'
+    })
+  })
+})
+
 exports.router = router

@@ -11,7 +11,8 @@ const validate = (values) => {
     'host',
     'port',
     'username',
-    'password'
+    'password',
+    'database_name',
   ]
 
   const errors = {}
@@ -38,20 +39,29 @@ const _reduxForm = reduxForm({
     host: '',
     port: '',
     username: '',
-    password: ''
+    password: '',
+    database_name: '',
   },
 })(Form)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const { name, host, port, username, password } = selector(state, 'name', 'host', 'port', 'username', 'password')
+  const {
+    name,
+    host,
+    port,
+    username,
+    password,
+    database_name,
+  } = selector(state, 'name', 'host', 'port', 'username', 'password', 'database_name')
   return {
     name,
     host,
     port,
     username,
     password,
+    database_name,
     databases: { ...state.databases }
   }
 })(_reduxForm)

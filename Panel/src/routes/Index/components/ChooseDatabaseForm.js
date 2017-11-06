@@ -6,34 +6,39 @@ import { Button } from 'reactstrap'
 import { Select } from '../../../components'
 import styles from './Index.module.scss'
 
-export class SnapshotsView extends React.Component {
+export class ChooseDatabaseForm extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    snapshots: PropTypes.object.isRequired
+    getDatabases: PropTypes.func.isRequired,
+    snapshots: PropTypes.object.isRequired,
+    databases: PropTypes.object.isRequired,
   }
 
-  componentWillMount () {
-    const { getTables, snapshots: { newSnapshot: { database_id } } } = this.props
-    getTables(database_id)
+  componentDidMount () {
+    const { getDatabases } = this.props
+    getDatabases()
   }
 
   render () {
     const {
-      snapshots: { tables },
-      handleSubmit
+      databases: { databases },
+      handleSubmit,
     } = this.props
 
     return (
       <div>
-        <h6>Choose your ITEMS table.</h6>
-        {tables && (
+        <h6>Choose Database</h6>
+        {databases && (
           <form onSubmit={handleSubmit}>
             <Field
-              name='items_table_name'
+              name='database_id'
               component={Select}
               type='select'
-              placeholder='Rated Items table name'
-              options={tables}
+              options={() => {
+                return databases.map((database) => {
+                  return [database.id, database.name]
+                })
+              }}
             />
             <div className='text-right'>
               <Button type='submit'>Next</Button>
@@ -45,4 +50,4 @@ export class SnapshotsView extends React.Component {
   }
 }
 
-export default CSSModules(SnapshotsView, styles)
+export default CSSModules(ChooseDatabaseForm, styles)

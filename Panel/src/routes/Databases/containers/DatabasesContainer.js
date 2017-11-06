@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
 import Databases from '../components/Databases'
-import { getDatabases, setCreateModalIsVisible } from '../../../reducers/databases'
+import { getDatabases, setCreateModalIsVisible, deleteDatabase } from '../../../reducers/databases'
 
 const mapDispatchToProps = {
   getDatabases,
   setCreateModalIsVisible,
+  deleteDatabase,
 }
 
 const mapStateToProps = (state) => ({

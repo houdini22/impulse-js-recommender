@@ -15,8 +15,12 @@ export const CLEAR_NEW_SNAPSHOT = 'snapshots::clear_new_snapshot'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const getTables = () => (dispatch) => {
-  http.get('/snapshots/get_tables').then((response) => {
+export const getTables = (database_id) => (dispatch) => {
+  http.get('/snapshots/get_tables', {
+    params: {
+      database_id
+    }
+  }).then((response) => {
     dispatch({ type: TABLES_FETCHED, payload: response.data.data })
   })
 }

@@ -54,6 +54,12 @@ export class SnapshotsView extends React.Component {
             type='password'
             placeholder='Password'
           />
+          <Field
+            name='database_name'
+            component={TextField}
+            type='text'
+            placeholder='Database Name'
+          />
           <div className='text-right'>
             <Button type='submit'>Add</Button>
           </div>

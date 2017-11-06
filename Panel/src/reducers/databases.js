@@ -24,10 +24,17 @@ export const createDatabase = (values) => (dispatch, getState) => {
   })
 }
 
+export const deleteDatabase = (id) => (dispatch) => {
+  http.delete(`/databases/${id}`).then(() => {
+    dispatch(getDatabases())
+  })
+}
+
 export const actions = {
   getDatabases,
   setCreateModalIsVisible,
-  createDatabase
+  createDatabase,
+  deleteDatabase,
 }
 // ------------------------------------
 // Action Handlers

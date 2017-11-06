@@ -9,11 +9,17 @@ import styles from './Index.module.scss'
 export class SnapshotsView extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    snapshots: PropTypes.object.isRequired
+    snapshots: PropTypes.object.isRequired,
   }
 
   constructor (props) {
     super(props)
+  }
+
+  componentWillMount () {
+    const { snapshots: { newSnapshot: { ratings_table_name } }, getRatingFields } = this.props
+
+    getRatingFields(ratings_table_name)
   }
 
   render () {
