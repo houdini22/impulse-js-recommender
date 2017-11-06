@@ -48,4 +48,21 @@ router.post('/create_snapshot', async (req, res) => {
   })
 })
 
+router.get('/get_indexes', async (req, res) => {
+  db.query('SELECT * FROM _jsrs_indexes').then((data) => {
+    res.json({
+      data
+    })
+  })
+})
+
+router.post('/build_index', async (req, res) => {
+  const data = req.body
+  db.query('UPDATE _jsrs_indexes SET is_built = 1 WHERE id = ?', [data.index_id]).then((response) => {
+    res.json({
+      status: 'OK'
+    })
+  })
+})
+
 exports.router = router

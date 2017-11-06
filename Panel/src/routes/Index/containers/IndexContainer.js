@@ -5,7 +5,9 @@ import {
   getRatingFields,
   createSnapshot,
   setCreateModalIsVisible,
-  setCreateModalStep
+  setCreateModalStep,
+  getIndexes,
+  buildIndex,
 } from "../../../reducers/snapshots";
 
 const mapDispatchToProps = {
@@ -13,7 +15,9 @@ const mapDispatchToProps = {
   getRatingFields,
   createSnapshot,
   setCreateModalIsVisible,
-  setCreateModalStep
+  setCreateModalStep,
+  getIndexes,
+  buildIndex
 }
 
 const mapStateToProps = (state) => ({

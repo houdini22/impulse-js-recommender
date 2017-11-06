@@ -35,7 +35,7 @@ class PageLayout extends React.Component {
               <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                   <NavItem>
-                    <NavLink tag={Link} to='/index'>Index</NavLink>
+                    <NavLink tag={Link} to='/index'>Indexes</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>

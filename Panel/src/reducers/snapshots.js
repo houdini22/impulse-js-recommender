@@ -7,6 +7,8 @@ export const TABLES_FETCHED = 'snapshots::tables_fetched'
 export const RATING_FIELDS_FETCHED = 'snapshots::ratings_fields_fetched'
 export const SET_CREATE_MODAL_IS_VISIBLE = 'snapshots::set_create_modal_is_visible'
 export const SET_CREATE_MODAL_STEP = 'snapshots::set_create_modal_step'
+export const INDEXES_LOADED = 'snapshots::indexes_loaded'
+export const BUILD_INDEX = 'snapshots::build_index'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -29,6 +31,7 @@ export const getRatingFields = (table_name) => (dispatch) => {
 export const createSnapshot = (values) => (dispatch) => {
   http.post('/snapshots/create_snapshot', values).then((response) => {
     dispatch(setCreateModalIsVisible(false))
+    dispatch(getIndexes())
   })
 }
 
@@ -43,12 +46,27 @@ export const setCreateModalStep = (value) => (dispatch) => {
   dispatch({ type: SET_CREATE_MODAL_STEP, payload: value })
 }
 
+export const getIndexes = () => (dispatch) => {
+  http.get('/snapshots/get_indexes').then((response) => {
+    dispatch({ type: INDEXES_LOADED, payload: response.data.data })
+  })
+}
+
+export const buildIndex = (index_id) => (dispatch) => {
+  http.post('/snapshots/build_index', {
+    index_id
+  }).then((response) => {
+    dispatch(getIndexes())
+  })
+}
+
 export const actions = {
   getTables,
   getRatingFields,
   createSnapshot,
   setCreateModalIsVisible,
-  setCreateModalStep
+  setCreateModalStep,
+  getIndexes,
 }
 // ------------------------------------
 // Action Handlers
@@ -77,6 +95,12 @@ const ACTION_HANDLERS = {
       ...state,
       createModalStep: payload,
     }
+  },
+  [INDEXES_LOADED]: (state, { payload }) => {
+    return {
+      ...state,
+      indexes: payload,
+    }
   }
 }
 // ------------------------------------
@@ -87,7 +111,8 @@ const initialState = {
   createModalStep: 0,
   tables: [],
   rating_fields: [],
-  snapshots: []
+  snapshots: [],
+  indexes: []
 }
 
 export default function userReducer(state = initialState, action) {

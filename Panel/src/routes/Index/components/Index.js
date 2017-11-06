@@ -1,14 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import {Button, Modal, ModalHeader, ModalBody, Input, Form, FormGroup, Label} from 'reactstrap'
+import {Button, Modal, ModalHeader, ModalBody, Input, Form, FormGroup, Label, Table} from 'reactstrap'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {
   static propTypes = {
     getTables: PropTypes.func.isRequired,
     getRatingFields: PropTypes.func.isRequired,
-    createSnapshot: PropTypes.func.isRequired
+    createSnapshot: PropTypes.func.isRequired,
+    getIndexes: PropTypes.func.isRequired,
+    buildIndex: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -17,6 +19,11 @@ export class SnapshotsView extends React.Component {
     this.toggleModal = this.toggleModal.bind(this)
     this.createModalIsVisible = false
     this.values = {}
+  }
+
+  componentDidMount() {
+    const { getIndexes } = this.props
+    getIndexes()
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -56,17 +63,48 @@ export class SnapshotsView extends React.Component {
   }
 
   render() {
-    const { snapshots: { tables, rating_fields, createModalIsVisible, createModalStep } } = this.props
+    const {
+      snapshots: { tables, rating_fields, createModalIsVisible, createModalStep, indexes },
+      buildIndex
+    } = this.props
 
     return (
       <div>
-        <div>
+        <div className='page-actions'>
           <Button
             onClick={this.toggleModal}
           >Create Index</Button>
         </div>
         <div>
-
+          <h5>Indexes</h5>
+          <div>
+            <Table striped>
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              {indexes.map((index) => {
+                return (
+                  <tr key={index.id}>
+                    <th scope="row">{index.id}</th>
+                    <td>{index.name}</td>
+                    <td>
+                      {!index.is_built && (
+                        <Button size='sm' onClick={() => {
+                          buildIndex(index.id)
+                        }}>Build Index</Button>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
+              </tbody>
+            </Table>
+          </div>
         </div>
         <Modal isOpen={createModalIsVisible} toggle={this.toggleModal} styleName='modal'>
           <ModalHeader toggle={this.toggleModal}>Create Index</ModalHeader>
