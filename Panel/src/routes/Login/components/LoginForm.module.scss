@@ -1,0 +1,21 @@
+.login {
+  width: 200px;
+  height: 300px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  position: relative;
+  text-align: left;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
