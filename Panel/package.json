@@ -16,6 +16,7 @@
   "author": "<baniczek@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.17.0",
     "bootstrap": "^4.0.0-beta",
     "classnames": "^2.2.5",
     "compression": "^1.6.2",

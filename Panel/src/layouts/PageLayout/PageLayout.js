@@ -30,12 +30,12 @@ class PageLayout extends React.Component {
         <div>
           <Navbar color="info" light expand="md">
             <Container>
-              <NavbarBrand href="/">Impulse</NavbarBrand>
+              <NavbarBrand tag={Link} to='/dashboard'>Impulse</NavbarBrand>
               <NavbarToggler onClick={this.toggle}/>
               <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                   <NavItem>
-                    <NavLink tag={Link} to='/snapshots'>Snapshots</NavLink>
+                    <NavLink tag={Link} to='/index'>Index</NavLink>
                   </NavItem>
                 </Nav>
               </Collapse>
