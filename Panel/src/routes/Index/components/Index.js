@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import {Modal, ModalHeader, ModalBody, ModalFooter, Table, Button} from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap'
 import Step1FormContainer from '../containers/Step1FormContainer'
 import Step2FormContainer from '../containers/Step2FormContainer'
 import Step3FormContainer from '../containers/Step3FormContainer'
 import Step4FormContainer from '../containers/Step4FormContainer'
 import Step5FormContainer from '../containers/Step5FormContainer'
-import {StateButton, Confirm} from '../../../components'
+import { StateButton, Confirm } from '../../../components'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -20,7 +20,7 @@ export class SnapshotsView extends React.Component {
     deleteIndex: PropTypes.func.isRequired
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.openModal = this.openModal.bind(this)
@@ -28,12 +28,12 @@ export class SnapshotsView extends React.Component {
     this.values = {}
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { getIndexes } = this.props
     getIndexes()
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate (nextProps, nextState) {
     const { getTables, getRatingFields, snapshots: { tables, rating_fields } } = this.props
     const { snapshots: { createModalStep, newSnapshot: { ratings_table_name } } } = nextProps
 
@@ -45,12 +45,12 @@ export class SnapshotsView extends React.Component {
     }
   }
 
-  openModal() {
+  openModal () {
     const { setCreateModalIsVisible } = this.props
     setCreateModalIsVisible(true)
   }
 
-  render() {
+  render () {
     const {
       snapshots: { createModalIsVisible, createModalStep, indexes, buildingInProgress },
       buildIndex, deleteIndex
@@ -71,14 +71,14 @@ export class SnapshotsView extends React.Component {
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Actions</th>
+                <th style={{ width: '200px' }}>Actions</th>
               </tr>
               </thead>
               <tbody>
               {indexes.map((index) => {
                 return (
                   <tr key={index.id}>
-                    <th scope="row">{index.id}</th>
+                    <th scope='row'>{index.id}</th>
                     <td>{index.name}</td>
                     <td className='table-row-actions'>
                       {!index.is_built && (
@@ -98,6 +98,7 @@ export class SnapshotsView extends React.Component {
                       >
                         <Button
                           size='sm'
+                          color='danger'
                         >Delete</Button>
                       </Confirm>
                     </td>
