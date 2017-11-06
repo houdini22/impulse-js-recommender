@@ -1,22 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import {Alert} from 'reactstrap'
+import { Alert } from 'reactstrap'
 import LoginFormContainer from '../containers/LoginFormContainer'
-import {LoadingOverlay} from '../../../components'
+import { LoadingOverlay } from '../../../components'
 import styles from './Login.module.scss'
 
 export class LoginView extends React.Component {
   static propTypes = {}
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     const { auth: { isLoggedIn } } = nextProps
     if (isLoggedIn) {
       this.props.router.push('/dashboard')
     }
   }
 
-  render() {
+  render () {
     const { loginFailed } = this.props
 
     return (

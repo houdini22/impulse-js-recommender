@@ -14,10 +14,11 @@ export class SnapshotsView extends React.Component {
   static propTypes = {
     getTables: PropTypes.func.isRequired,
     getRatingFields: PropTypes.func.isRequired,
-    createSnapshot: PropTypes.func.isRequired,
+    setCreateModalIsVisible: PropTypes.func.isRequired,
     getIndexes: PropTypes.func.isRequired,
     buildIndex: PropTypes.func.isRequired,
-    deleteIndex: PropTypes.func.isRequired
+    deleteIndex: PropTypes.func.isRequired,
+    snapshots: PropTypes.object.isRequired,
   }
 
   constructor (props) {
@@ -69,7 +70,7 @@ export class SnapshotsView extends React.Component {
             <Table striped>
               <thead>
               <tr>
-                <th>#</th>
+                <th style={{ width: '100px' }}>#</th>
                 <th>Name</th>
                 <th style={{ width: '200px' }}>Actions</th>
               </tr>

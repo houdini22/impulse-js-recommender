@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import {Field} from 'redux-form'
-import {Button} from 'reactstrap'
-import {StateButton, Select} from '../../../components'
+import { Field } from 'redux-form'
+import { Button } from 'reactstrap'
+import { StateButton, Select } from '../../../components'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -12,11 +12,11 @@ export class SnapshotsView extends React.Component {
     snapshots: PropTypes.object.isRequired
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
   }
 
-  render() {
+  render () {
     const {
       snapshots: { tables },
       handleSubmit

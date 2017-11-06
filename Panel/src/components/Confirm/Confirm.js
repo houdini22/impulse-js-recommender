@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModule from 'react-css-modules'
-import {Modal, ModalHeader, ModalFooter, ModalBody, Button} from 'reactstrap'
+import { Modal, ModalHeader, ModalFooter, ModalBody, Button } from 'reactstrap'
 import _ from 'underscore'
 import styles from './Confirm.module.scss'
 
@@ -11,26 +11,26 @@ class Confirm extends React.Component {
     message: PropTypes.string.isRequired
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       isOpened: false
     }
   }
 
-  close() {
+  close () {
     this.setState({
       isOpened: false
     })
   }
 
-  open() {
+  open () {
     this.setState({
       isOpened: true
     })
   }
 
-  render() {
+  render () {
     const { onYes, onNo, children, message } = this.props
     const { isOpened } = this.state
 

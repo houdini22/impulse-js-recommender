@@ -1,4 +1,4 @@
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Snapshots from '../components/Index'
 import {
   getTables,
@@ -9,7 +9,7 @@ import {
   getIndexes,
   buildIndex,
   deleteIndex,
-} from "../../../reducers/snapshots";
+} from '../../../reducers/snapshots'
 
 const mapDispatchToProps = {
   getTables,

@@ -1,7 +1,7 @@
-import {reduxForm, formValueSelector} from 'redux-form'
-import {connect} from 'react-redux'
+import { reduxForm, formValueSelector } from 'redux-form'
+import { connect } from 'react-redux'
 import Step2Form from '../components/Step2Form'
-import {setCreateModalStep, appendNewSnapshotValues} from "../../../reducers/snapshots"
+import { setCreateModalStep, appendNewSnapshotValues } from '../../../reducers/snapshots'
 
 const FORM_NAME = 'index-step-2-form'
 

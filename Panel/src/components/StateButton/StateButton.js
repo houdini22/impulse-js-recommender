@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModule from 'react-css-modules'
-import {Button} from 'reactstrap'
+import { Button } from 'reactstrap'
 import classnames from 'classnames'
 import styles from './StateButton.module.scss'
 
@@ -13,7 +13,7 @@ class StateButton extends React.Component {
     size: PropTypes.string,
   }
 
-  render() {
+  render () {
     const { children, isLoading, onClick, size } = this.props
     const classes = classnames({ [styles.isLoading]: isLoading, [styles.button]: true })
     const disabled = isLoading

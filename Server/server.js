@@ -16,6 +16,9 @@ const port = 3001 // TODO: config
 const SnapshotsController = require('./controllers/snapshots')
 app.use('/api/v1/snapshots', SnapshotsController.router)
 
+const DatabasesController = require('./controllers/databases')
+app.use('/api/v1/databases', DatabasesController.router)
+
 const server = {
   instance: null
 }

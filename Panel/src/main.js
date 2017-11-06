@@ -16,6 +16,7 @@ import PageLayout from './layouts/PageLayout/PageLayout'
 import LoginContainer from './routes/Login'
 import DashboardContainer from './routes/Dashboard'
 import IndexContainer from './routes/Index'
+import DatabasesContainer from './routes/Databases'
 
 const baseHistory = browserHistory
 const routingMiddleware = routerMiddleware(baseHistory)
@@ -41,6 +42,7 @@ ReactDOM.render(
           <IndexRoute component={LoginContainer}/>
           <Route path='dashboard' component={userIsAuthenticated(DashboardContainer)}/>
           <Route path='index' component={userIsAuthenticated(IndexContainer)}/>
+          <Route path='database' component={userIsAuthenticated(DatabasesContainer)}/>
         </Route>
       </Router>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModule from 'react-css-modules'
-import {FormGroup, Input, FormFeedback, Label} from 'reactstrap'
+import { FormGroup, Input, FormFeedback, Label } from 'reactstrap'
 import styles from './Select.module.scss'
 
 class Select extends React.Component {
@@ -12,7 +12,7 @@ class Select extends React.Component {
     meta: PropTypes.object,
   }
 
-  render() {
+  render () {
     const { input, label, meta: { touched, error }, children, options, ...custom } = this.props
 
     let validationState = null

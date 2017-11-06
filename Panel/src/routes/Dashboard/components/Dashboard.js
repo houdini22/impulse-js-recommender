@@ -6,7 +6,7 @@ import styles from './Dashboard.module.scss'
 export class LoginView extends React.Component {
   static propTypes = {}
 
-  render() {
+  render () {
     return (
       <div>
         Dashboard

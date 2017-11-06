@@ -1,13 +1,17 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
-import Step5Form from '../components/Step5Form'
-import { appendNewSnapshotValues, createSnapshot } from '../../../reducers/snapshots'
+import Form from '../components/Form'
+import { createDatabase } from '../../../reducers/databases'
 
-const FORM_NAME = 'index-step-5-form'
+const FORM_NAME = 'databases-add-form'
 
 const validate = (values) => {
   const requiredFields = [
     'name',
+    'host',
+    'port',
+    'username',
+    'password'
   ]
 
   const errors = {}
@@ -22,8 +26,7 @@ const validate = (values) => {
 }
 
 const onSubmit = (values, dispatch, props) => {
-  dispatch(appendNewSnapshotValues(values))
-  dispatch(createSnapshot())
+  dispatch(createDatabase(values))
 }
 
 const _reduxForm = reduxForm({
@@ -32,15 +35,23 @@ const _reduxForm = reduxForm({
   validate,
   initialValues: {
     name: '',
+    host: '',
+    port: '',
+    username: '',
+    password: ''
   },
-})(Step5Form)
+})(Form)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const name = selector(state, 'name')
+  const { name, host, port, username, password } = selector(state, 'name', 'host', 'port', 'username', 'password')
   return {
     name,
-    snapshots: { ...state.snapshots }
+    host,
+    port,
+    username,
+    password,
+    databases: { ...state.databases }
   }
 })(_reduxForm)
