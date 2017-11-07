@@ -1,7 +1,8 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import Form from '../components/Form'
-import { createDatabase } from '../../../reducers/databases'
+import { createDatabase, getDatabases } from '../../../reducers/databases'
+import { browserHistory } from 'react-router'
 
 const FORM_NAME = 'databases-add-form'
 
@@ -28,6 +29,8 @@ const validate = (values) => {
 
 const onSubmit = (values, dispatch, props) => {
   dispatch(createDatabase(values))
+  dispatch(getDatabases())
+  browserHistory.push('/app/database')
 }
 
 const _reduxForm = reduxForm({

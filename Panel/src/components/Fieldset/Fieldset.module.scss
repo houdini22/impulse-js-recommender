@@ -12,10 +12,14 @@
   color: $color1;
   background: $colorLightGray;
   display: inline-block;
-  font-size: 18px;
+  font-size: 14px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 .content {
   padding: 12px;
   background: $colorLightGray;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }

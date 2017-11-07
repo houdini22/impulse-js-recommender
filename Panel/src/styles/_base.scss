@@ -32,3 +32,13 @@ body {
     margin-right: 5px;
   }
 }
+
+.form-actions {
+  & > * {
+    margin-right: 8px;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}

@@ -22,10 +22,10 @@ class TextField extends React.Component {
 
     return (
       <FormGroup color={validationState}>
-        <Label><strong>{label}</strong></Label>
+        <Label styleName='label'><strong>{label}</strong></Label>
         <Input {...input} {...custom} autoComplete='off' state={validationState}/>
         {!!error && touched && (
-          <FormFeedback>{error}</FormFeedback>
+          <FormFeedback styleName='form-feedback'>{error}</FormFeedback>
         )}
       </FormGroup>
     )
