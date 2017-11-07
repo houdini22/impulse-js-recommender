@@ -34,9 +34,15 @@ export const login = (username, password) => (dispatch) => {
   })
 }
 
+export const logoff = () => (dispatch) => {
+  dispatch(loggedOff())
+}
+
 export const actions = {
   loggedIn,
-  loggedOff
+  loggedOff,
+  login,
+  logoff,
 }
 
 // ------------------------------------

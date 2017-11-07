@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import { Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap'
-import { StateButton, Confirm } from '../../../components'
-import FormContainer from '../containers/FormContainer'
+import { Link } from 'react-router'
+import { Badge, Table, Button } from 'reactstrap'
+import { Confirm } from '../../../components'
 import styles from './Databases.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -36,9 +36,9 @@ export class SnapshotsView extends React.Component {
     return (
       <div>
         <div className='page-actions'>
-          <Button
-            onClick={this.openModal}
-          >Add Database</Button>
+          <Link to='/app/database/add'>
+            <Button>Add Database</Button>
+          </Link>
         </div>
         <div>
           <h5>Databases</h5>
@@ -48,7 +48,8 @@ export class SnapshotsView extends React.Component {
               <tr>
                 <th style={{ width: '100px' }}>#</th>
                 <th>Name</th>
-                <th style={{ width: '200px' }}>Status</th>
+                <th style={{ width: '100px' }}>Status</th>
+                <th style={{ width: '200px' }}>Actions</th>
               </tr>
               </thead>
               <tbody>
@@ -57,6 +58,15 @@ export class SnapshotsView extends React.Component {
                   <tr key={database.id}>
                     <th scope='row'>{database.id}</th>
                     <td>{database.name}</td>
+                    <td>
+                      <h5>
+                        <Badge
+                          color={database.status === 'online' ? 'success' : 'danger'}
+                        >
+                          {database.status}
+                        </Badge>
+                      </h5>
+                    </td>
                     <td className='table-row-actions'>
                       <Confirm
                         onYes={() => {
@@ -77,22 +87,6 @@ export class SnapshotsView extends React.Component {
             </Table>
           </div>
         </div>
-        <Modal isOpen={createModalIsVisible}>
-          <ModalHeader>Add Database</ModalHeader>
-          <ModalBody>
-            <FormContainer/>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={() => {
-                const { setCreateModalIsVisible } = this.props
-                setCreateModalIsVisible(false)
-              }}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
       </div>
     )
   }

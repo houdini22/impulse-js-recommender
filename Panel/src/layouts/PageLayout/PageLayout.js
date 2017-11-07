@@ -2,28 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container } from 'reactstrap'
+import {
+  Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container,
+  Dropdown, DropdownToggle, DropdownMenu, DropdownItem
+} from 'reactstrap'
 import styles from './PageLayout.module.scss'
 
 class PageLayout extends React.Component {
   constructor (props) {
     super(props)
 
-    this.toggle = this.toggle.bind(this)
+    this.toggleNavbar = this.toggleNavbar.bind(this)
+    this.toggleDropdown = this.toggleDropdown.bind(this)
+
     this.state = {
-      isOpen: false
+      isNavbarOpen: false,
+      isDropdownOpen: false
     }
   }
 
-  toggle () {
+  toggleNavbar () {
     this.setState({
-      isOpen: !this.state.isOpen
+      isNavbarOpen: !this.state.isNavbarOpen
+    })
+  }
+
+  toggleDropdown () {
+    this.setState({
+      isDropdownOpen: !this.state.isDropdownOpen
     })
   }
 
   render () {
-    const { children } = this.props
-    const { isOpen } = this.state
+    const { children, auth, logoff } = this.props
+    const { isNavbarOpen, isDropdownOpen } = this.state
 
     return (
       <div styleName='layout'>
@@ -31,8 +43,8 @@ class PageLayout extends React.Component {
           <Navbar color='info' light expand='md'>
             <Container>
               <NavbarBrand tag={Link} to='/app'>Impulse</NavbarBrand>
-              <NavbarToggler onClick={this.toggle}/>
-              <Collapse isOpen={isOpen} navbar>
+              <NavbarToggler onClick={this.toggleNavbar}/>
+              <Collapse isOpen={isNavbarOpen} navbar>
                 <Nav className='ml-auto' navbar>
                   <NavItem>
                     <NavLink tag={Link} to='/app/database'>Databases</NavLink>
@@ -40,6 +52,18 @@ class PageLayout extends React.Component {
                   <NavItem>
                     <NavLink tag={Link} to='/app/index'>Indexes</NavLink>
                   </NavItem>
+                  <Dropdown isOpen={isDropdownOpen} toggle={this.toggleDropdown}>
+                    <DropdownToggle caret color='light'>
+                      {auth && auth.user && auth.user.username && (
+                        <span>{auth.user.username}</span>
+                      )}
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem onClick={() => {
+                        logoff()
+                      }}>Logout</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
                 </Nav>
               </Collapse>
             </Container>

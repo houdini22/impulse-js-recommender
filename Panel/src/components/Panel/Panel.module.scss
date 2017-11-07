@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+
+.panel {
+  border: 1px solid $color2;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.title {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 8px;
+  color: white;
+  background: $color2;
+}
+
+.content {
+  padding: 10px;
+}

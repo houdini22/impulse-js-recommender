@@ -12,13 +12,14 @@ import './styles/main.scss'
 import * as reducers from './reducers'
 import { userIsAuthenticated } from './auth'
 
-import PageLayout from './layouts/PageLayout/PageLayout'
+import PageLayoutContainer from './layouts/PageLayout/PageLayoutContainer'
 import LoginLayout from './layouts/LoginLayout/LoginLayout'
 
 import LoginContainer from './routes/Login'
 import DashboardContainer from './routes/Dashboard'
 import IndexContainer from './routes/Index'
 import DatabasesContainer from './routes/Databases'
+import AddDatabaseContainer from './routes/AddDatabase'
 
 const baseHistory = browserHistory
 const routingMiddleware = routerMiddleware(baseHistory)
@@ -40,10 +41,11 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <Router history={history}>
-        <Route path='/app' component={PageLayout}>
+        <Route path='/app' component={PageLayoutContainer}>
           <IndexRoute component={userIsAuthenticated(DashboardContainer)}/>
           <Route path='index' component={userIsAuthenticated(IndexContainer)}/>
           <Route path='database' component={userIsAuthenticated(DatabasesContainer)}/>
+          <Route path='database/add' component={userIsAuthenticated(AddDatabaseContainer)}/>
         </Route>
         <Route path='/' component={LoginLayout}>
           <IndexRoute component={LoginContainer}/>

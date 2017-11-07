@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModule from 'react-css-modules'
-import { FormGroup, Input, FormFeedback } from 'reactstrap'
+import { FormGroup, Input, FormFeedback, Label } from 'reactstrap'
 import styles from './TextField.module.scss'
 
 class TextField extends React.Component {
@@ -22,6 +22,7 @@ class TextField extends React.Component {
 
     return (
       <FormGroup color={validationState}>
+        <Label><strong>{label}</strong></Label>
         <Input {...input} {...custom} autoComplete='off' state={validationState}/>
         {!!error && touched && (
           <FormFeedback>{error}</FormFeedback>
