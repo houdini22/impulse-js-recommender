@@ -12,11 +12,6 @@ export class SnapshotsView extends React.Component {
     snapshots: PropTypes.object.isRequired
   }
 
-  componentWillMount () {
-    const { getTables, snapshots: { newSnapshot: { database_id } } } = this.props
-    getTables(database_id)
-  }
-
   render () {
     const {
       snapshots: { tables },

@@ -1,7 +1,7 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import ChooseDatabaseForm from '../components/ChooseDatabaseForm'
-import { setCreateModalStep, appendNewSnapshotValues } from '../../../reducers/snapshots'
+import { setCreateModalStep, appendNewSnapshotValues, getTables } from '../../../reducers/snapshots'
 import { getDatabases } from '../../../reducers/databases'
 
 const FORM_NAME = 'index-choose-database-form'
@@ -26,6 +26,7 @@ const onSubmit = (values, dispatch, props) => {
   const { snapshots: { createModalStep } } = props
   dispatch(appendNewSnapshotValues(values))
   dispatch(setCreateModalStep(createModalStep + 1))
+  dispatch(getTables(values.database_id))
 }
 
 const _reduxForm = reduxForm({

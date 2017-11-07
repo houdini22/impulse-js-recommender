@@ -35,18 +35,6 @@ export class SnapshotsView extends React.Component {
     getIndexes()
   }
 
-  componentWillUpdate (nextProps, nextState) {
-    const { getTables, getRatingFields, snapshots: { tables, rating_fields } } = this.props
-    const { snapshots: { createModalStep, newSnapshot: { ratings_table_name } } } = nextProps
-
-    if (createModalStep === 1 && tables.length === 0 && nextProps.snapshots.tables.length === 0) {
-      getTables()
-    }
-    if (createModalStep === 5 && rating_fields.length === 0 && nextProps.snapshots.rating_fields.length === 0) {
-      getRatingFields(ratings_table_name)
-    }
-  }
-
   openModal () {
     const { setCreateModalIsVisible } = this.props
     setCreateModalIsVisible(true)

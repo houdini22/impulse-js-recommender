@@ -25,10 +25,11 @@ export const getTables = (database_id) => (dispatch) => {
   })
 }
 
-export const getRatingFields = (table_name) => (dispatch) => {
+export const getRatingFields = (table_name, database_id) => (dispatch) => {
   http.get('/snapshots/get_rating_fields', {
     params: {
-      table_name
+      table_name,
+      database_id,
     }
   }).then((response) => {
     dispatch({ type: RATING_FIELDS_FETCHED, payload: response.data.data })

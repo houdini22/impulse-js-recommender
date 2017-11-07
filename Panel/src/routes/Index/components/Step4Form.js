@@ -17,9 +17,9 @@ export class SnapshotsView extends React.Component {
   }
 
   componentWillMount () {
-    const { snapshots: { newSnapshot: { ratings_table_name } }, getRatingFields } = this.props
+    const { snapshots: { newSnapshot: { ratings_table_name, database_id } }, getRatingFields } = this.props
 
-    getRatingFields(ratings_table_name)
+    getRatingFields(ratings_table_name, database_id)
   }
 
   render () {

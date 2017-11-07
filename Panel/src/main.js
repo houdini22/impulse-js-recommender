@@ -11,7 +11,9 @@ import './styles/main.scss'
 
 import * as reducers from './reducers'
 import { userIsAuthenticated } from './auth'
+
 import PageLayout from './layouts/PageLayout/PageLayout'
+import LoginLayout from './layouts/LoginLayout/LoginLayout'
 
 import LoginContainer from './routes/Login'
 import DashboardContainer from './routes/Dashboard'
@@ -38,11 +40,13 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <Router history={history}>
-        <Route path='/' component={PageLayout}>
-          <IndexRoute component={LoginContainer}/>
-          <Route path='dashboard' component={userIsAuthenticated(DashboardContainer)}/>
+        <Route path='/app' component={PageLayout}>
+          <IndexRoute component={userIsAuthenticated(DashboardContainer)}/>
           <Route path='index' component={userIsAuthenticated(IndexContainer)}/>
           <Route path='database' component={userIsAuthenticated(DatabasesContainer)}/>
+        </Route>
+        <Route path='/' component={LoginLayout}>
+          <IndexRoute component={LoginContainer}/>
         </Route>
       </Router>
     </div>

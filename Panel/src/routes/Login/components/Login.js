@@ -7,23 +7,25 @@ import { LoadingOverlay } from '../../../components'
 import styles from './Login.module.scss'
 
 export class LoginView extends React.Component {
-  static propTypes = {}
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+  }
 
   componentWillReceiveProps (nextProps) {
     const { auth: { isLoggedIn } } = nextProps
     if (isLoggedIn) {
-      this.props.router.push('/dashboard')
+      this.props.router.push('/app')
     }
   }
 
   render () {
-    const { loginFailed } = this.props
+    const { auth: { loginError } } = this.props
 
     return (
       <div styleName='login-container-outer'>
         <div styleName='login-container-inner'>
           <LoginFormContainer/>
-          {loginFailed && (
+          {loginError && (
             <Alert color='danger' styleName='error-message'>
               Wrong credentials!
             </Alert>

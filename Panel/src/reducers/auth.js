@@ -1,8 +1,10 @@
+import http from '../modules/http'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const LOGGED_IN = 'user::logged_in'
-export const LOGGED_OFF = 'user::logged_off'
+export const LOGGED_IN = 'auth::logged_in'
+export const LOGGED_OFF = 'auth::logged_off'
+export const SET_LOGIN_ERROR = 'auth::set_login_error'
 
 // ------------------------------------
 // Actions
@@ -13,6 +15,23 @@ export const loggedIn = (data) => (dispatch) => {
 
 export const loggedOff = () => (dispatch) => {
   dispatch({ type: LOGGED_OFF })
+}
+
+export const setLoginError = (value) => (dispatch) => {
+  dispatch({ type: SET_LOGIN_ERROR, payload: value })
+}
+
+export const login = (username, password) => (dispatch) => {
+  dispatch(setLoginError(false))
+
+  http.post('/auth/login', {
+    username,
+    password
+  }).then((response) => {
+    dispatch(loggedIn(response.data.data))
+  }).catch(() => {
+    dispatch(setLoginError(true))
+  })
 }
 
 export const actions = {
@@ -37,6 +56,12 @@ const ACTION_HANDLERS = {
       isLoggedIn: false,
       user: null
     }
+  },
+  [SET_LOGIN_ERROR]: (state, { payload }) => {
+    return {
+      ...state,
+      loginError: payload
+    }
   }
 }
 
@@ -45,7 +70,8 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   isLoggedIn: false,
-  user: null
+  user: null,
+  loginError: false,
 }
 
 export default function userReducer (state = initialState, action) {
