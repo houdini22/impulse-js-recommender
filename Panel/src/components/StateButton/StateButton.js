@@ -14,7 +14,7 @@ class StateButton extends React.Component {
   }
 
   render () {
-    const { children, isLoading, onClick, size } = this.props
+    const { children, isLoading, onClick, size, color } = this.props
     const classes = classnames({ [styles.isLoading]: isLoading, [styles.button]: true })
     const disabled = isLoading
 
@@ -24,6 +24,7 @@ class StateButton extends React.Component {
         onClick={onClick}
         disabled={disabled}
         size={size}
+        color={color}
       >
         <span>{children}</span>
         {isLoading && (

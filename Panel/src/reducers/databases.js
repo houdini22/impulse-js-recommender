@@ -4,9 +4,14 @@ import http from '../modules/http'
 // ------------------------------------
 export const DATABASES_LOADED = 'databases::databases_loaded'
 export const SET_CREATE_MODAL_IS_VISIBLE = 'databases::set_create_modal_is_visible'
+export const SET_CONNECTION_STATUS = 'databases::set_connection_status'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export const setConnectionStatus = (value) => (dispatch) => {
+  dispatch({ type: SET_CONNECTION_STATUS, payload: value })
+}
+
 export const setCreateModalIsVisible = (value) => (dispatch) => {
   dispatch({ type: SET_CREATE_MODAL_IS_VISIBLE, payload: value })
 }
@@ -27,6 +32,21 @@ export const createDatabase = (values) => (dispatch, getState) => {
 export const deleteDatabase = (id) => (dispatch) => {
   http.delete(`/databases/${id}`).then(() => {
     dispatch(getDatabases())
+  })
+}
+
+export const testCurrentConnection = (params) => (dispatch) => {
+  http.post('/databases/test', params).then((response) => {
+    dispatch(setConnectionStatus({
+      status: 1,
+      message: ''
+    }))
+  }).catch((err) => {
+    console.log(err.response)
+    dispatch(setConnectionStatus({
+      status: -1,
+      message: err.response.data.message
+    }))
   })
 }
 
@@ -52,6 +72,12 @@ const ACTION_HANDLERS = {
       createModalIsVisible: payload,
     }
   },
+  [SET_CONNECTION_STATUS]: (state, { payload }) => {
+    return {
+      ...state,
+      connectionStatus: payload,
+    }
+  },
 }
 // ------------------------------------
 // Reducer
@@ -59,6 +85,10 @@ const ACTION_HANDLERS = {
 const initialState = {
   databases: [],
   createModalIsVisible: false,
+  connectionStatus: {
+    status: 0,
+    message: ''
+  },
 }
 
 export default function userReducer (state = initialState, action) {

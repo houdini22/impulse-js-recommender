@@ -116,3 +116,22 @@ const getSequelizeConnection = () => {
   return sequelizeConnection
 }
 exports.getSequelizeConnection = getSequelizeConnection
+
+const testConnection = (params) => {
+  return new Promise((resolve, reject) => {
+    const sequelize = new Sequelize(params.database_name, params.username, params.password, {
+      host: params.host,
+      dialect: params.type,
+      port: params.port
+    })
+    sequelize
+      .authenticate()
+      .then(() => {
+        resolve()
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+exports.testConnection = testConnection

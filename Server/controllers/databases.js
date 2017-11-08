@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const bodyParser = require('body-parser')
 
+const DB = require('../modules/database-new/connection')
 const DatabaseModel = require('../models/database').model
 
 router.get('/', async (req, res) => {
@@ -27,6 +27,22 @@ router.delete('/:id', async (req, res) => {
       res.json({
         status: 'OK'
       })
+    })
+  })
+})
+
+router.post('/test', async (req, res) => {
+  const data = req.body
+  DB.testConnection(data).then(() => {
+    res.json({
+      status: 'OK',
+      message: ''
+    })
+  }).catch((err) => {
+    res.status(401)
+    res.json({
+      status: 'ERR',
+      message: err.parent.message
     })
   })
 })
