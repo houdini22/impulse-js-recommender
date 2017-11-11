@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import Snapshots from '../components/Index'
+import Form from '../components/AddIndex'
+
 import {
   getTables,
   getRatingFields,
@@ -25,4 +26,4 @@ const mapStateToProps = (state) => ({
   snapshots: { ...(state.snapshots) }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Snapshots)
+export default connect(mapStateToProps, mapDispatchToProps)(Form)

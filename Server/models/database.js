@@ -3,6 +3,7 @@ const sequelize = require('../modules/database-new/connection').getSequelizeConn
 
 const Database = sequelize.define('_jsrs_databases', {
   name: Sequelize.STRING,
+  type: Sequelize.STRING,
   host: Sequelize.STRING,
   port: Sequelize.INTEGER,
   username: Sequelize.STRING,

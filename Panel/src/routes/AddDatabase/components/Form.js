@@ -16,6 +16,7 @@ export class SnapshotsView extends React.Component {
     setConnectionStatus: PropTypes.func.isRequired,
     testCurrentConnection: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
+    database: PropTypes.object,
   }
 
   constructor (props) {
@@ -29,11 +30,17 @@ export class SnapshotsView extends React.Component {
   }
 
   componentDidMount () {
-    const { setConnectionStatus, dispatch } = this.props
-    dispatch(setConnectionStatus({
-      status: 0,
-      message: ''
-    }))
+    this.resetStatus()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { database, change } = nextProps
+    if (Object.keys(this.props.database).length === 0 && !!database) {
+      Object.keys(database).forEach((key) => {
+        change(key, database[key])
+        this.values[key] = database[key]
+      })
+    }
   }
 
   fillName () {
@@ -41,12 +48,25 @@ export class SnapshotsView extends React.Component {
     this.props.change('name', `[${type}] ${host}:${port}@${database_name}`)
   }
 
+  resetStatus () {
+    const {
+      setConnectionStatus
+    } = this.props
+    setConnectionStatus({
+      status: 0,
+      message: ''
+    })
+  }
+
   render () {
     const {
       databases: { connectionStatus: { status, message } },
       handleSubmit,
       dispatch,
+      type, host, port, username, password, database_name,
     } = this.props
+
+    const testDisabled = (!type || !host || !port || !username || !password || !database_name)
 
     return (
       <div>
@@ -65,10 +85,7 @@ export class SnapshotsView extends React.Component {
               onChange={(event, value) => {
                 this.values.type = value
                 this.fillName()
-                dispatch(setConnectionStatus({
-                  status: 0,
-                  message: ''
-                }))
+                this.resetStatus()
               }}
             />
           </Fieldset>
@@ -83,10 +100,7 @@ export class SnapshotsView extends React.Component {
               onChange={(event, value) => {
                 this.values.host = value
                 this.fillName()
-                dispatch(setConnectionStatus({
-                  status: 0,
-                  message: ''
-                }))
+                this.resetStatus()
               }}
             />
             <Field
@@ -100,10 +114,7 @@ export class SnapshotsView extends React.Component {
               onChange={(event, value) => {
                 this.values.port = value
                 this.fillName()
-                dispatch(setConnectionStatus({
-                  status: 0,
-                  message: ''
-                }))
+                this.resetStatus()
               }}
             />
             <Field
@@ -113,10 +124,7 @@ export class SnapshotsView extends React.Component {
               placeholder='Username'
               label='Username'
               onChange={() => {
-                dispatch(setConnectionStatus({
-                  status: 0,
-                  message: ''
-                }))
+                this.resetStatus()
               }}
             />
             <Field
@@ -126,10 +134,7 @@ export class SnapshotsView extends React.Component {
               placeholder='Password'
               label='Password'
               onChange={() => {
-                dispatch(setConnectionStatus({
-                  status: 0,
-                  message: ''
-                }))
+                this.resetStatus()
               }}
             />
             <Field
@@ -141,15 +146,13 @@ export class SnapshotsView extends React.Component {
               onChange={(event, value) => {
                 this.values.database_name = value
                 this.fillName()
-                dispatch(setConnectionStatus({
-                  status: 0,
-                  message: ''
-                }))
+                this.resetStatus()
               }}
             />
             <div className='text-right form-actions'>
               <StateButton
                 color={status === 0 ? 'primary' : status === -1 ? 'danger' : 'success'}
+                disabled={testDisabled}
                 onClick={() => {
                   if (status === 0) {
                     dispatch(testCurrentConnection({
@@ -174,15 +177,15 @@ export class SnapshotsView extends React.Component {
                 )}
               </StateButton>
             </div>
-            <div style={{ marginTop: '16px' }}>
-              {status === -1 && (
+            {status === -1 && (
+              <div style={{ marginTop: '16px' }}>
                 <Alert color='danger'>
                   <div className='text-center'>
                     {message}
                   </div>
                 </Alert>
-              )}
-            </div>
+              </div>
+            )}
           </Fieldset>
           <Fieldset
             title='Common'>

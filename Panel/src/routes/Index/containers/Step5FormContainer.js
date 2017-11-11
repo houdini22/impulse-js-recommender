@@ -1,5 +1,6 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 import Step5Form from '../components/Step5Form'
 import { appendNewSnapshotValues, createSnapshot } from '../../../reducers/snapshots'
 
@@ -24,6 +25,7 @@ const validate = (values) => {
 const onSubmit = (values, dispatch, props) => {
   dispatch(appendNewSnapshotValues(values))
   dispatch(createSnapshot())
+  browserHistory.push('/app/index')
 }
 
 const _reduxForm = reduxForm({

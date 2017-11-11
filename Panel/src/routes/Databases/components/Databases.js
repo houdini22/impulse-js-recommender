@@ -10,14 +10,11 @@ export class SnapshotsView extends React.Component {
   static propTypes = {
     databases: PropTypes.object.isRequired,
     getDatabases: PropTypes.func.isRequired,
-    setCreateModalIsVisible: PropTypes.func.isRequired,
     deleteDatabase: PropTypes.func.isRequired
   }
 
   constructor (props) {
     super(props)
-
-    this.openModal = this.openModal.bind(this)
   }
 
   componentDidMount () {
@@ -25,13 +22,8 @@ export class SnapshotsView extends React.Component {
     getDatabases()
   }
 
-  openModal () {
-    const { setCreateModalIsVisible } = this.props
-    setCreateModalIsVisible(true)
-  }
-
   render () {
-    const { databases: { databases, createModalIsVisible }, deleteDatabase } = this.props
+    const { databases: { databases }, deleteDatabase } = this.props
 
     return (
       <div>
@@ -68,6 +60,14 @@ export class SnapshotsView extends React.Component {
                       </h5>
                     </td>
                     <td className='table-row-actions'>
+                      <Link to={`/app/database/edit/${database.id}`}>
+                        <Button
+                          size='sm'
+                          color='secondary'
+                        >
+                          Edit
+                        </Button>
+                      </Link>
                       <Confirm
                         onYes={() => {
                           deleteDatabase(database.id)

@@ -11,18 +11,20 @@ class StateButton extends React.Component {
     isLoading: PropTypes.bool,
     onClick: PropTypes.func,
     size: PropTypes.string,
+    disabled: PropTypes.bool,
+    color: PropTypes.string,
   }
 
   render () {
-    const { children, isLoading, onClick, size, color } = this.props
+    const { children, isLoading, onClick, size, color, disabled } = this.props
     const classes = classnames({ [styles.isLoading]: isLoading, [styles.button]: true })
-    const disabled = isLoading
+    const isDisabled = isLoading || disabled
 
     return (
       <Button
         className={classes}
         onClick={onClick}
-        disabled={disabled}
+        disabled={isDisabled}
         size={size}
         color={color}
       >

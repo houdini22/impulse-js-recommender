@@ -39,18 +39,9 @@ export const getRatingFields = (table_name, database_id) => (dispatch) => {
 export const createSnapshot = () => (dispatch, getState) => {
   const values = getState().snapshots.newSnapshot
   http.post('/snapshots/create_snapshot', values).then((response) => {
-    dispatch(setCreateModalIsVisible(false))
     dispatch(getIndexes())
     dispatch({ type: CLEAR_NEW_SNAPSHOT })
   })
-}
-
-export const setCreateModalIsVisible = (value) => (dispatch) => {
-  dispatch({ type: SET_CREATE_MODAL_IS_VISIBLE, payload: value })
-  dispatch({ type: CLEAR_NEW_SNAPSHOT })
-  if (value) {
-    dispatch({ type: SET_CREATE_MODAL_STEP, payload: 1 })
-  }
 }
 
 export const setCreateModalStep = (value) => (dispatch) => {
@@ -91,7 +82,6 @@ export const actions = {
   getTables,
   getRatingFields,
   createSnapshot,
-  setCreateModalIsVisible,
   setCreateModalStep,
   getIndexes,
   buildIndex,

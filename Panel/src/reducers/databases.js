@@ -12,10 +12,6 @@ export const setConnectionStatus = (value) => (dispatch) => {
   dispatch({ type: SET_CONNECTION_STATUS, payload: value })
 }
 
-export const setCreateModalIsVisible = (value) => (dispatch) => {
-  dispatch({ type: SET_CREATE_MODAL_IS_VISIBLE, payload: value })
-}
-
 export const getDatabases = () => (dispatch) => {
   http.get('/databases').then((response) => {
     dispatch({ type: DATABASES_LOADED, payload: response.data.data })
@@ -24,7 +20,12 @@ export const getDatabases = () => (dispatch) => {
 
 export const createDatabase = (values) => (dispatch, getState) => {
   http.post('/databases', values).then((response) => {
-    dispatch(setCreateModalIsVisible(false))
+    dispatch(getDatabases())
+  })
+}
+
+export const updateDatabase = (values) => (dispatch) => {
+  http.put('/databases', values).then((response) => {
     dispatch(getDatabases())
   })
 }
@@ -52,7 +53,6 @@ export const testCurrentConnection = (params) => (dispatch) => {
 
 export const actions = {
   getDatabases,
-  setCreateModalIsVisible,
   createDatabase,
   deleteDatabase,
 }

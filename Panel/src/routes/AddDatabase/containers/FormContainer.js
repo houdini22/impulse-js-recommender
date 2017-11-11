@@ -1,7 +1,10 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import Form from '../components/Form'
-import { createDatabase, getDatabases, testCurrentConnection, setConnectionStatus } from '../../../reducers/databases'
+import {
+  createDatabase, getDatabases, testCurrentConnection, setConnectionStatus,
+  updateDatabase
+} from '../../../reducers/databases'
 import { browserHistory } from 'react-router'
 
 const FORM_NAME = 'databases-add-form'
@@ -29,7 +32,11 @@ const validate = (values) => {
 }
 
 const onSubmit = (values, dispatch, props) => {
-  dispatch(createDatabase(values))
+  if (values.id) {
+    dispatch(updateDatabase(values))
+  } else {
+    dispatch(createDatabase(values))
+  }
   dispatch(getDatabases())
   browserHistory.push('/app/database')
 }
@@ -38,15 +45,6 @@ const _reduxForm = reduxForm({
   form: FORM_NAME,
   onSubmit,
   validate,
-  initialValues: {
-    name: '',
-    host: '',
-    port: '',
-    username: '',
-    password: '',
-    database_name: '',
-    type: ''
-  },
 })(Form)
 
 const selector = formValueSelector(FORM_NAME)
@@ -69,7 +67,7 @@ export default connect(state => {
     password,
     database_name,
     type,
-    databases: { ...state.databases }
+    databases: { ...state.databases },
   }
 }, {
   testCurrentConnection,

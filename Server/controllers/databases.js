@@ -21,6 +21,19 @@ router.post('/', async (req, res) => {
   })
 })
 
+router.put('/', async (req, res) => {
+  const data = req.body
+  DatabaseModel.update(data, {
+    where: {
+      id: data.id
+    }
+  }).then(() => {
+    res.json({
+      status: 'OK'
+    })
+  })
+})
+
 router.delete('/:id', async (req, res) => {
   DatabaseModel.findById(req.params.id).then((database) => {
     database.destroy().then(() => {
@@ -42,7 +55,7 @@ router.post('/test', async (req, res) => {
     res.status(401)
     res.json({
       status: 'ERR',
-      message: err.parent.message
+      message: err.parent && err.parent.message ? err.parent.message : 'Unknown error.'
     })
   })
 })

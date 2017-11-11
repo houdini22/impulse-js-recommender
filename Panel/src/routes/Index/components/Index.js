@@ -1,13 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 import CSSModules from 'react-css-modules'
-import { Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap'
-import ChooseDatabaseForm from '../containers/ChooseDatabaseFormContainer'
-import Step1FormContainer from '../containers/Step1FormContainer'
-import Step2FormContainer from '../containers/Step2FormContainer'
-import Step3FormContainer from '../containers/Step3FormContainer'
-import Step4FormContainer from '../containers/Step4FormContainer'
-import Step5FormContainer from '../containers/Step5FormContainer'
+import { Table, Button } from 'reactstrap'
 import { StateButton, Confirm } from '../../../components'
 import styles from './Index.module.scss'
 
@@ -15,7 +10,6 @@ export class SnapshotsView extends React.Component {
   static propTypes = {
     getTables: PropTypes.func.isRequired,
     getRatingFields: PropTypes.func.isRequired,
-    setCreateModalIsVisible: PropTypes.func.isRequired,
     getIndexes: PropTypes.func.isRequired,
     buildIndex: PropTypes.func.isRequired,
     deleteIndex: PropTypes.func.isRequired,
@@ -24,8 +18,6 @@ export class SnapshotsView extends React.Component {
 
   constructor (props) {
     super(props)
-
-    this.openModal = this.openModal.bind(this)
     this.createModalIsVisible = false
     this.values = {}
   }
@@ -35,23 +27,18 @@ export class SnapshotsView extends React.Component {
     getIndexes()
   }
 
-  openModal () {
-    const { setCreateModalIsVisible } = this.props
-    setCreateModalIsVisible(true)
-  }
-
   render () {
     const {
-      snapshots: { createModalIsVisible, createModalStep, indexes, buildingInProgress },
+      snapshots: { indexes, buildingInProgress },
       buildIndex, deleteIndex
     } = this.props
 
     return (
       <div>
         <div className='page-actions'>
-          <Button
-            onClick={this.openModal}
-          >Create Index</Button>
+          <Link to='/app/index/add'>
+            <Button>Create Index</Button>
+          </Link>
         </div>
         <div>
           <h5>Indexes</h5>
@@ -99,39 +86,6 @@ export class SnapshotsView extends React.Component {
             </Table>
           </div>
         </div>
-        <Modal isOpen={createModalIsVisible} styleName='modal'>
-          <ModalHeader>Create Index</ModalHeader>
-          <ModalBody>
-            {createModalStep === 1 && (
-              <ChooseDatabaseForm/>
-            )}
-            {createModalStep === 2 && (
-              <Step1FormContainer/>
-            )}
-            {createModalStep === 3 && (
-              <Step2FormContainer/>
-            )}
-            {createModalStep === 4 && (
-              <Step3FormContainer/>
-            )}
-            {createModalStep === 5 && (
-              <Step4FormContainer/>
-            )}
-            {createModalStep === 6 && (
-              <Step5FormContainer/>
-            )}
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={() => {
-                const { setCreateModalIsVisible } = this.props
-                setCreateModalIsVisible(false)
-              }}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
       </div>
     )
   }
