@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import CSSModules from 'react-css-modules'
-import { Table, Button } from 'reactstrap'
+import { Table, Button, Badge } from 'reactstrap'
 import IconPlus from 'react-icons/lib/fa/plus-circle'
 import { StateButton, Confirm } from '../../../components'
 import styles from './Index.module.scss'
@@ -30,7 +30,7 @@ export class SnapshotsView extends React.Component {
       <div>
         <div className='page-actions'>
           <Link to='/app/index/add'>
-            <Button color='success'><IconPlus /> Create Index</Button>
+            <Button color='success'><IconPlus/> Create Index</Button>
           </Link>
         </div>
         <div>
@@ -49,7 +49,21 @@ export class SnapshotsView extends React.Component {
                 return (
                   <tr key={index.id}>
                     <th scope='row'>{index.id}</th>
-                    <td>{index.name}</td>
+                    <td>
+                      {index.database_id > 0 && (
+                        <Badge
+                          color='info'
+                          styleName='index-source'
+                        >DB</Badge>
+                      )}
+                      {index.file_id > 0 && (
+                        <Badge
+                          color='info'
+                          styleName='index-source'
+                        >FILE</Badge>
+                      )}
+                      {index.name}
+                    </td>
                     <td className='table-row-actions'>
                       {!index.is_built && (
                         <StateButton

@@ -56,9 +56,13 @@ router.post('/', async (req, res) => {
     }).then((file) => {
       data.file_id = file.id
       delete data.file_token
-      SnapshotModel.create(data).then(() => {
-        res.json({
-          status: 'OK'
+      file.update({
+        has_header_row: data.has_header_row
+      }).then(() => {
+        SnapshotModel.create(data).then(() => {
+          res.json({
+            status: 'OK'
+          })
         })
       })
     })

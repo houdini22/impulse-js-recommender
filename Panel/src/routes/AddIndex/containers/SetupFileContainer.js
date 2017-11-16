@@ -40,7 +40,8 @@ const _reduxForm = reduxForm({
   initialValues: {
     items_column: -1,
     rated_by_column: -1,
-    rating_column: -1
+    rating_column: -1,
+    has_header_row: 0
   },
 })(SetupFile)
 
@@ -50,12 +51,14 @@ export default connect(state => {
   const {
     items_column,
     rated_by_column,
-    rating_column
-  } = selector(state, 'items_column', 'rated_by_column', 'rating_column')
+    rating_column,
+    has_header_row
+  } = selector(state, 'items_column', 'rated_by_column', 'rating_column', 'has_header_row')
   return {
     items_column,
     rated_by_column,
     rating_column,
+    has_header_row,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
   }
