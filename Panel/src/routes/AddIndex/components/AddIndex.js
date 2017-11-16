@@ -35,8 +35,11 @@ class Form extends React.Component {
         {createModalStep === 2 && uploadedFile && (
           <SetupFileContainer/>
         )}
-        {createModalStep === 3 && (
+        {createModalStep === 3 && !uploadedFile && (
           <Step4FormContainer/>
+        )}
+        {createModalStep === 3 && uploadedFile && (
+          <Step5FormContainer/>
         )}
         {createModalStep === 4 && (
           <Step5FormContainer/>

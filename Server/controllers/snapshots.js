@@ -48,22 +48,30 @@ router.get('/get_rating_fields', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const data = req.body
-  const fileId = await FileModel.findOne({
-    where: {
-      token: data.file_token
-    }
-  }).id
-
-  data.file_id = fileId
-  data.items_field_pk = 'id'
-  data.rated_by_field_pk = 'id'
-  delete data.file_token
-
-  SnapshotModel.create(data).then(() => {
-    res.json({
-      status: 'OK'
+  if (data.file_token) {
+    FileModel.findOne({
+      where: {
+        token: data.file_token
+      }
+    }).then((file) => {
+      data.file_id = file.id
+      delete data.file_token
+      SnapshotModel.create(data).then(() => {
+        res.json({
+          status: 'OK'
+        })
+      })
     })
-  })
+  }
+  else {
+    data.items_field_pk = 'id'
+    data.rated_by_field_pk = 'id'
+    SnapshotModel.create(data).then(() => {
+      res.json({
+        status: 'OK'
+      })
+    })
+  }
 })
 
 router.get('/', async (req, res) => {

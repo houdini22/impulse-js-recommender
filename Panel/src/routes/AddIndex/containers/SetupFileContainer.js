@@ -10,7 +10,20 @@ import {
 const FORM_NAME = 'setup-file-form'
 
 const validate = (values) => {
+  const requiredFields = [
+    'items_column',
+    'rated_by_column',
+    'rating_column',
+  ]
+
   const errors = {}
+
+  requiredFields.forEach(field => {
+    if (values[field] === -1) {
+      errors[field] = 'Required.'
+    }
+  })
+
   return errors
 }
 
@@ -25,9 +38,9 @@ const _reduxForm = reduxForm({
   onSubmit,
   validate,
   initialValues: {
-    ratings_field_item_id: '',
-    ratings_field_category_id: '',
-    ratings_field_value: ''
+    items_column: -1,
+    rated_by_column: -1,
+    rating_column: -1
   },
 })(SetupFile)
 
@@ -35,14 +48,14 @@ const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
   const {
-    ratings_field_item_id,
-    ratings_field_category_id,
-    ratings_field_value
-  } = selector(state, 'ratings_field_item_id', 'ratings_field_category_id', 'ratings_field_value')
+    items_column,
+    rated_by_column,
+    rating_column
+  } = selector(state, 'items_column', 'rated_by_column', 'rating_column')
   return {
-    ratings_field_item_id,
-    ratings_field_category_id,
-    ratings_field_value,
+    items_column,
+    rated_by_column,
+    rating_column,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
   }
