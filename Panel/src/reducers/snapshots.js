@@ -12,6 +12,8 @@ export const BUILD_INDEX = 'snapshots::build_index'
 export const BUILDING_IN_PROGRESS = 'snapshots::building_in_progress'
 export const APPEND_NEW_SNAPSHOT_VALUES = 'snapshots::append_new_snapshot_values'
 export const CLEAR_NEW_SNAPSHOT = 'snapshots::clear_new_snapshot'
+export const SET_UPLOADED_FILE = 'snapshots::set_uploaded_file'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -78,6 +80,21 @@ export const deleteIndex = (id) => (dispatch) => {
   })
 }
 
+export const setUploadedFile = (data) => (dispatch) => {
+  dispatch({ type: SET_UPLOADED_FILE, payload: data })
+}
+
+export const uploadFile = (file, onUploadProgress) => (dispatch) => {
+  const data = new FormData()
+  data.append('file', file)
+  const config = {
+    onUploadProgress,
+  }
+  http.post('/snapshots/upload', data, config).then((response) => {
+    dispatch(setUploadedFile(response.data.data))
+  })
+}
+
 export const actions = {
   getTables,
   getRatingFields,
@@ -138,6 +155,12 @@ const ACTION_HANDLERS = {
       ...state,
       newSnapshot: {}
     }
+  },
+  [SET_UPLOADED_FILE]: (state, { payload }) => {
+    return {
+      ...state,
+      uploadedFile: payload
+    }
   }
 }
 // ------------------------------------
@@ -151,7 +174,8 @@ const initialState = {
   snapshots: [],
   indexes: [],
   buildingInProgress: false,
-  newSnapshot: {}
+  newSnapshot: {},
+  uploadedFile: null,
 }
 
 export default function userReducer (state = initialState, action) {

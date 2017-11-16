@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const router = express.Router()
 const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload')
 
 // config
 app.use(function (req, res, next) {
@@ -14,6 +15,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(bodyParser.text())
+app.use(fileUpload())
 
 const port = 3001 // TODO: config
 

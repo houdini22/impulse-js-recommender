@@ -14,6 +14,15 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const data = req.body
+
+  let status = false
+  await DB.testConnection(data).then(() => {
+    status = true
+  }).catch(() => {
+    status = false
+  })
+  data.status = status ? 'online' : 'offline'
+
   DatabaseModel.create(data).then(() => {
     res.json({
       status: 'OK'
@@ -23,6 +32,15 @@ router.post('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
   const data = req.body
+
+  let status = false
+  await DB.testConnection(data).then(() => {
+    status = true
+  }).catch(() => {
+    status = false
+  })
+  data.status = status ? 'online' : 'offline'
+
   DatabaseModel.update(data, {
     where: {
       id: data.id

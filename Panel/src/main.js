@@ -20,7 +20,7 @@ import DashboardContainer from './routes/Dashboard'
 import IndexContainer from './routes/Index'
 import DatabasesContainer from './routes/Databases'
 import AddDatabaseContainer from './routes/AddDatabase'
-import AddIndexContainer from './routes/Index/containers/AddIndexContainer'
+import AddIndexContainer from './routes/AddIndex'
 
 const baseHistory = browserHistory
 const routingMiddleware = routerMiddleware(baseHistory)

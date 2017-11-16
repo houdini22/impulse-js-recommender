@@ -43,7 +43,6 @@ export const testCurrentConnection = (params) => (dispatch) => {
       message: ''
     }))
   }).catch((err) => {
-    console.log(err.response)
     dispatch(setConnectionStatus({
       status: -1,
       message: err.response.data.message

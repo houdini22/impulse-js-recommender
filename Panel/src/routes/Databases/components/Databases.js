@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
+import IconPlus from 'react-icons/lib/fa/plus-circle'
 import { Badge, Table, Button } from 'reactstrap'
 import { Confirm } from '../../../components'
 import styles from './Databases.module.scss'
@@ -29,7 +30,7 @@ export class SnapshotsView extends React.Component {
       <div>
         <div className='page-actions'>
           <Link to='/app/database/add'>
-            <Button>Add Database</Button>
+            <Button color='success'><IconPlus/> Add Database</Button>
           </Link>
         </div>
         <div>

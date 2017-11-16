@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button } from 'reactstrap'
-import { Select } from '../../../components'
-import styles from './Index.module.scss'
+import { Select } from '../../../components/index'
+import styles from '../../Index/components/Index.module.scss'
 
 export class SnapshotsView extends React.Component {
   static propTypes = {

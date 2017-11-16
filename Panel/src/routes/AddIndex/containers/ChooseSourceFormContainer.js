@@ -1,23 +1,25 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
-import ChooseDatabaseForm from '../components/ChooseDatabaseForm'
-import { setCreateModalStep, appendNewSnapshotValues, getTables } from '../../../reducers/snapshots'
+import ChooseDatabaseForm from '../components/ChooseSourceForm'
+import {
+  setCreateModalStep,
+  appendNewSnapshotValues,
+  getTables,
+  uploadFile,
+  setUploadedFile,
+} from '../../../reducers/snapshots'
 import { getDatabases } from '../../../reducers/databases'
 
 const FORM_NAME = 'index-choose-database-form'
 
 const validate = (values) => {
-  const requiredFields = [
-    'database_id',
-  ]
-
   const errors = {}
 
-  requiredFields.forEach(field => {
-    if (!values[field]) {
-      errors[field] = 'Required'
+  if (!values.file_uploaded) {
+    if (!values.database_id) {
+      errors['database_id'] = 'Required.'
     }
-  })
+  }
 
   return errors
 }
@@ -35,18 +37,22 @@ const _reduxForm = reduxForm({
   validate,
   initialValues: {
     database_id: '',
+    file_uploaded: '',
   },
 })(ChooseDatabaseForm)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const database_id = selector(state, 'database_id')
+  const { database_id, file_uploaded } = selector(state, 'database_id', 'file_uploaded')
   return {
     database_id,
+    file_uploaded,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
   }
 }, {
-  getDatabases
+  getDatabases,
+  uploadFile,
+  setUploadedFile,
 })(_reduxForm)

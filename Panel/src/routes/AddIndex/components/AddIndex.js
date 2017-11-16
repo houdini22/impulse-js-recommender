@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import ChooseDatabaseForm from '../containers/ChooseDatabaseFormContainer'
+import ChooseSourceFormContainer from '../containers/ChooseSourceFormContainer'
 import Step1FormContainer from '../containers/Step1FormContainer'
 import Step2FormContainer from '../containers/Step2FormContainer'
 import Step3FormContainer from '../containers/Step3FormContainer'
@@ -28,7 +28,7 @@ class Form extends React.Component {
     return (
       <div>
         {createModalStep === 1 && (
-          <ChooseDatabaseForm/>
+          <ChooseSourceFormContainer/>
         )}
         {createModalStep === 2 && (
           <Step1FormContainer/>

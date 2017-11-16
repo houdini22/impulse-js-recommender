@@ -28,7 +28,9 @@ class Select extends React.Component {
 
     return (
       <FormGroup color={validationState}>
-        <Label>{label}</Label>
+        {label && (
+          <Label>{label}</Label>
+        )}
         <Input {...input} {...custom} autoComplete='off' state={validationState}>
           <option value=''>--- choose ---</option>
           {_options.map((value) => {

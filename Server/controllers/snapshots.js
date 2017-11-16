@@ -5,6 +5,7 @@ const moment = require('moment')
 
 const DB = require('../modules/database-new/connection')
 const db = DB.getLocalConnection()
+const FileModel = require('../models/file').model
 
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
@@ -85,6 +86,24 @@ router.delete('/delete/:id', async (req, res) => {
       })
     })
   })
+})
+
+router.post('/upload', async (req, res) => {
+  const file = req.files.file
+
+  FileModel.create({
+    name: file.name,
+    user_id: 1
+  }).then((file) => {
+    res.json({
+      status: 'OK',
+      data: {
+        id: file.id,
+        name: file.get('name')
+      }
+    })
+  })
+  console.log(file)
 })
 
 exports.router = router

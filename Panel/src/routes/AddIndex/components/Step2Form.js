@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button } from 'reactstrap'
-import { Select } from '../../../components'
-import styles from './Index.module.scss'
+import { StateButton, Select } from '../../../components/index'
+import styles from '../../Index/components/Index.module.scss'
 
 export class SnapshotsView extends React.Component {
   static propTypes = {
@@ -24,14 +24,14 @@ export class SnapshotsView extends React.Component {
 
     return (
       <div>
-        <h6>Choose your RATINGS table name.</h6>
+        <h6>Choose your RATED BY items table.</h6>
         {tables && (
           <form onSubmit={handleSubmit}>
             <Field
-              name='ratings_table_name'
+              name='rated_by_table_name'
               component={Select}
               type='select'
-              placeholder='RATINGS table name'
+              placeholder='Rated By Items table name'
               options={tables}
             />
             <div className='text-right'>

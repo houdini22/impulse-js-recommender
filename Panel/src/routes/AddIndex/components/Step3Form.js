@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
-import { Button, FormGroup, Label } from 'reactstrap'
-import { TextField } from '../../../components'
-import styles from './Index.module.scss'
+import { Button } from 'reactstrap'
+import { Select } from '../../../components/index'
+import styles from '../../Index/components/Index.module.scss'
 
 export class SnapshotsView extends React.Component {
   static propTypes = {
@@ -18,27 +18,24 @@ export class SnapshotsView extends React.Component {
 
   render () {
     const {
-      snapshots: { rating_fields },
+      snapshots: { tables },
       handleSubmit
     } = this.props
 
     return (
       <div>
-        <h6>Choose your Index Name to recognize it on the list.</h6>
-        {rating_fields && (
+        <h6>Choose your RATINGS table name.</h6>
+        {tables && (
           <form onSubmit={handleSubmit}>
-            <FormGroup>
-              <div>
-                <Field
-                  name='name'
-                  component={TextField}
-                  type='text'
-                  placeholder='Index Name'
-                />
-              </div>
-            </FormGroup>
+            <Field
+              name='ratings_table_name'
+              component={Select}
+              type='select'
+              placeholder='RATINGS table name'
+              options={tables}
+            />
             <div className='text-right'>
-              <Button type='submit'>Create Index</Button>
+              <Button type='submit'>Next</Button>
             </div>
           </form>
         )}
