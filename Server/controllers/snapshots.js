@@ -9,6 +9,7 @@ const fs = require('fs')
 const DB = require('../modules/database-new/connection')
 const db = DB.getLocalConnection()
 const FileModel = require('../models/file').model
+const SnapshotModel = require('../models/snapshot').model
 
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
@@ -45,49 +46,59 @@ router.get('/get_rating_fields', async (req, res) => {
   })
 })
 
-router.post('/create_snapshot', async (req, res) => {
-  db.then(({ insert }) => {
-    const data = req.body
-    data.date_added = moment().format('YYYY-MM-DD HH:mm:ss')
-    data.items_field_pk = 'id'
-    data.rated_by_field_pk = 'id'
+router.post('/', async (req, res) => {
+  const data = req.body
+  const fileId = await FileModel.findOne({
+    where: {
+      token: data.file_token
+    }
+  }).id
 
-    insert('_jsrs_indexes', data).then(() => {
-      res.json({
-        status: 'OK'
-      })
+  data.file_id = fileId
+  data.items_field_pk = 'id'
+  data.rated_by_field_pk = 'id'
+  delete data.file_token
+
+  SnapshotModel.create(data).then(() => {
+    res.json({
+      status: 'OK'
     })
   })
 })
 
-router.get('/get_indexes', async (req, res) => {
-  db.then(({ query }) => {
-    query('SELECT * FROM _jsrs_indexes').then((data) => {
-      res.json({
-        data
-      })
+router.get('/', async (req, res) => {
+  SnapshotModel.findAll({
+    where: {}
+  }).then((snapshots) => {
+    res.json({
+      data: snapshots
     })
   })
 })
 
 router.post('/build_index', async (req, res) => {
-  const data = req.body
-  db.then(({ query }) => {
-    query('UPDATE _jsrs_indexes SET is_built = 1 WHERE id = ?', [data.index_id]).then(() => {
-      res.json({
-        status: 'OK'
+  SnapshotModel.findById(req.body.id).then((snapshot) => {
+    if (snapshot) {
+      snapshot.update({
+        is_built: 1
+      }).then(() => {
+        res.json({
+          status: 'OK'
+        })
       })
-    })
+    }
   })
 })
 
-router.delete('/delete/:id', async (req, res) => {
-  db.then(({ query }) => {
-    query('DELETE FROM _jsrs_indexes WHERE id = ?', [req.params.id]).then(() => {
-      res.json({
-        status: 'OK'
+router.delete('/:id', async (req, res) => {
+  SnapshotModel.findById(req.params.id).then((snapshot) => {
+    if (snapshot) {
+      snapshot.destroy().then(() => {
+        res.json({
+          status: 'OK'
+        })
       })
-    })
+    }
   })
 })
 

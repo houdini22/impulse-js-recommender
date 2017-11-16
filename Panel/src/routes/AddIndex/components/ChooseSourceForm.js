@@ -7,7 +7,7 @@ import Dropzone from 'react-dropzone'
 import { Select } from '../../../components/index'
 import styles from './AddIndex.module.scss'
 
-export class ChooseDatabaseForm extends React.Component {
+export class ChooseSourceForm extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     getDatabases: PropTypes.func.isRequired,
@@ -15,6 +15,7 @@ export class ChooseDatabaseForm extends React.Component {
     uploadFile: PropTypes.func.isRequired,
     change: PropTypes.func.isRequired,
     setUploadedFile: PropTypes.func.isRequired,
+    format: PropTypes.string.isRequired,
   }
 
   constructor (props) {
@@ -33,16 +34,23 @@ export class ChooseDatabaseForm extends React.Component {
   }
 
   onDrop (files) {
-    const { uploadFile, change } = this.props
+    const {
+      uploadFile,
+      change,
+      format,
+    } = this.props
+
     this.setState({ files })
-    uploadFile(files[0], (progressEvent) => {
+
+    uploadFile(files[0], {
+      format,
+    }, (progressEvent) => {
       const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
       this.setState({
         progress
       })
-      if (progress === 100) {
-        change('file_uploaded', 1)
-      }
+    }, (uploadedFile) => {
+      change('file_token', uploadedFile.token)
     })
   }
 
@@ -50,7 +58,8 @@ export class ChooseDatabaseForm extends React.Component {
     const {
       databases: { databases },
       handleSubmit,
-      file_uploaded,
+      file_token,
+      format,
     } = this.props
     const { files, progress } = this.state
 
@@ -58,27 +67,40 @@ export class ChooseDatabaseForm extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row>
           <Col md={6}>
-            <h6 className='text-center'>Create from database</h6>
+            <h6 className='text-center'>Create from remote database</h6>
             {databases && (
               <div>
                 <Field
                   name='database_id'
                   component={Select}
                   type='select'
+                  label='Choose database'
                   options={() => {
                     return databases.map((database) => {
                       return [database.id, database.name]
                     })
                   }}
-                  disabled={file_uploaded}
+                  disabled={file_token}
                 />
               </div>
             )}
           </Col>
           <Col md={6}>
-            <h6 className='text-center'>Create from file</h6>
+            <h6 className='text-center'>Create from local file</h6>
+            <Field
+              name='format'
+              component={Select}
+              type='select'
+              label='Format'
+              options={() => {
+                return [
+                  ['csv', 'CSV']
+                ]
+              }}
+              disabled={files}
+            />
             <div styleName='box-file'>
-              {!files && (
+              {!files && format && (
                 <Dropzone
                   onDrop={this.onDrop}
                   className={styles.dropzone}
@@ -107,7 +129,7 @@ export class ChooseDatabaseForm extends React.Component {
                 </div>
               )}
               <Field
-                name='file_uploaded'
+                name='file_token'
                 component='input'
                 type='hidden'
               />
@@ -126,4 +148,4 @@ export class ChooseDatabaseForm extends React.Component {
   }
 }
 
-export default CSSModules(ChooseDatabaseForm, styles)
+export default CSSModules(ChooseSourceForm, styles)

@@ -6,6 +6,7 @@ const File = sequelize.define('_jsrs_files', {
   file_name: Sequelize.STRING,
   format: Sequelize.STRING,
   token: Sequelize.STRING,
+  has_header_row: Sequelize.BOOLEAN,
   user_id: Sequelize.INTEGER,
   index_id: Sequelize.INTEGER,
 })

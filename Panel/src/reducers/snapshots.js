@@ -13,6 +13,7 @@ export const BUILDING_IN_PROGRESS = 'snapshots::building_in_progress'
 export const APPEND_NEW_SNAPSHOT_VALUES = 'snapshots::append_new_snapshot_values'
 export const CLEAR_NEW_SNAPSHOT = 'snapshots::clear_new_snapshot'
 export const SET_UPLOADED_FILE = 'snapshots::set_uploaded_file'
+export const SET_UPLOADED_FILE_INFO = 'snapshots::set_uploaded_file_info'
 
 // ------------------------------------
 // Actions
@@ -40,7 +41,7 @@ export const getRatingFields = (table_name, database_id) => (dispatch) => {
 
 export const createSnapshot = () => (dispatch, getState) => {
   const values = getState().snapshots.newSnapshot
-  http.post('/snapshots/create_snapshot', values).then((response) => {
+  http.post('/snapshots', values).then((response) => {
     dispatch(getIndexes())
     dispatch({ type: CLEAR_NEW_SNAPSHOT })
   })
@@ -51,7 +52,7 @@ export const setCreateModalStep = (value) => (dispatch) => {
 }
 
 export const getIndexes = () => (dispatch) => {
-  http.get('/snapshots/get_indexes').then((response) => {
+  http.get('/snapshots').then((response) => {
     dispatch({ type: INDEXES_LOADED, payload: response.data.data })
   })
 }
@@ -63,7 +64,7 @@ export const setBuildingInProgress = (value) => (dispatch) => {
 export const buildIndex = (index_id) => (dispatch) => {
   dispatch(setBuildingInProgress(true))
   http.post('/snapshots/build_index', {
-    index_id
+    id: index_id
   }).then(() => {
     dispatch(getIndexes())
     dispatch(setBuildingInProgress(false))
@@ -75,7 +76,7 @@ export const appendNewSnapshotValues = (data) => (dispatch) => {
 }
 
 export const deleteIndex = (id) => (dispatch) => {
-  http.delete(`/snapshots/delete/${id}`).then(() => {
+  http.delete(`/snapshots/${id}`).then(() => {
     dispatch(getIndexes())
   })
 }
@@ -84,14 +85,31 @@ export const setUploadedFile = (data) => (dispatch) => {
   dispatch({ type: SET_UPLOADED_FILE, payload: data })
 }
 
-export const uploadFile = (file, onUploadProgress) => (dispatch) => {
+export const uploadFile = (file, fields, onUploadProgress, successCallback) => (dispatch) => {
   const data = new FormData()
   data.append('file', file)
+  data.append('format', fields.format)
   const config = {
     onUploadProgress,
   }
   http.post('/snapshots/upload', data, config).then((response) => {
     dispatch(setUploadedFile(response.data.data))
+    successCallback(response.data.data)
+  })
+}
+
+export const setUploadedFileInfo = (data) => (dispatch) => {
+  dispatch({ type: SET_UPLOADED_FILE_INFO, payload: data })
+}
+
+export const getFileInfo = (token) => (dispatch) => {
+  http.get('/snapshots/get_file_info', {
+      params: {
+        token
+      }
+    }
+  ).then((response) => {
+    dispatch(setUploadedFileInfo(response.data.data))
   })
 }
 
@@ -161,6 +179,12 @@ const ACTION_HANDLERS = {
       ...state,
       uploadedFile: payload
     }
+  },
+  [SET_UPLOADED_FILE_INFO]: (state, { payload }) => {
+    return {
+      ...state,
+      uploadedFileInfo: payload
+    }
   }
 }
 // ------------------------------------
@@ -176,6 +200,7 @@ const initialState = {
   buildingInProgress: false,
   newSnapshot: {},
   uploadedFile: null,
+  uploadedFileInfo: null,
 }
 
 export default function userReducer (state = initialState, action) {

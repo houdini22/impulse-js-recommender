@@ -5,6 +5,7 @@ import ChooseSourceFormContainer from '../containers/ChooseSourceFormContainer'
 import Step1FormContainer from '../containers/Step1FormContainer'
 import Step4FormContainer from '../containers/Step4FormContainer'
 import Step5FormContainer from '../containers/Step5FormContainer'
+import SetupFileContainer from '../containers/SetupFileContainer'
 import styles from './AddIndex.module.scss'
 
 class Form extends React.Component {
@@ -20,7 +21,7 @@ class Form extends React.Component {
 
   render () {
     const {
-      snapshots: { createModalStep },
+      snapshots: { createModalStep, uploadedFile },
     } = this.props
 
     return (
@@ -28,8 +29,11 @@ class Form extends React.Component {
         {createModalStep === 1 && (
           <ChooseSourceFormContainer/>
         )}
-        {createModalStep === 2 && (
+        {createModalStep === 2 && !uploadedFile && (
           <Step1FormContainer/>
+        )}
+        {createModalStep === 2 && uploadedFile && (
+          <SetupFileContainer/>
         )}
         {createModalStep === 3 && (
           <Step4FormContainer/>

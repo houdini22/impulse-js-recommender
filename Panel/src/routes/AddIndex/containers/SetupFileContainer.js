@@ -1,30 +1,16 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
-import ChooseDatabaseForm from '../components/ChooseSourceForm'
+import SetupFile from '../components/SetupFile'
 import {
-  setCreateModalStep,
+  getFileInfo,
   appendNewSnapshotValues,
-  getTables,
-  uploadFile,
-  setUploadedFile,
+  setCreateModalStep,
 } from '../../../reducers/snapshots'
-import { getDatabases } from '../../../reducers/databases'
 
-const FORM_NAME = 'index-choose-database-form'
+const FORM_NAME = 'setup-file-form'
 
 const validate = (values) => {
   const errors = {}
-
-  if (values.file_id) {
-    if (!values.format) {
-      errors['format'] = 'Required.'
-    }
-  } else {
-    if (!values.database_id) {
-      errors['database_id'] = 'Required.'
-    }
-  }
-
   return errors
 }
 
@@ -32,7 +18,6 @@ const onSubmit = (values, dispatch, props) => {
   const { snapshots: { createModalStep } } = props
   dispatch(appendNewSnapshotValues(values))
   dispatch(setCreateModalStep(createModalStep + 1))
-  dispatch(getTables(values.database_id))
 }
 
 const _reduxForm = reduxForm({
@@ -40,25 +25,27 @@ const _reduxForm = reduxForm({
   onSubmit,
   validate,
   initialValues: {
-    database_id: '',
-    file_id: 0,
-    format: '',
+    ratings_field_item_id: '',
+    ratings_field_category_id: '',
+    ratings_field_value: ''
   },
-})(ChooseDatabaseForm)
+})(SetupFile)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const { database_id, file_id, format } = selector(state, 'database_id', 'file_id', 'format')
+  const {
+    ratings_field_item_id,
+    ratings_field_category_id,
+    ratings_field_value
+  } = selector(state, 'ratings_field_item_id', 'ratings_field_category_id', 'ratings_field_value')
   return {
-    database_id,
-    file_id,
-    format,
+    ratings_field_item_id,
+    ratings_field_category_id,
+    ratings_field_value,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
   }
 }, {
-  getDatabases,
-  uploadFile,
-  setUploadedFile,
+  getFileInfo,
 })(_reduxForm)

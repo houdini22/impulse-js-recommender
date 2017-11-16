@@ -2,140 +2,98 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
-import { Button, Row, Col, Progress, FormGroup, Label, Input } from 'reactstrap'
-import Dropzone from 'react-dropzone'
-import { Select } from '../../../components/index'
+import { Button, Table, Row, Col } from 'reactstrap'
+import { Checkbox, Fieldset } from '../../../components/index'
 import styles from './AddIndex.module.scss'
 
-export class ChooseDatabaseForm extends React.Component {
+export class SetupFile extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    getDatabases: PropTypes.func.isRequired,
-    databases: PropTypes.object.isRequired,
-    uploadFile: PropTypes.func.isRequired,
-    change: PropTypes.func.isRequired,
-    setUploadedFile: PropTypes.func.isRequired,
-    format: PropTypes.string.isRequired,
+    getFileInfo: PropTypes.func.isRequired,
+    snapshots: PropTypes.object.isRequired,
   }
 
   constructor (props) {
     super(props)
-    this.onDrop = this.onDrop.bind(this)
     this.state = {
-      files: null,
-      progress: 0
+      hasHeaderRow: false
     }
   }
 
   componentDidMount () {
-    const { getDatabases, setUploadedFile } = this.props
-    getDatabases()
-    setUploadedFile(null)
-  }
-
-  onDrop (files) {
     const {
-      uploadFile,
-      change,
-      format,
+      getFileInfo,
+      snapshots: { uploadedFile }
     } = this.props
-
-    this.setState({ files })
-
-    uploadFile(files[0], {
-      format,
-    }, (progressEvent) => {
-      const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-      this.setState({
-        progress
-      })
-    }, (uploadedFile) => {
-      change('file_id', uploadedFile.id)
-    })
+    getFileInfo(uploadedFile.token)
   }
 
   render () {
     const {
-      databases: { databases },
       handleSubmit,
-      file_id,
-      format,
+      snapshots: { uploadedFileInfo }
     } = this.props
-    const { files, progress } = this.state
+
+    const {
+      hasHeaderRow
+    } = this.state
 
     return (
       <form onSubmit={handleSubmit}>
-        <Row>
-          <Col md={6}>
-            <h6 className='text-center'>Create from remote database</h6>
-            {databases && (
-              <div>
-                <Field
-                  name='database_id'
-                  component={Select}
-                  type='select'
-                  label='Choose database'
-                  options={() => {
-                    return databases.map((database) => {
-                      return [database.id, database.name]
-                    })
-                  }}
-                  disabled={file_id}
-                />
-              </div>
-            )}
-          </Col>
-          <Col md={6}>
-            <h6 className='text-center'>Create from local file</h6>
-            <Field
-              name='format'
-              component={Select}
-              type='select'
-              label='Format'
-              options={() => {
-                return [
-                  ['csv', 'CSV']
-                ]
-              }}
-              disabled={files}
-            />
-            <div styleName='box-file'>
-              {!files && format && (
-                <Dropzone
-                  onDrop={this.onDrop}
-                  className={styles.dropzone}
-                  multiple={false}
-                >
-                  <p>Choose file.</p>
-                </Dropzone>
-              )}
-              {files && (
-                <div>
-                  <Progress
-                    value={progress}
-                    color='success'
-                  />
-                  {progress === 100 && (
-                    <div style={{ marginTop: '25px' }}>
-                      <FormGroup>
-                        <Label>Uploaded file:</Label>
-                        <Input
-                          value={files[0].name}
-                          disabled
-                        />
-                      </FormGroup>
-                    </div>
-                  )}
-                </div>
-              )}
-              <Field
-                name='file_id'
-                component='input'
-                type='hidden'
-              />
-            </div>
-          </Col>
-        </Row>
+        <Fieldset
+          title='File information'
+        >
+          <Field
+            name='has_header_row'
+            component={Checkbox}
+            type='checkbox'
+            label='File contains header row?'
+            onChange={(e, value) => {
+              this.setState({
+                hasHeaderRow: value
+              })
+            }}
+          />
+        </Fieldset>
+        <Fieldset
+          title="Choose column roles"
+        >
+          {uploadedFileInfo && (
+            <Table>
+              <thead>
+              <tr>
+                {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows[0].map((field, i) => {
+                  return (
+                    <th
+                      key={i}
+                    >Column {i + 1}</th>
+                  )
+                })}
+              </tr>
+              </thead>
+              <tbody>
+              {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows.map((row, i) => {
+                return (
+                  <tr
+                    className={i === 0 && hasHeaderRow ? 'background-red' : ''}
+                    key={i}
+                  >
+                    {row.map((column, j) => {
+                      return (
+                        <td
+                          key={j}
+                        >
+                          {column}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
+              </tbody>
+            </Table>
+          )}
+        </Fieldset>
         <Row className='buttons-row'>
           <Col md={12}>
             <div className='text-right'>
@@ -148,4 +106,4 @@ export class ChooseDatabaseForm extends React.Component {
   }
 }
 
-export default CSSModules(ChooseDatabaseForm, styles)
+export default CSSModules(SetupFile, styles)

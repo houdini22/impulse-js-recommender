@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+.field {
+  margin-bottom: 15px;
+  text-align: left;
+  width: 100%;
+}
+
+.has-error {
+  input {
+    border: 1px solid $color4;
+  }
+}
+
+.error-message {
+  color: $color4;
+  margin-top: 8px;
+}
+
+.label {
+  color: $color1;
+}
+
+.form-feedback {
+  font-size: 11px;
+}
