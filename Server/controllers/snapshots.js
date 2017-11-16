@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
 const moment = require('moment')
+const md5 = require('md5')
 
 const DB = require('../modules/database-new/connection')
 const db = DB.getLocalConnection()
@@ -90,20 +91,23 @@ router.delete('/delete/:id', async (req, res) => {
 
 router.post('/upload', async (req, res) => {
   const file = req.files.file
+  const fileName = md5(file.name + Math.random() + (new Date()).getTime())
 
   FileModel.create({
     name: file.name,
+    file_name: fileName,
     user_id: 1
-  }).then((file) => {
+  }).then((createdFile) => {
+    file.mv(`./../data/files/${fileName}`)
+
     res.json({
       status: 'OK',
       data: {
-        id: file.id,
-        name: file.get('name')
+        id: createdFile.id,
+        name: createdFile.get('name')
       }
     })
   })
-  console.log(file)
 })
 
 exports.router = router

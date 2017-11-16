@@ -10,10 +10,7 @@ export class SnapshotsView extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     snapshots: PropTypes.object.isRequired,
-  }
-
-  constructor (props) {
-    super(props)
+    getRatingFields: PropTypes.func.isRequired,
   }
 
   componentWillMount () {
@@ -30,7 +27,7 @@ export class SnapshotsView extends React.Component {
 
     return (
       <div>
-        <h6>Choose your RATINGS table name.</h6>
+        <h6>Choose your RATINGS relation columns.</h6>
         {rating_fields && (
           <form onSubmit={handleSubmit}>
             <FormGroup>
