@@ -5,7 +5,7 @@ import { Field } from 'redux-form'
 import { Button, Table, Row, Col, ButtonGroup, Alert } from 'reactstrap'
 import ExclamationIcon from 'react-icons/lib/fa/exclamation-circle'
 import CheckIcon from 'react-icons/lib/fa/check-circle-o'
-import { Checkbox, Fieldset } from '../../../components/index'
+import { Checkbox, Fieldset, TextField } from '../../../components/index'
 import styles from './AddIndex.module.scss'
 
 export class SetupFile extends React.Component {
@@ -41,7 +41,7 @@ export class SetupFile extends React.Component {
       items_column,
       rated_by_column,
       rating_column,
-      snapshots: { uploadedFileInfo }
+      snapshots: { uploadedFileInfo, uploadedFile }
     } = this.props
 
     const {
@@ -180,6 +180,16 @@ export class SetupFile extends React.Component {
               />
             </div>
           )}
+        </Fieldset>
+        <Fieldset
+          title='Common'
+        >
+          <Field
+            name='name'
+            component={TextField}
+            type='text'
+            label='Index Name'
+          />
         </Fieldset>
         <Row className='buttons-row'>
           <Col md={12}>

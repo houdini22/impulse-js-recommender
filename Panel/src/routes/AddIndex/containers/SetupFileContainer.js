@@ -1,10 +1,11 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 import SetupFile from '../components/SetupFile'
 import {
   getFileInfo,
   appendNewSnapshotValues,
-  setCreateModalStep,
+  createSnapshot,
 } from '../../../reducers/snapshots'
 
 const FORM_NAME = 'setup-file-form'
@@ -24,25 +25,23 @@ const validate = (values) => {
     }
   })
 
+  if (!values.name) {
+    errors['name'] = 'Required.'
+  }
+
   return errors
 }
 
 const onSubmit = (values, dispatch, props) => {
-  const { snapshots: { createModalStep } } = props
   dispatch(appendNewSnapshotValues(values))
-  dispatch(setCreateModalStep(createModalStep + 1))
+  dispatch(createSnapshot())
+  browserHistory.push('/app/index')
 }
 
 const _reduxForm = reduxForm({
   form: FORM_NAME,
   onSubmit,
-  validate,
-  initialValues: {
-    items_column: -1,
-    rated_by_column: -1,
-    rating_column: -1,
-    has_header_row: 0
-  },
+  validate
 })(SetupFile)
 
 const selector = formValueSelector(FORM_NAME)
@@ -52,13 +51,22 @@ export default connect(state => {
     items_column,
     rated_by_column,
     rating_column,
-    has_header_row
-  } = selector(state, 'items_column', 'rated_by_column', 'rating_column', 'has_header_row')
+    has_header_row,
+    name,
+  } = selector(state, 'items_column', 'rated_by_column', 'rating_column', 'has_header_row', 'name')
   return {
     items_column,
     rated_by_column,
     rating_column,
     has_header_row,
+    name,
+    initialValues: {
+      name: state.snapshots.uploadedFile.name,
+      items_column: -1,
+      rated_by_column: -1,
+      rating_column: -1,
+      has_header_row: 0,
+    },
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
   }
