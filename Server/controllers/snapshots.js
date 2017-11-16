@@ -3,6 +3,8 @@ const router = express.Router()
 const bodyParser = require('body-parser')
 const moment = require('moment')
 const md5 = require('md5')
+const Papa = require('papaparse')
+const fs = require('fs')
 
 const DB = require('../modules/database-new/connection')
 const db = DB.getLocalConnection()
@@ -92,19 +94,44 @@ router.delete('/delete/:id', async (req, res) => {
 router.post('/upload', async (req, res) => {
   const file = req.files.file
   const fileName = md5(file.name + Math.random() + (new Date()).getTime())
+  const data = req.body
 
   FileModel.create({
     name: file.name,
     file_name: fileName,
-    user_id: 1
+    user_id: 1,
+    format: data.format,
+    token: md5(fileName + Math.random() + (new Date()).getTime())
   }).then((createdFile) => {
     file.mv(`./../data/files/${fileName}`)
-
     res.json({
       status: 'OK',
       data: {
-        id: createdFile.id,
-        name: createdFile.get('name')
+        token: createdFile.get('token'),
+        name: createdFile.get('name'),
+        format: createdFile.get('format')
+      }
+    })
+  })
+})
+
+router.get('/get_file_info', async (req, res) => {
+  FileModel.findOne({
+    where: {
+      token: req.query.token
+    }
+  }).then((file) => {
+    const filePath = `./../data/files/${file.file_name}`
+    const content = fs.readFileSync(filePath, 'utf-8')
+    Papa.parse(content, {
+      complete: function (results) {
+        res.json({
+          status: 'OK',
+          data: {
+            firstRows: results.data.slice(0, 10),
+            fields: results.meta.fields,
+          }
+        })
       }
     })
   })

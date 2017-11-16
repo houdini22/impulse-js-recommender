@@ -4,6 +4,8 @@ const sequelize = require('../modules/database-new/connection').getSequelizeConn
 const File = sequelize.define('_jsrs_files', {
   name: Sequelize.STRING,
   file_name: Sequelize.STRING,
+  format: Sequelize.STRING,
+  token: Sequelize.STRING,
   user_id: Sequelize.INTEGER,
   index_id: Sequelize.INTEGER,
 })
