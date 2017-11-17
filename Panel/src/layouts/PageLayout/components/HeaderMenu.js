@@ -8,9 +8,9 @@ class HeaderMenu extends React.Component {
     const { children } = this.props
 
     return (
-      <ul styleName='app-header-menu'>
+      <div styleName='app-header-menu'>
         {children}
-      </ul>
+      </div>
     )
   }
 }

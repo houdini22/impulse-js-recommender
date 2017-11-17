@@ -10,17 +10,22 @@
   position: relative;
 }
 
-.brand a {
-  font-size: 20px;
-  margin-bottom: 0;
-  line-height: 60px;
-  color: #fff;
-  text-decoration: none;
+.brand {
+  height: 40px;
+  line-height: 40px;
+  a {
+    font-size: 20px;
+    margin-bottom: 0;
+    line-height: 50px;
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .brand-small {
   font-size: 12px;
   position: absolute;
-  right: 11px;
-  bottom: -5px;
+  left: 18px;
+  bottom: 8px;
+  margin: 0;
 }

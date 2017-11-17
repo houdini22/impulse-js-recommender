@@ -9,11 +9,7 @@ class ContainerHeader extends React.Component {
 
     return (
       <div styleName='app-container-header'>
-        <div styleName='app-container-header-menu'>
-
-        </div>
         {children}
-
       </div>
     )
   }

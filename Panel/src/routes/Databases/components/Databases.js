@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import IconPlus from 'react-icons/lib/fa/plus-circle'
 import { Badge, Table, Button } from 'reactstrap'
 import { Confirm } from '../../../components'
-import { ContainerHeader } from '../../../layouts/PageLayout/components'
+import { ContainerHeader, HeaderMenu, HeaderMenuItem } from '../../../layouts/PageLayout/components'
 import styles from './Databases.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -29,13 +29,20 @@ export class SnapshotsView extends React.Component {
 
     return (
       <div>
-        <ContainerHeader/>
+        <ContainerHeader>
+          <HeaderMenu>
+            <div>
+              <HeaderMenuItem
+                href='/app/database/add'
+              >
+                <IconPlus/>
+                {' '}
+                Create Database
+              </HeaderMenuItem>
+            </div>
+          </HeaderMenu>
+        </ContainerHeader>
         <div className='page-content'>
-          <div className='page-actions'>
-            <Link to='/app/database/add'>
-              <Button color='success'><IconPlus/> Add Database</Button>
-            </Link>
-          </div>
           <div>
             <h5>Databases</h5>
             <div>

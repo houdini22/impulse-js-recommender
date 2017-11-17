@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import IconPlus from 'react-icons/lib/fa/plus-circle'
 import { Badge, Table, Button } from 'reactstrap'
 import { Confirm } from '../../../components'
-import { ContainerHeader } from '../../../layouts/PageLayout/components'
+import { ContainerHeader, HeaderMenu, HeaderMenuItem } from '../../../layouts/PageLayout/components'
 import styles from './Files.module.scss'
 
 export class FilesView extends React.Component {
@@ -25,13 +25,20 @@ export class FilesView extends React.Component {
 
     return (
       <div>
-        <ContainerHeader/>
+        <ContainerHeader>
+          <HeaderMenu>
+            <div>
+              <HeaderMenuItem
+                href='/app/file/add'
+              >
+                <IconPlus/>
+                {' '}
+                Create File
+              </HeaderMenuItem>
+            </div>
+          </HeaderMenu>
+        </ContainerHeader>
         <div className='page-content'>
-          <div className='page-actions'>
-            <Link to='/app/file/add'>
-              <Button color='success'><IconPlus/> Add File</Button>
-            </Link>
-          </div>
           <div>
             <h5>Files</h5>
             <div>

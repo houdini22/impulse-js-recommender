@@ -9,19 +9,4 @@
 
 .app-container-content {
   z-index: 200;
-  & > div {
-    animation-name: slideIn;
-    animation-duration: .3s;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(10px);
-    opacity: .3;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
