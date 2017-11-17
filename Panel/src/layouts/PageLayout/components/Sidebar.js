@@ -36,8 +36,8 @@ class Sidebar extends React.Component {
             <div styleName='user-dropdown' style={{ display: userDropdownVisible ? 'block' : 'none' }}>
               <CloseIcon styleName='close-icon' onClick={() => this.toggleUserDropdown()}/>
               <div styleName='buttons'>
-                <Button size='sm'>Settings</Button>
-                <Button size='sm'>Logout</Button>
+                <Button size='sm' color='primary'>Settings</Button>
+                <Button size='sm' color='primary'>Logout</Button>
               </div>
             </div>
           </div>

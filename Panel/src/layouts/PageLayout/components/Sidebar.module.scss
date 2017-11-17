@@ -36,17 +36,36 @@
   top: 0;
   cursor: pointer;
 }
+
 .user-dropdown {
   position: absolute;
   height: 250px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.19), 0 2px 10px 0 rgba(0, 0, 0, 0.13);
-  background: #fff;
+  background: #22AED1;
   display: none;
   cursor: default;
   left: 0;
   right: 0;
   bottom: 0;
+  animation-name: slideIn;
+  animation-duration: .3s;
+  -webkit-animation-timing-function: ease-in-out;
+  -moz-animation-timing-function: ease-in-out;
+  -o-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
 }
+
+@keyframes slideIn {
+  from {
+    transform: translateY(250px);
+    opacity: .3;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 
 .buttons {
   position: absolute;
