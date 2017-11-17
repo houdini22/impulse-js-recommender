@@ -41,10 +41,10 @@ export class SnapshotsView extends React.Component {
               </HeaderMenuItem>
             </div>
           </HeaderMenu>
+          <h1>Indexes</h1>
         </ContainerHeader>
         <div className='page-content'>
           <div>
-            <h5>Indexes</h5>
             <div>
               <Table striped>
                 <thead>

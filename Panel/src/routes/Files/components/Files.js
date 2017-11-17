@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import { Link } from 'react-router'
 import IconPlus from 'react-icons/lib/fa/plus-circle'
 import { Badge, Table, Button } from 'reactstrap'
 import { Confirm } from '../../../components'
@@ -37,10 +36,10 @@ export class FilesView extends React.Component {
               </HeaderMenuItem>
             </div>
           </HeaderMenu>
+          <h1>Files</h1>
         </ContainerHeader>
         <div className='page-content'>
           <div>
-            <h5>Files</h5>
             <div>
               <Table striped>
                 <thead>
