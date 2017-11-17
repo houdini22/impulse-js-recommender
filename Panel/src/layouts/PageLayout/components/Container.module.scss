@@ -12,5 +12,18 @@
   padding-top: 60px;
   & > div {
     padding: 15px;
+    animation-name: slideIn;
+    animation-duration: .3s;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(10px);
+    opacity: .3;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
