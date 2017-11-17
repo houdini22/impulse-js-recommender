@@ -1,0 +1,26 @@
+@import '../../../styles/variables';
+
+.app-navigation-link {
+  a {
+    padding: 10px 16px;
+    box-sizing: border-box;
+    display: block;
+    font-family: Roboto, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    font-size: 14px;
+    position: relative;
+    vertical-align: middle;
+    z-index: 1;
+    height: 36px;
+    line-height: 36px;
+    min-width: 88px;
+    color: #a1a1a1;
+    text-align: left;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}

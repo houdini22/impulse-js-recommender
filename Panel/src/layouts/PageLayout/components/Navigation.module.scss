@@ -1,0 +1,17 @@
+@import '../../../styles/variables';
+
+.app-navigation {
+  display: block;
+}
+
+.app-navigation-header {
+  color: #636c72;
+  margin: 15px;
+  font-size: 12px;
+}
+
+.app-navigation-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
