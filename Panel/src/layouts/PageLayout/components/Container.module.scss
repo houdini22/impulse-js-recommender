@@ -3,11 +3,12 @@
 .app-container {
   margin-left: 250px;
   position: relative;
+  min-height: 100%;
+  padding-bottom: 50px;
 }
 
 .app-container-content {
   & > div {
-    margin-top: 60px;
     padding: 15px;
   }
 }

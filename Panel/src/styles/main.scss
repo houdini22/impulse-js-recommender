@@ -2,8 +2,12 @@
 @import '_variables';
 
 // theme
-$blue: $color8;
-$info: $color2;
+$blue: #00A6ED;
+$info: #00A6ED;
+$warning: #FFB400;
+$success: #7FB800;
+$secondary: #0D2C54;
+$danger: #F6511D;
 
 //
 @import '~roboto-fontface/css/roboto/roboto-fontface.css';

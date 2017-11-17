@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import ContainerHeader from './ContainerHeader'
+import { ContainerHeader, Footer } from './'
 import styles from './Container.module.scss'
 
 class Container extends React.Component {
@@ -16,6 +16,7 @@ class Container extends React.Component {
         <div styleName='app-container-content'>
           {children}
         </div>
+        <Footer/>
       </div>
     )
   }

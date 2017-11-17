@@ -10,10 +10,12 @@
   position: relative;
 }
 
-.brand {
+.brand a {
   font-size: 20px;
   margin-bottom: 0;
   line-height: 60px;
+  color: #fff;
+  text-decoration: none;
 }
 
 .brand-small {
