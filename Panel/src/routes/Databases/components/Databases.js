@@ -50,7 +50,12 @@ export class SnapshotsView extends React.Component {
                 return (
                   <tr key={database.id}>
                     <th scope='row'>{database.id}</th>
-                    <td>{database.name}</td>
+                    <td>
+                      {database.type === 'mysql' && (
+                        <Badge color='info' styleName='type-badge'>MySQL</Badge>
+                      )}
+                      {database.name}
+                    </td>
                     <td>
                       <h5>
                         <Badge

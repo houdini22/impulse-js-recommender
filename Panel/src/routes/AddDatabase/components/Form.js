@@ -44,8 +44,9 @@ export class SnapshotsView extends React.Component {
   }
 
   fillName () {
-    const { host, type, database_name, port } = this.values
-    this.props.change('name', `[${type}] ${host}:${port}@${database_name}`)
+    const { change } = this.props
+    const { host, database_name, port } = this.values
+    change('name', `${host}:${port}@${database_name}`)
   }
 
   resetStatus () {
@@ -83,8 +84,6 @@ export class SnapshotsView extends React.Component {
                 ['mysql', 'MySQL']
               ]}
               onChange={(event, value) => {
-                this.values.type = value
-                this.fillName()
                 this.resetStatus()
               }}
             />

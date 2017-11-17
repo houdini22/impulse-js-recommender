@@ -22,6 +22,7 @@ const validate = (values) => {
   } else {
     if (!values.database_id) {
       errors['database_id'] = 'Required.'
+      errors['format'] = 'Required.'
     }
   }
 
