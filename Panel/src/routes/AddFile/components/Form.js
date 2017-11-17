@@ -16,6 +16,7 @@ export class Form extends React.Component {
     setUploadedFileInfo: PropTypes.func.isRequired,
     format: PropTypes.string.isRequired,
     getFileInfo: PropTypes.func.isRequired,
+    files: PropTypes.object.isRequired,
   }
 
   constructor (props) {

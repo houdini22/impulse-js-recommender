@@ -11,7 +11,7 @@ class Form extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='page-content'>
         <FormContainer/>
       </div>
     )

@@ -25,7 +25,7 @@ class Form extends React.Component {
     } = this.props
 
     return (
-      <div>
+      <div className='page-content'>
         {createModalStep === 1 && (
           <ChooseSourceFormContainer/>
         )}

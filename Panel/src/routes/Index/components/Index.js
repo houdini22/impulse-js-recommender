@@ -5,6 +5,7 @@ import CSSModules from 'react-css-modules'
 import { Table, Button, Badge } from 'reactstrap'
 import IconPlus from 'react-icons/lib/fa/plus-circle'
 import { StateButton, Confirm } from '../../../components'
+import { ContainerHeader } from '../../../layouts/PageLayout/components'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -28,69 +29,72 @@ export class SnapshotsView extends React.Component {
 
     return (
       <div>
-        <div className='page-actions'>
-          <Link to='/app/index/add'>
-            <Button color='success'><IconPlus/> Create Index</Button>
-          </Link>
-        </div>
-        <div>
-          <h5>Indexes</h5>
+        <ContainerHeader/>
+        <div className='page-content'>
+          <div className='page-actions'>
+            <Link to='/app/index/add'>
+              <Button color='success'><IconPlus/> Create Index</Button>
+            </Link>
+          </div>
           <div>
-            <Table striped>
-              <thead>
-              <tr>
-                <th style={{ width: '100px' }}>#</th>
-                <th>Name</th>
-                <th style={{ width: '200px' }}>Actions</th>
-              </tr>
-              </thead>
-              <tbody>
-              {indexes.map((index) => {
-                return (
-                  <tr key={index.id}>
-                    <th scope='row'>{index.id}</th>
-                    <td>
-                      {index.database_id > 0 && (
-                        <Badge
-                          color='info'
-                          styleName='index-source'
-                        >DB</Badge>
-                      )}
-                      {index.file_id > 0 && (
-                        <Badge
-                          color='info'
-                          styleName='index-source'
-                        >FILE</Badge>
-                      )}
-                      {index.name}
-                    </td>
-                    <td className='table-row-actions'>
-                      {!index.is_built && (
-                        <StateButton
-                          size='sm'
-                          onClick={() => {
-                            buildIndex(index.id)
+            <h5>Indexes</h5>
+            <div>
+              <Table striped>
+                <thead>
+                <tr>
+                  <th style={{ width: '100px' }}>#</th>
+                  <th>Name</th>
+                  <th style={{ width: '200px' }}>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {indexes.map((index) => {
+                  return (
+                    <tr key={index.id}>
+                      <th scope='row'>{index.id}</th>
+                      <td>
+                        {index.database_id > 0 && (
+                          <Badge
+                            color='info'
+                            styleName='index-source'
+                          >DB</Badge>
+                        )}
+                        {index.file_id > 0 && (
+                          <Badge
+                            color='info'
+                            styleName='index-source'
+                          >FILE</Badge>
+                        )}
+                        {index.name}
+                      </td>
+                      <td className='table-row-actions'>
+                        {!index.is_built && (
+                          <StateButton
+                            size='sm'
+                            onClick={() => {
+                              buildIndex(index.id)
+                            }}
+                            isLoading={buildingInProgress}
+                          >Build Index</StateButton>
+                        )}
+                        <Confirm
+                          onYes={() => {
+                            deleteIndex(index.id)
                           }}
-                          isLoading={buildingInProgress}
-                        >Build Index</StateButton>
-                      )}
-                      <Confirm
-                        onYes={() => {
-                          deleteIndex(index.id)
-                        }}
-                        message='Are you sure to delete Index?'
-                      >
-                        <Button
-                          size='sm'
-                          color='danger'
-                        >Delete</Button>
-                      </Confirm>
-                    </td>
-                  </tr>
-                )
-              })}
-              </tbody>
-            </Table>
+                          message='Are you sure to delete Index?'
+                        >
+                          <Button
+                            size='sm'
+                            color='danger'
+                          >Delete</Button>
+                        </Confirm>
+                      </td>
+                    </tr>
+                  )
+                })}
+                </tbody>
+              </Table>
+            </div>
           </div>
         </div>
       </div>

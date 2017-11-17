@@ -6,6 +6,8 @@ import Container from './Container'
 import ContainerHeader from './ContainerHeader'
 import Footer from './Footer'
 import NavigationHeader from './NavigationHeader'
+import HeaderMenu from './HeaderMenu'
+import HeaderMenuItem from './HeaderMenuItem'
 
 export {
   Sidebar,
@@ -16,4 +18,6 @@ export {
   ContainerHeader,
   Footer,
   NavigationHeader,
+  HeaderMenu,
+  HeaderMenuItem
 }

@@ -9,9 +9,7 @@
 
 .app-container-content {
   z-index: 200;
-  padding-top: 60px;
   & > div {
-    padding: 15px;
     animation-name: slideIn;
     animation-duration: .3s;
   }

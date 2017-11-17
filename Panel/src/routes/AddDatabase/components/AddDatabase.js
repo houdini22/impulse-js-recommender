@@ -33,7 +33,7 @@ export class AddDatabase extends React.Component {
     const { database } = this.state
 
     return (
-      <div>
+      <div className='page-content'>
         <Panel
           title='Add Database'
         >
