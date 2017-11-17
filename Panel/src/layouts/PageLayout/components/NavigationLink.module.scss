@@ -2,7 +2,6 @@
 
 .app-navigation-link {
   a {
-    padding: 10px 16px;
     box-sizing: border-box;
     display: block;
     font-family: Roboto, sans-serif;
@@ -21,6 +20,12 @@
 
     &:hover {
       color: #fff;
+    }
+
+    & > div {
+      height: 36px;
+      line-height: 36px;
+      padding: 0 16px;
     }
   }
 }

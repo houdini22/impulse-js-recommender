@@ -6,11 +6,12 @@ import {
   SidebarHeader,
   Navigation,
   NavigationLink,
+  NavigationHeader,
   Container,
-  ContainerHeader,
 } from './components'
 import DatabaseIcon from 'react-icons/lib/fa/database'
 import IndexIcon from 'react-icons/lib/fa/book'
+import FileIcon from 'react-icons/lib/fa/file-text-o'
 import styles from './PageLayout.module.scss'
 
 class PageLayout extends React.Component {
@@ -24,12 +25,20 @@ class PageLayout extends React.Component {
             brandSmall='Recommender System'
           />
           <Navigation>
+            <NavigationHeader caption='Data sources'/>
             <NavigationLink
               href='/app/database'
               icon={<DatabaseIcon/>}
             >
               Databases
             </NavigationLink>
+            <NavigationLink
+              href='/app/file'
+              icon={<FileIcon/>}
+            >
+              Files
+            </NavigationLink>
+            <NavigationHeader caption='Indexes'/>
             <NavigationLink
               href='/app/index'
               icon={<IndexIcon/>}

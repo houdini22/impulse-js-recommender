@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const router = express.Router()
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 
@@ -28,6 +27,9 @@ app.use('/api/v1/databases', DatabasesController.router)
 
 const AuthController = require('./controllers/auth')
 app.use('/api/v1/auth', AuthController.router)
+
+const FilesController = require('./controllers/files')
+app.use('/api/v1/files', FilesController.router)
 
 const server = {
   instance: null

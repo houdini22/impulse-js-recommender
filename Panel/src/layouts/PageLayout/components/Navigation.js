@@ -9,7 +9,6 @@ class Navigation extends React.Component {
 
     return (
       <div styleName='app-navigation'>
-        <h3 styleName='app-navigation-header'>Navigation</h3>
         <ul styleName='app-navigation-links'>
           {children}
         </ul>

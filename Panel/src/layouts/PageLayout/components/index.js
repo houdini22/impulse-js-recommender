@@ -5,6 +5,7 @@ import NavigationLink from './NavigationLink'
 import Container from './Container'
 import ContainerHeader from './ContainerHeader'
 import Footer from './Footer'
+import NavigationHeader from './NavigationHeader'
 
 export {
   Sidebar,
@@ -14,4 +15,5 @@ export {
   Container,
   ContainerHeader,
   Footer,
+  NavigationHeader,
 }

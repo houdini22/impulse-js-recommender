@@ -1,19 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
-const moment = require('moment')
 const md5 = require('md5')
 const Papa = require('papaparse')
 const fs = require('fs')
 
 const DB = require('../modules/database-new/connection')
-const db = DB.getLocalConnection()
 const FileModel = require('../models/file').model
 const SnapshotModel = require('../models/snapshot').model
-
-router.use(bodyParser.urlencoded({ extended: true }))
-router.use(bodyParser.json())
-router.use(bodyParser.text())
 
 router.get('/get_tables', async (req, res) => {
   DB.getRemoteConnection(req.query.database_id).then(({ query }) => {
@@ -105,7 +99,23 @@ router.post('/build_index', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   SnapshotModel.findById(req.params.id).then((snapshot) => {
     if (snapshot) {
-      snapshot.destroy().then(() => {
+      Promise.all([
+        new Promise((resolve) => {
+          snapshot.destroy().then(() => resolve())
+        }),
+        new Promise((resolve) => {
+          if (snapshot.file_id) {
+            FileModel.findById(snapshot.file_id).then((file) => {
+              if (file) {
+                fs.unlinkSync(`./../data/files/${file.file_name}`)
+                file.destroy().then(() => resolve())
+                return
+              }
+              resolve()
+            })
+          }
+        })
+      ]).then(() => {
         res.json({
           status: 'OK'
         })

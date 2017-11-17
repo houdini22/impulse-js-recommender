@@ -4,10 +4,6 @@ const bodyParser = require('body-parser')
 
 const UserModel = require('../models/user').model
 
-router.use(bodyParser.urlencoded({ extended: true }))
-router.use(bodyParser.json())
-router.use(bodyParser.text())
-
 router.post('/login', async (req, res) => {
   const data = req.body
   UserModel.findOne({
