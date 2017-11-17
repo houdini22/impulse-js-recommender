@@ -2,5 +2,12 @@
 
 .app-container {
   margin-left: 250px;
-  padding: 15px;
+  position: relative;
+}
+
+.app-container-content {
+  & > div {
+    margin-top: 60px;
+    padding: 15px;
+  }
 }

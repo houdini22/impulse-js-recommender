@@ -6,8 +6,11 @@ import {
   SidebarHeader,
   Navigation,
   NavigationLink,
-  Container
+  Container,
+  ContainerHeader,
 } from './components'
+import DatabaseIcon from 'react-icons/lib/fa/database'
+import IndexIcon from 'react-icons/lib/fa/book'
 import styles from './PageLayout.module.scss'
 
 class PageLayout extends React.Component {
@@ -23,17 +26,25 @@ class PageLayout extends React.Component {
           <Navigation>
             <NavigationLink
               href='/app/database'
+              icon={<DatabaseIcon/>}
             >
               Databases
             </NavigationLink>
             <NavigationLink
               href='/app/index'
+              icon={<IndexIcon/>}
             >
               Indexes
             </NavigationLink>
           </Navigation>
         </Sidebar>
-        <Container>
+        <Container
+          headerContent={(
+            <div>
+              
+            </div>
+          )}
+        >
           {children}
         </Container>
       </div>

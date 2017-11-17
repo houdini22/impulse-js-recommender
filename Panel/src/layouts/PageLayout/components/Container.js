@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
+import ContainerHeader from './ContainerHeader'
 import styles from './Container.module.scss'
 
 class Container extends React.Component {
   render () {
-    const { children } = this.props
+    const { children, headerContent } = this.props
 
     return (
       <div styleName='app-container'>
-        {children}
+        <ContainerHeader>
+          {headerContent}
+        </ContainerHeader>
+        <div styleName='app-container-content'>
+          {children}
+        </div>
       </div>
     )
   }
@@ -17,6 +23,7 @@ class Container extends React.Component {
 
 Container.propTypes = {
   children: PropTypes.node.isRequired,
+  headerContent: PropTypes.node,
 }
 
 export default CSSModules(Container, styles)

@@ -6,12 +6,15 @@ import styles from './NavigationLink.module.scss'
 
 class NavigationLink extends React.Component {
   render () {
-    const { children, href } = this.props
+    const { children, href, icon } = this.props
 
     return (
       <li styleName='app-navigation-link'>
         <Link to={href}>
-          {children}
+          <div>
+            <span styleName='icon'>{icon}</span>
+            <span styleName='caption'>{children}</span>
+          </div>
         </Link>
       </li>
     )
@@ -21,6 +24,7 @@ class NavigationLink extends React.Component {
 NavigationLink.propTypes = {
   children: PropTypes.node.isRequired,
   href: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
 }
 
 export default CSSModules(NavigationLink, styles)
