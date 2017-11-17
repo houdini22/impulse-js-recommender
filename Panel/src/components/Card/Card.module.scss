@@ -1,0 +1,14 @@
+@import '../../styles/variables';
+
+.card {
+  padding: 15px;
+  background-color: $color10;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.content {
+  display: block;
+}

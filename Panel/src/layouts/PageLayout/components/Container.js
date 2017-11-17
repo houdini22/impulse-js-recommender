@@ -6,13 +6,11 @@ import styles from './Container.module.scss'
 
 class Container extends React.Component {
   render () {
-    const { children, headerContent } = this.props
+    const { children } = this.props
 
     return (
       <div styleName='app-container'>
-        <ContainerHeader>
-          {headerContent}
-        </ContainerHeader>
+        <ContainerHeader/>
         <div styleName='app-container-content'>
           {children}
         </div>
@@ -24,7 +22,6 @@ class Container extends React.Component {
 
 Container.propTypes = {
   children: PropTypes.node.isRequired,
-  headerContent: PropTypes.node,
 }
 
 export default CSSModules(Container, styles)

@@ -5,7 +5,11 @@
   line-height: 60px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .19), 0 2px 10px 0 rgba(0, 0, 0, .13);
   background: #fff;
-  position: relative;
+  position: fixed;
+  left: 250px;
+  top: 0;
+  right: 0;
+  z-index: 200;
 
   & > div {
     height: 100%;

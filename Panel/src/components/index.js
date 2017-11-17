@@ -6,6 +6,7 @@ import Confirm from './Confirm'
 import Panel from './Panel'
 import Fieldset from './Fieldset'
 import Checkbox from './Checkbox'
+import Card from './Card'
 
 export {
   TextField,
@@ -16,4 +17,5 @@ export {
   Panel,
   Fieldset,
   Checkbox,
+  Card,
 }

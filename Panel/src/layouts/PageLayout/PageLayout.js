@@ -38,13 +38,7 @@ class PageLayout extends React.Component {
             </NavigationLink>
           </Navigation>
         </Sidebar>
-        <Container
-          headerContent={(
-            <div>
-              
-            </div>
-          )}
-        >
+        <Container>
           {children}
         </Container>
       </div>

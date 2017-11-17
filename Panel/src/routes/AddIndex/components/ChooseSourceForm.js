@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button, Row, Col, Progress, FormGroup, Label, Input } from 'reactstrap'
 import Dropzone from 'react-dropzone'
-import { Select } from '../../../components/index'
+import { Select, Card } from '../../../components/index'
 import styles from './AddIndex.module.scss'
 
 export class ChooseSourceForm extends React.Component {
@@ -67,73 +67,77 @@ export class ChooseSourceForm extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row>
           <Col md={6}>
-            <h6 className='text-center'>Create from remote database</h6>
-            {databases && (
-              <div>
-                <Field
-                  name='database_id'
-                  component={Select}
-                  type='select'
-                  label='Choose database'
-                  options={() => {
-                    return databases.map((database) => {
-                      return [database.id, database.name]
-                    })
-                  }}
-                  disabled={file_token}
-                />
-              </div>
-            )}
-          </Col>
-          <Col md={6}>
-            <h6 className='text-center'>Create from local file</h6>
-            <Field
-              name='format'
-              component={Select}
-              type='select'
-              label='Format'
-              options={() => {
-                return [
-                  ['csv', 'CSV']
-                ]
-              }}
-              disabled={files}
-            />
-            <div styleName='box-file'>
-              {!files && format && (
-                <Dropzone
-                  onDrop={this.onDrop}
-                  className={styles.dropzone}
-                  multiple={false}
-                >
-                  <p>Choose file.</p>
-                </Dropzone>
-              )}
-              {files && (
+            <Card>
+              <h6 className='text-center'>Create from remote database</h6>
+              {databases && (
                 <div>
-                  <Progress
-                    value={progress}
-                    color='success'
+                  <Field
+                    name='database_id'
+                    component={Select}
+                    type='select'
+                    label='Choose database'
+                    options={() => {
+                      return databases.map((database) => {
+                        return [database.id, database.name]
+                      })
+                    }}
+                    disabled={file_token}
                   />
-                  {progress === 100 && (
-                    <div style={{ marginTop: '25px' }}>
-                      <FormGroup>
-                        <Label>Uploaded file:</Label>
-                        <Input
-                          value={files[0].name}
-                          disabled
-                        />
-                      </FormGroup>
-                    </div>
-                  )}
                 </div>
               )}
+            </Card>
+          </Col>
+          <Col md={6}>
+            <Card>
+              <h6 className='text-center'>Create from local file</h6>
               <Field
-                name='file_token'
-                component='input'
-                type='hidden'
+                name='format'
+                component={Select}
+                type='select'
+                label='Format'
+                options={() => {
+                  return [
+                    ['csv', 'CSV']
+                  ]
+                }}
+                disabled={files}
               />
-            </div>
+              <div styleName='box-file'>
+                {!files && format && (
+                  <Dropzone
+                    onDrop={this.onDrop}
+                    className={styles.dropzone}
+                    multiple={false}
+                  >
+                    <p>Choose file.</p>
+                  </Dropzone>
+                )}
+                {files && (
+                  <div>
+                    <Progress
+                      value={progress}
+                      color='success'
+                    />
+                    {progress === 100 && (
+                      <div style={{ marginTop: '25px' }}>
+                        <FormGroup>
+                          <Label>Uploaded file:</Label>
+                          <Input
+                            value={files[0].name}
+                            disabled
+                          />
+                        </FormGroup>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <Field
+                  name='file_token'
+                  component='input'
+                  type='hidden'
+                />
+              </div>
+            </Card>
           </Col>
         </Row>
         <Row className='buttons-row'>

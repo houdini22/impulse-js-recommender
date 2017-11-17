@@ -6,6 +6,11 @@
   line-height: 1;
   position: relative;
   text-align: left;
+
+  form {
+    margin-bottom: 0;
+    height: 100%;
+  }
 }
 
 .field {
@@ -14,7 +19,7 @@
 
 .button-container {
   position: absolute;
-  bottom: 100px;
+  bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
