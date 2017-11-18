@@ -6,7 +6,7 @@
   left: 0;
   bottom: 0;
   top: 0;
-  width: 230px;
+  width: $sidebarWidthDesktop;
   background-color: $sidebarBackgroundColor;
 }
 
@@ -40,8 +40,8 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -230px;
-  height: 230px;
+  bottom: -$sidebarWidthDesktop;
+  height: $sidebarWidthDesktop;
 }
 
 .buttons-container {
@@ -58,5 +58,5 @@
 }
 
 .is-tab-active {
-  bottom: 230px;
+  bottom: $sidebarWidthDesktop;
 }

@@ -1,7 +1,7 @@
 @import '../../../styles/variables';
 
 .app-container {
-  margin-left: 230px;
+  margin-left: $sidebarWidthDesktop;
   position: relative;
   min-height: 100%;
   padding-bottom: 50px;
