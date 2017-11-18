@@ -23,7 +23,8 @@ class Checkbox extends React.Component {
     return (
       <FormGroup check color={validationState}>
         <Label check>
-          <Input {...input} {...custom} type='checkbox' state={validationState}/>{' '}
+          <Input {...input} {...custom} type='checkbox' state={validationState}/>
+          {' '}
           {label}
         </Label>
         {!!error && touched && (

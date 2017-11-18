@@ -90,7 +90,7 @@ export class SetupFile extends React.Component {
                                   }
                                 }}
                                 disabled={(items_column >= 0 && items_column !== i) || rated_by_column === i || rating_column === i}
-                                color={items_column === i ? 'success' : ''}
+                                color={items_column === i ? 'success' : 'secondary'}
                               >
                                 Items
                               </Button>{' '}
@@ -104,7 +104,7 @@ export class SetupFile extends React.Component {
                                   }
                                 }}
                                 disabled={(rated_by_column >= 0 && rated_by_column !== i) || items_column === i || rating_column === i}
-                                color={rated_by_column === i ? 'success' : ''}
+                                color={rated_by_column === i ? 'success' : 'secondary'}
                               >
                                 Rated by
                               </Button>{' '}
@@ -118,7 +118,7 @@ export class SetupFile extends React.Component {
                                   }
                                 }}
                                 disabled={(rating_column >= 0 && rating_column !== i) || items_column === i || rated_by_column === i}
-                                color={rating_column === i ? 'success' : ''}
+                                color={rating_column === i ? 'success' : 'secondary'}
                               >Rating</Button>
                             </ButtonGroup>
                           </th>

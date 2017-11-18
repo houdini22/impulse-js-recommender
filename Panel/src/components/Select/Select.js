@@ -11,10 +11,11 @@ class Select extends React.Component {
     input: PropTypes.object,
     label: PropTypes.string,
     meta: PropTypes.object,
+    options: PropTypes.array,
   }
 
   render () {
-    const { input, label, meta: { touched, error }, children, options, ...custom } = this.props
+    const { input, label, meta: { touched, error }, options, ...custom } = this.props
 
     let validationState = null
     if (touched) {

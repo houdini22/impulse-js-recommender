@@ -8,7 +8,9 @@ import styles from './Confirm.module.scss'
 class Confirm extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    onYes: PropTypes.func,
+    onNo: PropTypes.func,
   }
 
   constructor (props) {
@@ -40,13 +42,13 @@ class Confirm extends React.Component {
           <ModalHeader>Confirm</ModalHeader>
           <ModalBody>{message}</ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => {
+            <Button color='primary' onClick={() => {
               if (_.isFunction(onYes)) {
                 onYes()
               }
               this.close()
             }}>Confirm</Button>{' '}
-            <Button color="secondary" onClick={() => {
+            <Button color='secondary' onClick={() => {
               if (_.isFunction(onNo)) {
                 onNo()
               }

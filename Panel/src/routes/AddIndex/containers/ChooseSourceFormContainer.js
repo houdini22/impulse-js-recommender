@@ -9,7 +9,7 @@ import {
   setUploadedFile,
 } from '../../../reducers/snapshots'
 import { getDatabases } from '../../../reducers/databases'
-import { getFiles, getFileInfo } from '../../../reducers/files'
+import { getFiles } from '../../../reducers/files'
 
 const FORM_NAME = 'index-choose-database-form'
 

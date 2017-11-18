@@ -5,7 +5,7 @@ import CSSModules from 'react-css-modules'
 import { Table, Button, Badge } from 'reactstrap'
 import IconPlus from 'react-icons/lib/fa/plus-circle'
 import { StateButton, Confirm } from '../../../components'
-import { ContainerHeader, HeaderMenu, HeaderMenuItem } from '../../../layouts/PageLayout/components'
+import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -29,21 +29,18 @@ export class SnapshotsView extends React.Component {
 
     return (
       <div>
-        <ContainerHeader>
-          <HeaderMenu>
-            <div>
-              <HeaderMenuItem
-                href='/app/index/add'
-                color='success'
-              >
-                <IconPlus/>
-                {' '}
-                Create
-              </HeaderMenuItem>
-            </div>
-          </HeaderMenu>
-          <h1>Indexes</h1>
-        </ContainerHeader>
+        <HeaderBar
+          title='Databases'
+        >
+          <HeaderMenuItem
+            href='/app/index/add'
+            color='success'
+          >
+            <IconPlus/>
+            {' '}
+            Create
+          </HeaderMenuItem>
+        </HeaderBar>
         <div className='page-content'>
           <div>
             <div>

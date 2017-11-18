@@ -8,6 +8,7 @@ import Footer from './Footer'
 import NavigationHeader from './NavigationHeader'
 import HeaderMenu from './HeaderMenu'
 import HeaderMenuItem from './HeaderMenuItem'
+import HeaderBar from './HeaderBar'
 
 export {
   Sidebar,
@@ -19,5 +20,6 @@ export {
   Footer,
   NavigationHeader,
   HeaderMenu,
-  HeaderMenuItem
+  HeaderMenuItem,
+  HeaderBar,
 }

@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import IconArrowBack from 'react-icons/lib/md/arrow-back'
 import FormContainer from '../containers/FormContainer'
-import { ContainerHeader, HeaderMenu, HeaderMenuItem } from '../../../layouts/PageLayout/components'
+import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
 import styles from './AddDatabase.module.scss'
 
 export class AddDatabase extends React.Component {
@@ -35,20 +34,10 @@ export class AddDatabase extends React.Component {
 
     return (
       <div>
-        <ContainerHeader>
-          <HeaderMenu>
-            <div>
-              <HeaderMenuItem
-                href='/app/database'
-              >
-                <IconArrowBack/>
-                {' '}
-                Back
-              </HeaderMenuItem>
-            </div>
-          </HeaderMenu>
-          <h1>Create Database</h1>
-        </ContainerHeader>
+        <HeaderBar
+          title='Create Database'
+          back='/app/database'
+        />
         <div className='page-content'>
           <FormContainer database={database}/>
         </div>

@@ -5,29 +5,28 @@
   padding: 0 8px;
   height: 100%;
   line-height: 60px;
-  background-color: #A2DEF8;
   border-right: 1px solid $color8;
-
-  &:hover {
-    background-color: #53bded;
-  }
 
   a {
     display: block;
     height: 100%;
     text-decoration: none;
-    color: #182825;
+    color: #fff;
   }
 }
 
 .color-primary {
-  display: inline-block;
+  background-color: #22AED1;
+
+  &:hover {
+    background-color: darken(#22AED1, 12);
+  }
 }
 
 .color-success {
-  background-color: lighten(#96C42E, 25);
+  background-color: #96C42E;
 
   &:hover {
-    background-color: #96C42E;
+    background-color: darken(#96C42E, 12);
   }
 }

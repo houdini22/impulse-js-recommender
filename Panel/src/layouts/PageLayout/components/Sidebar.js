@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import UserIcon from 'react-icons/lib/fa/user'
-import CloseIcon from 'react-icons/lib/md/close'
+import classNames from 'classnames'
 import { Button } from 'reactstrap'
 import styles from './Sidebar.module.scss'
 
@@ -10,36 +10,46 @@ class Sidebar extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      userDropdownVisible: false
+      userDropdownVisible: false,
+      activeTab: ''
     }
-    this.toggleUserDropdown = this.toggleUserDropdown.bind(this)
+    this.switchTab = this.switchTab.bind(this)
   }
 
-  toggleUserDropdown () {
-    this.setState({
-      userDropdownVisible: !this.state.userDropdownVisible
-    })
+  switchTab (activeTab) {
+    this.setState({ activeTab })
   }
 
   render () {
     const { children } = this.props
-    const { userDropdownVisible } = this.state
+    const { activeTab } = this.state
 
     return (
       <div styleName='app-sidebar'>
         {children}
-        <div styleName='user-button-container'>
-          <div styleName='user-button'>
-            <div styleName='user-icon' onClick={() => this.toggleUserDropdown()}>
-              <UserIcon/>
-            </div>
-            <div styleName='user-dropdown' style={{ display: userDropdownVisible ? 'block' : 'none' }}>
-              <CloseIcon styleName='close-icon' onClick={() => this.toggleUserDropdown()}/>
-              <div styleName='buttons'>
-                <Button size='sm' color='primary'>Settings</Button>
-                <Button size='sm' color='primary'>Logout</Button>
+        <div className={classNames({ [styles['sidebar-tabs']]: true, [styles['is-tab-active']]: activeTab !== '' })}>
+          <div styleName='tabs'>
+            <ul>
+              <li onClick={() => {
+                if (activeTab === 'user') {
+                  this.switchTab('')
+                } else {
+                  this.switchTab('user')
+                }
+              }}>
+                <UserIcon/>
+              </li>
+            </ul>
+          </div>
+          <div styleName='tab-content-container'>
+            {activeTab === 'user' && (
+              <div>
+                <div styleName='buttons-container'>
+                  <Button size='sm'>Settings</Button>
+                  <Button size='sm'>Logout</Button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

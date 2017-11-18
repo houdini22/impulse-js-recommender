@@ -40,7 +40,7 @@ export class ChooseSourceForm extends React.Component {
         <Row>
           <Col md={6}>
             <Card>
-              <h6 className='text-center'>Create from remote database</h6>
+              <h6 className='text-center'>Create from database</h6>
               {databases && (
                 <div>
                   <Field
@@ -61,7 +61,7 @@ export class ChooseSourceForm extends React.Component {
           </Col>
           <Col md={6}>
             <Card>
-              <h6 className='text-center'>Create from local file</h6>
+              <h6 className='text-center'>Create from file</h6>
               <Field
                 name='file_token'
                 component={Select}

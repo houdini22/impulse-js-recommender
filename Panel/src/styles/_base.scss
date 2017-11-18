@@ -20,14 +20,6 @@ body {
   height: 100% !important;
 }
 
-.navbar-light .navbar-brand {
-  color: #fff;
-}
-
-.navbar-light .navbar-nav .nav-link {
-  color: #fff;
-}
-
 .table-row-actions {
   & > * {
     margin-right: 5px;
@@ -68,7 +60,7 @@ body {
 
 @keyframes slideIn {
   from {
-    transform: translateY(10px);
+    transform: translateY(5px);
     opacity: .3;
   }
   to {
