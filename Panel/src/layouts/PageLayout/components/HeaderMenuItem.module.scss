@@ -16,17 +16,17 @@
 }
 
 .color-primary {
-  background-color: #22AED1;
+  background-color: darken($logoBackgroundColor, 12);
 
   &:hover {
-    background-color: darken(#22AED1, 12);
+    background-color: $logoBackgroundColor;
   }
 }
 
 .color-success {
-  background-color: #96C42E;
+  background-color: darken($successColor, 12);
 
   &:hover {
-    background-color: darken(#96C42E, 12);
+    background-color: $successColor;
   }
 }

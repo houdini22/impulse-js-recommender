@@ -42,18 +42,19 @@ class Confirm extends React.Component {
           <ModalHeader>Confirm</ModalHeader>
           <ModalBody>{message}</ModalBody>
           <ModalFooter>
-            <Button color='primary' onClick={() => {
-              if (_.isFunction(onYes)) {
-                onYes()
-              }
-              this.close()
-            }}>Confirm</Button>{' '}
             <Button color='secondary' onClick={() => {
               if (_.isFunction(onNo)) {
                 onNo()
               }
               this.close()
             }}>Cancel</Button>
+            {' '}
+            <Button color='success' onClick={() => {
+              if (_.isFunction(onYes)) {
+                onYes()
+              }
+              this.close()
+            }}>Confirm</Button>
           </ModalFooter>
         </Modal>
         <div onClick={() => {

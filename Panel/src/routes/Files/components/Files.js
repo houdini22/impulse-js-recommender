@@ -61,7 +61,7 @@ export class FilesView extends React.Component {
                         {' '}
                         {file.name}
                       </td>
-                      <td className='table-row-actions'>
+                      <td className='actions'>
                         <Confirm
                           onYes={() => {
                             deleteFile(file.id)

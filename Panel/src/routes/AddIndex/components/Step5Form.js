@@ -38,7 +38,7 @@ export class SnapshotsView extends React.Component {
               </div>
             </FormGroup>
             <div className='text-right'>
-              <Button type='submit'>Create Index</Button>
+              <Button type='submit' color='success'>Save</Button>
             </div>
           </form>
         )}

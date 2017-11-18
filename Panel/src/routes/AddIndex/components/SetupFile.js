@@ -180,7 +180,7 @@ export class SetupFile extends React.Component {
         <Row className='buttons-row'>
           <Col md={12}>
             <div className='text-right'>
-              <Button type='submit'>Next</Button>
+              <Button type='submit' color='success'>Save</Button>
             </div>
           </Col>
         </Row>

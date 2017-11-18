@@ -6,8 +6,8 @@
   left: 0;
   bottom: 0;
   top: 0;
-  width: 250px;
-  background-color: #182825;
+  width: 230px;
+  background-color: $sidebarBackgroundColor;
 }
 
 .sidebar-tabs {
@@ -26,7 +26,7 @@
 
     li {
       font-size: 32px;
-      background: #22AED1;
+      background: $logoBackgroundColor;
       padding: 8px 15px;
       display: inline-block;
       color: #fff;
@@ -36,12 +36,12 @@
 }
 
 .tab-content-container {
-  background: #22AED1;
+  background: $logoBackgroundColor;
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -250px;
-  height: 250px;
+  bottom: -230px;
+  height: 230px;
 }
 
 .buttons-container {
@@ -58,5 +58,5 @@
 }
 
 .is-tab-active {
-  bottom: 250px;
+  bottom: 230px;
 }

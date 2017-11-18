@@ -161,7 +161,7 @@ export class Form extends React.Component {
           <Row className='buttons-row'>
             <Col md={12}>
               <div className='text-right'>
-                <Button type='submit'>Save</Button>
+                <Button type='submit' color='success'>Save</Button>
               </div>
             </Col>
           </Row>

@@ -73,7 +73,7 @@ export class SnapshotsView extends React.Component {
                           </Badge>
                         </h5>
                       </td>
-                      <td className='table-row-actions'>
+                      <td className='actions'>
                         <Link to={`/app/database/edit/${database.id}`}>
                           <Button
                             size='sm'

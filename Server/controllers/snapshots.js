@@ -99,18 +99,16 @@ router.delete('/:id', async (req, res) => {
         new Promise((resolve) => {
           snapshot.destroy().then(() => resolve())
         }),
-        new Promise((resolve) => {
-          if (snapshot.file_id) {
-            FileModel.findById(snapshot.file_id).then((file) => {
-              if (file) {
-                fs.unlinkSync(`./../data/files/${file.file_name}`)
-                file.destroy().then(() => resolve())
-                return
-              }
-              resolve()
-            })
-          }
-        })
+        snapshot.file_id ? new Promise((resolve) => {
+          FileModel.findById(snapshot.file_id).then((file) => {
+            if (file) {
+              fs.unlinkSync(`./../data/files/${file.file_name}`)
+              file.destroy().then(() => resolve())
+              return
+            }
+            resolve()
+          })
+        }) : 0
       ]).then(() => {
         res.json({
           status: 'OK'

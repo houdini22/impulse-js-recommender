@@ -72,7 +72,7 @@ export class SnapshotsView extends React.Component {
                         )}
                         {index.name}
                       </td>
-                      <td className='table-row-actions'>
+                      <td className='actions'>
                         {!index.is_built && (
                           <StateButton
                             size='sm'
