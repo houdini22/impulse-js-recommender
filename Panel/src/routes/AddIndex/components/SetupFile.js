@@ -31,7 +31,8 @@ export class SetupFile extends React.Component {
       getFileInfo,
       snapshots: { newSnapshot }
     } = this.props
-    getFileInfo(newSnapshot.file_id)
+
+    getFileInfo(newSnapshot.file_token)
   }
 
   render () {

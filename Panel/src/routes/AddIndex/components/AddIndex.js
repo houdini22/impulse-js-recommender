@@ -49,7 +49,7 @@ class Form extends React.Component {
           {createModalStep === 2 && newSnapshot.database_id && (
             <Step1FormContainer/>
           )}
-          {createModalStep === 2 && newSnapshot.file_id && (
+          {createModalStep === 2 && newSnapshot.file_token && (
             <SetupFileContainer/>
           )}
           {createModalStep === 3 && newSnapshot.database_id && (
