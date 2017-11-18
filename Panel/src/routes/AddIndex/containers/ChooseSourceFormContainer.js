@@ -9,34 +9,33 @@ import {
   setUploadedFile,
 } from '../../../reducers/snapshots'
 import { getDatabases } from '../../../reducers/databases'
+import { getFiles, getFileInfo } from '../../../reducers/files'
 
 const FORM_NAME = 'index-choose-database-form'
 
 const validate = (values) => {
   const errors = {}
 
-  if (values.file_token) {
-    if (!values.format) {
-      errors['format'] = 'Required.'
-    }
-  } else {
-    if (!values.database_id) {
-      errors['database_id'] = 'Required.'
-      if (!values.format) {
-        errors['format'] = 'Required.'
-      }
-    }
+  if (!values.database_id && !values.file_id) {
+    errors['database_id'] = 'Required.'
+    errors['file_id'] = 'Required.'
+  }
+
+  if (values.database_id && values.file_id) {
+    errors['database_id'] = 'Choose database or file.'
+    errors['file_id'] = 'Choose database or file.'
   }
 
   return errors
 }
 
 const onSubmit = (values, dispatch, props) => {
-  const { snapshots: { createModalStep } } = props
-  delete values.format
+  const { snapshots: { createModalStep }, files: { files } } = props
   dispatch(appendNewSnapshotValues(values))
+  if (values.database_id) {
+    dispatch(getTables(values.database_id))
+  }
   dispatch(setCreateModalStep(createModalStep + 1))
-  dispatch(getTables(values.database_id))
 }
 
 const _reduxForm = reduxForm({
@@ -45,24 +44,24 @@ const _reduxForm = reduxForm({
   validate,
   initialValues: {
     database_id: '',
-    file_token: '',
-    format: '',
+    file_id: '',
   },
 })(ChooseSourceForm)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const { database_id, file_token, format } = selector(state, 'database_id', 'file_token', 'format')
+  const { database_id, file_id } = selector(state, 'database_id', 'file_id')
   return {
     database_id,
-    file_token,
-    format,
+    file_id,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
+    files: { ...state.files },
   }
 }, {
   getDatabases,
   uploadFile,
   setUploadedFile,
+  getFiles,
 })(_reduxForm)

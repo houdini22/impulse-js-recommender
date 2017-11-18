@@ -6,10 +6,10 @@ import styles from './HeaderMenuItem.module.scss'
 
 class HeaderMenuItem extends React.Component {
   render () {
-    const { children, href } = this.props
+    const { children, href, color } = this.props
 
     return (
-      <div styleName='app-header-menu-item'>
+      <div className={`${styles['app-header-menu-item']} ${styles[`color-${(color || 'primary')}`]}`}>
         <Link to={href}>
           <div>
             {children}
@@ -23,6 +23,7 @@ class HeaderMenuItem extends React.Component {
 HeaderMenuItem.propTypes = {
   children: PropTypes.node,
   href: PropTypes.string.isRequired,
+  color: PropTypes.string,
 }
 
 export default CSSModules(HeaderMenuItem, styles)

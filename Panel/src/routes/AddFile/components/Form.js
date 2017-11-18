@@ -68,7 +68,6 @@ export class Form extends React.Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <h5>Add file</h5>
         <div>
           <Field
             name='format'

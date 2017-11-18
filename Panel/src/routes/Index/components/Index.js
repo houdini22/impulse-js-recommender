@@ -34,10 +34,11 @@ export class SnapshotsView extends React.Component {
             <div>
               <HeaderMenuItem
                 href='/app/index/add'
+                color='success'
               >
                 <IconPlus/>
                 {' '}
-                Create Index
+                Create
               </HeaderMenuItem>
             </div>
           </HeaderMenu>

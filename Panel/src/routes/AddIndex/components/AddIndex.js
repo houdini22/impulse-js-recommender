@@ -23,7 +23,7 @@ class Form extends React.Component {
 
   render () {
     const {
-      snapshots: { createModalStep, uploadedFile },
+      snapshots: { createModalStep, newSnapshot },
     } = this.props
 
     return (
@@ -46,13 +46,13 @@ class Form extends React.Component {
           {createModalStep === 1 && (
             <ChooseSourceFormContainer/>
           )}
-          {createModalStep === 2 && !uploadedFile && (
+          {createModalStep === 2 && newSnapshot.database_id && (
             <Step1FormContainer/>
           )}
-          {createModalStep === 2 && uploadedFile && (
+          {createModalStep === 2 && newSnapshot.file_id && (
             <SetupFileContainer/>
           )}
-          {createModalStep === 3 && !uploadedFile && (
+          {createModalStep === 3 && newSnapshot.database_id && (
             <Step4FormContainer/>
           )}
           {createModalStep === 4 && (

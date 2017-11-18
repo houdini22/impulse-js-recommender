@@ -29,9 +29,9 @@ export class SetupFile extends React.Component {
   componentDidMount () {
     const {
       getFileInfo,
-      snapshots: { uploadedFile }
+      snapshots: { newSnapshot }
     } = this.props
-    getFileInfo(uploadedFile.token)
+    getFileInfo(newSnapshot.file_id)
   }
 
   render () {
@@ -41,7 +41,7 @@ export class SetupFile extends React.Component {
       items_column,
       rated_by_column,
       rating_column,
-      snapshots: { uploadedFileInfo, uploadedFile }
+      snapshots: { uploadedFileInfo }
     } = this.props
 
     const {
@@ -50,21 +50,6 @@ export class SetupFile extends React.Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <Fieldset
-          title='File information'
-        >
-          <Field
-            name='has_header_row'
-            component={Checkbox}
-            type='checkbox'
-            label='File contains header row?'
-            onChange={(e, value) => {
-              this.setState({
-                hasHeaderRow: value
-              })
-            }}
-          />
-        </Fieldset>
         <Fieldset
           title='Choose column roles'
         >

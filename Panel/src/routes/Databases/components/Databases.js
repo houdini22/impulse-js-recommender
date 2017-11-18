@@ -34,10 +34,11 @@ export class SnapshotsView extends React.Component {
             <div>
               <HeaderMenuItem
                 href='/app/database/add'
+                color='success'
               >
                 <IconPlus/>
                 {' '}
-                Create Database
+                Create
               </HeaderMenuItem>
             </div>
           </HeaderMenu>

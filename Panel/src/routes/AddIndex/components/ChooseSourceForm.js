@@ -12,56 +12,28 @@ export class ChooseSourceForm extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
     getDatabases: PropTypes.func.isRequired,
     databases: PropTypes.object.isRequired,
-    uploadFile: PropTypes.func.isRequired,
-    change: PropTypes.func.isRequired,
+    getFiles: PropTypes.func.isRequired,
+    files: PropTypes.object.isRequired,
     setUploadedFile: PropTypes.func.isRequired,
-    format: PropTypes.string.isRequired,
-  }
-
-  constructor (props) {
-    super(props)
-    this.onDrop = this.onDrop.bind(this)
-    this.state = {
-      files: null,
-      progress: 0
-    }
+    file_id: PropTypes.string.isRequired,
+    database_id: PropTypes.string.isRequired,
   }
 
   componentDidMount () {
-    const { getDatabases, setUploadedFile } = this.props
+    const { getDatabases, setUploadedFile, getFiles, } = this.props
     getDatabases()
+    getFiles()
     setUploadedFile(null)
-  }
-
-  onDrop (files) {
-    const {
-      uploadFile,
-      change,
-      format,
-    } = this.props
-
-    this.setState({ files })
-
-    uploadFile(files[0], {
-      format,
-    }, (progressEvent) => {
-      const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-      this.setState({
-        progress
-      })
-    }, (uploadedFile) => {
-      change('file_token', uploadedFile.token)
-    })
   }
 
   render () {
     const {
       databases: { databases },
+      files: { files },
       handleSubmit,
-      file_token,
-      format,
+      file_id,
+      database_id,
     } = this.props
-    const { files, progress } = this.state
 
     return (
       <form onSubmit={handleSubmit}>
@@ -81,7 +53,7 @@ export class ChooseSourceForm extends React.Component {
                         return [database.id, database.name]
                       })
                     }}
-                    disabled={file_token}
+                    disabled={file_id}
                   />
                 </div>
               )}
@@ -91,52 +63,17 @@ export class ChooseSourceForm extends React.Component {
             <Card>
               <h6 className='text-center'>Create from local file</h6>
               <Field
-                name='format'
+                name='file_id'
                 component={Select}
                 type='select'
-                label='Format'
+                label='Choose file'
                 options={() => {
-                  return [
-                    ['csv', 'CSV']
-                  ]
+                  return files.map((file) => {
+                    return [file.token, file.name]
+                  })
                 }}
-                disabled={files}
+                disabled={database_id}
               />
-              <div styleName='box-file'>
-                {!files && format && (
-                  <Dropzone
-                    onDrop={this.onDrop}
-                    className={styles.dropzone}
-                    multiple={false}
-                  >
-                    <p>Choose file.</p>
-                  </Dropzone>
-                )}
-                {files && (
-                  <div>
-                    <Progress
-                      value={progress}
-                      color='success'
-                    />
-                    {progress === 100 && (
-                      <div style={{ marginTop: '25px' }}>
-                        <FormGroup>
-                          <Label>Uploaded file:</Label>
-                          <Input
-                            value={files[0].name}
-                            disabled
-                          />
-                        </FormGroup>
-                      </div>
-                    )}
-                  </div>
-                )}
-                <Field
-                  name='file_token'
-                  component='input'
-                  type='hidden'
-                />
-              </div>
             </Card>
           </Col>
         </Row>

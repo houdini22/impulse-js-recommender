@@ -29,10 +29,11 @@ export class FilesView extends React.Component {
             <div>
               <HeaderMenuItem
                 href='/app/file/add'
+                color='success'
               >
                 <IconPlus/>
                 {' '}
-                Create File
+                Create
               </HeaderMenuItem>
             </div>
           </HeaderMenu>
@@ -55,7 +56,11 @@ export class FilesView extends React.Component {
                     <tr key={file.id}>
                       <th scope='row'>{file.id}</th>
                       <td>
-                        <Badge color='info' styleName='format-badge'>{file.format}</Badge>
+                        <Badge color='info' styleName='format-badge'>
+                          {file.format === 'csv' && (
+                            <span>CSV</span>
+                          )}
+                        </Badge>
                         {' '}
                         {file.name}
                       </td>

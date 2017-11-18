@@ -51,21 +51,18 @@ export default connect(state => {
     items_column,
     rated_by_column,
     rating_column,
-    has_header_row,
     name,
-  } = selector(state, 'items_column', 'rated_by_column', 'rating_column', 'has_header_row', 'name')
+  } = selector(state, 'items_column', 'rated_by_column', 'rating_column', 'name')
   return {
     items_column,
     rated_by_column,
     rating_column,
-    has_header_row,
     name,
     initialValues: {
-      name: state.snapshots.uploadedFile.name,
+      name: '',
       items_column: -1,
       rated_by_column: -1,
       rating_column: -1,
-      has_header_row: 0,
     },
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
