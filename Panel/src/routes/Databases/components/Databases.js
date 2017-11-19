@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
-import IconPlus from 'react-icons/lib/fa/plus-circle'
+import IconPlus from 'react-icons/lib/md/add'
 import { Badge, Table, Button } from 'reactstrap'
 import { Confirm } from '../../../components'
 import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
@@ -65,7 +65,7 @@ export class SnapshotsView extends React.Component {
                         {database.name}
                       </td>
                       <td>
-                        <h5>
+                        <h5 className='no-margin'>
                           <Badge
                             color={database.status === 'online' ? 'success' : 'danger'}
                           >

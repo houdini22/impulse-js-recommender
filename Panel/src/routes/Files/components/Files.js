@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import IconPlus from 'react-icons/lib/fa/plus-circle'
+import IconPlus from 'react-icons/lib/md/add'
 import { Badge, Table, Button } from 'reactstrap'
 import { Confirm } from '../../../components'
 import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
