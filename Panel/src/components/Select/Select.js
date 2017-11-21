@@ -11,7 +11,7 @@ class Select extends React.Component {
     input: PropTypes.object,
     label: PropTypes.string,
     meta: PropTypes.object,
-    options: PropTypes.array,
+    options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
   }
 
   render () {

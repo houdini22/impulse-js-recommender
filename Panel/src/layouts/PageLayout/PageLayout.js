@@ -12,11 +12,22 @@ import {
 import DatabaseIcon from 'react-icons/lib/fa/database'
 import IndexIcon from 'react-icons/lib/fa/book'
 import FileIcon from 'react-icons/lib/fa/file-text-o'
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap'
 import styles from './PageLayout.module.scss'
 
 class PageLayout extends React.Component {
+  constructor (props) {
+    super(props)
+    this.toggle = this.toggle.bind(this)
+  }
+
+  toggle () {
+    const { setConnectionErrorModalVisible } = this.props
+    setConnectionErrorModalVisible(false)
+  }
+
   render () {
-    const { children, auth, logoff } = this.props
+    const { children, auth, logoff, common } = this.props
     return (
       <div styleName='layout'>
         <Sidebar>
@@ -50,13 +61,28 @@ class PageLayout extends React.Component {
         <Container>
           {children}
         </Container>
+        {common.connectionErrorModalVisible && (
+          <Modal isOpen={common.connectionErrorModalVisible} toggle={this.toggle}>
+            <ModalHeader toggle={this.toggle}>Connection error</ModalHeader>
+            <ModalBody>
+              Connection error detected. Try to reload the page and try again.
+            </ModalBody>
+            <ModalFooter>
+              <Button color='primary' onClick={() => {
+                window.location.reload()
+              }}>Reload</Button>
+            </ModalFooter>
+          </Modal>
+        )}
       </div>
     )
   }
 }
 
 PageLayout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  common: PropTypes.object.isRequired,
+  setConnectionErrorModalVisible: PropTypes.func.isRequired,
 }
 
 export default CSSModules(PageLayout, styles)

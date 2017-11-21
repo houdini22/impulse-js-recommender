@@ -30,7 +30,7 @@ class HeaderBar extends React.Component {
 }
 
 HeaderBar.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   title: PropTypes.string,
   back: PropTypes.string,
 }

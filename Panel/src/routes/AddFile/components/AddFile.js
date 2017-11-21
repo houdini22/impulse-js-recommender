@@ -14,7 +14,7 @@ class Form extends React.Component {
     return (
       <div>
         <HeaderBar
-          title='Create Database'
+          title='Create File'
           back='/app/file'
         />
         <div className='page-content'>
