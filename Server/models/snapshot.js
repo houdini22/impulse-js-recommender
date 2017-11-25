@@ -14,6 +14,7 @@ const Snapshot = sequelize.define('_jsrs_snapshots', {
   items_column: Sequelize.INTEGER,
   rated_by_column: Sequelize.INTEGER,
   rating_column: Sequelize.INTEGER,
+  status: Sequelize.STRING,
   is_built: Sequelize.BOOLEAN,
   is_trained: Sequelize.BOOLEAN,
   database_id: Sequelize.INTEGER,

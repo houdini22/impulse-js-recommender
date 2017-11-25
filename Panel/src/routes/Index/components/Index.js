@@ -48,6 +48,7 @@ export class SnapshotsView extends React.Component {
                 <tr>
                   <th style={{ width: '100px' }}>#</th>
                   <th>Name</th>
+                  <th style={{ width: '100px' }}>Status</th>
                   <th style={{ width: '200px' }}>Actions</th>
                 </tr>
                 </thead>
@@ -71,8 +72,11 @@ export class SnapshotsView extends React.Component {
                         )}
                         {index.name}
                       </td>
+                      <td>
+                        {index.status}
+                      </td>
                       <td className='actions'>
-                        {!index.is_built && (
+                        {index.status === 'CREATED' && (
                           <StateButton
                             size='sm'
                             onClick={() => {

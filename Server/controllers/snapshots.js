@@ -8,6 +8,9 @@ const fs = require('fs')
 const DB = require('../modules/database-new/connection')
 const FileModel = require('../models/file').model
 const SnapshotModel = require('../models/snapshot').model
+const SnapshotStatus = require('../modules/SnapshotStatus')
+const QueueModel = require('../models/queue').model
+const QueueStatus = require('../modules/QueueStatus')
 
 router.get('/get_tables', async (req, res) => {
   DB.getRemoteConnection(req.query.database_id).then(({ query }) => {
@@ -49,15 +52,15 @@ router.post('/', async (req, res) => {
       }
     }).then((file) => {
       data.file_id = file.id
+      data.status = SnapshotStatus.status.CREATED
       delete data.file_token
-      SnapshotModel.create(data).then(() => {
+      SnapshotModel.create(data).then((snapshot) => {
         res.json({
           status: 'OK'
         })
       })
     })
-  }
-  else {
+  } else {
     data.items_field_pk = 'id'
     data.rated_by_field_pk = 'id'
     SnapshotModel.create(data).then(() => {
@@ -81,14 +84,30 @@ router.get('/', async (req, res) => {
 router.post('/build_index', async (req, res) => {
   SnapshotModel.findById(req.body.id).then((snapshot) => {
     if (snapshot) {
-      snapshot.update({
-        is_built: 1
-      }).then(() => {
-        res.json({
-          status: 'OK'
+      if (snapshot.get('file_id') && snapshot.get('status') !== SnapshotStatus.status.ADDED_TO_QUEUE) {
+        return Promise.all([
+          new Promise((resolve) => {
+            snapshot.update({
+              status: SnapshotStatus.status.ADDED_TO_QUEUE
+            }).then(() => resolve())
+          }),
+          new Promise((resolve) => {
+            QueueModel.create({
+              type: 'BUILD_INDEX',
+              file_id: snapshot.get('file_id'),
+              status: QueueStatus.status.CREATED,
+            }).then(() => resolve())
+          })
+        ]).then(() => {
+          res.json({
+            status: 'OK'
+          })
         })
-      })
+      }
     }
+    res.json({
+      status: 'ERR'
+    })
   })
 })
 
@@ -99,16 +118,6 @@ router.delete('/:id', async (req, res) => {
         new Promise((resolve) => {
           snapshot.destroy().then(() => resolve())
         }),
-        snapshot.file_id ? new Promise((resolve) => {
-          FileModel.findById(snapshot.file_id).then((file) => {
-            if (file) {
-              fs.unlinkSync(`./../data/files/${file.file_name}`)
-              file.destroy().then(() => resolve())
-              return
-            }
-            resolve()
-          })
-        }) : 0
       ]).then(() => {
         res.json({
           status: 'OK'

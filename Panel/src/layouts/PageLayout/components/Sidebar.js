@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules'
 import UserIcon from 'react-icons/lib/fa/user'
 import classNames from 'classnames'
 import { Button } from 'reactstrap'
+import { Link } from 'react-router'
 import styles from './Sidebar.module.scss'
 
 class Sidebar extends React.Component {
@@ -21,7 +22,7 @@ class Sidebar extends React.Component {
   }
 
   render () {
-    const { children } = this.props
+    const { children, onClickLogout } = this.props
     const { activeTab } = this.state
 
     return (
@@ -45,8 +46,12 @@ class Sidebar extends React.Component {
             {activeTab === 'user' && (
               <div>
                 <div styleName='buttons-container'>
-                  <Button size='sm'>Settings</Button>
-                  <Button size='sm'>Logout</Button>
+                  <Link to='/app/user/settings'>
+                    <Button size='sm'>Settings</Button>
+                  </Link>
+                  <span>
+                    <Button size='sm' onClick={onClickLogout}>Logout</Button>
+                  </span>
                 </div>
               </div>
             )}
@@ -59,6 +64,7 @@ class Sidebar extends React.Component {
 
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
+  onClickLogout: PropTypes.func.isRequired
 }
 
 export default CSSModules(Sidebar, styles)

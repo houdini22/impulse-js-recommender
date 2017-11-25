@@ -27,10 +27,14 @@ class PageLayout extends React.Component {
   }
 
   render () {
-    const { children, auth, logoff, common } = this.props
+    const { children, logoff, common } = this.props
     return (
       <div styleName='layout'>
-        <Sidebar>
+        <Sidebar
+          onClickLogout={() => {
+            logoff()
+          }}
+        >
           <SidebarHeader
             brand='Impulse-ML'
             brandSmall='Recommender System'
@@ -65,7 +69,7 @@ class PageLayout extends React.Component {
           <Modal isOpen={common.connectionErrorModalVisible} toggle={this.toggle}>
             <ModalHeader toggle={this.toggle}>Connection error</ModalHeader>
             <ModalBody>
-              Connection error detected. Try to reload the page and try again.
+              Connection error. Try to reload the page and try again.
             </ModalBody>
             <ModalFooter>
               <Button color='primary' onClick={() => {
@@ -83,6 +87,7 @@ PageLayout.propTypes = {
   children: PropTypes.node.isRequired,
   common: PropTypes.object.isRequired,
   setConnectionErrorModalVisible: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 }
 
 export default CSSModules(PageLayout, styles)

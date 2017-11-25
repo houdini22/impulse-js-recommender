@@ -1,0 +1,3 @@
+exports.status = {
+  CREATED: 'CREATED'
+}
