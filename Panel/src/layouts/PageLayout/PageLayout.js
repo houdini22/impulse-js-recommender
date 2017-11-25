@@ -12,6 +12,8 @@ import {
 import DatabaseIcon from 'react-icons/lib/fa/database'
 import IndexIcon from 'react-icons/lib/fa/book'
 import FileIcon from 'react-icons/lib/fa/file-text-o'
+import ModelIcon from 'react-icons/lib/fa/sliders'
+import QueueIcon from 'react-icons/lib/md/cloud-queue'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap'
 import styles from './PageLayout.module.scss'
 
@@ -53,12 +55,24 @@ class PageLayout extends React.Component {
             >
               Files
             </NavigationLink>
-            <NavigationHeader caption='Indexes'/>
+            <NavigationHeader caption='Recommender'/>
             <NavigationLink
               href='/app/index'
               icon={<IndexIcon/>}
             >
               Indexes
+            </NavigationLink>
+            <NavigationLink
+              href='/app/model'
+              icon={<ModelIcon/>}
+            >
+              Models
+            </NavigationLink>
+            <NavigationLink
+              href='/app/queue'
+              icon={<QueueIcon/>}
+            >
+              Queue
             </NavigationLink>
           </Navigation>
         </Sidebar>

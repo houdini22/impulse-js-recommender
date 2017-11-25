@@ -4,6 +4,7 @@ const sequelize = require('../modules/database-new/connection').getSequelizeConn
 const Queue = sequelize.define('_jsrs_queues', {
   type: Sequelize.STRING,
   indexId: Sequelize.INTEGER,
+  userId: Sequelize.INTEGER,
   fileId: Sequelize.INTEGER,
   databaseId: Sequelize.INTEGER,
 })

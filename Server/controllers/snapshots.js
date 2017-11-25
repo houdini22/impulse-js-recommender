@@ -1,9 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const bodyParser = require('body-parser')
-const md5 = require('md5')
-const Papa = require('papaparse')
-const fs = require('fs')
 
 const DB = require('../modules/database-new/connection')
 const FileModel = require('../models/file').model
@@ -94,6 +90,7 @@ router.post('/build_index', async (req, res) => {
           new Promise((resolve) => {
             QueueModel.create({
               type: 'BUILD_INDEX',
+              userId: snapshot.get('userId'),
               indexId: snapshot.id,
               fileId: snapshot.get('fileId'),
               status: QueueStatus.status.CREATED,
