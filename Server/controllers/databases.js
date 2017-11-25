@@ -3,9 +3,16 @@ const router = express.Router()
 
 const DB = require('../modules/database-new/connection')
 const DatabaseModel = require('../models/database').model
+const { getUserFromRequest } = require('../helpers')
 
 router.get('/', async (req, res) => {
-  DatabaseModel.findAll().then((databases) => {
+  const user = await getUserFromRequest(req)
+
+  DatabaseModel.findAll({
+    where: {
+      userId: user.id
+    }
+  }).then((databases) => {
     res.json({
       data: databases
     })
@@ -13,15 +20,16 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+  const user = await getUserFromRequest(req)
   const data = req.body
 
   let status = false
   await DB.testConnection(data).then(() => {
     status = true
-  }).catch(() => {
-    status = false
   })
+
   data.status = status ? 'online' : 'offline'
+  data.userId = user.id
 
   DatabaseModel.create(data).then(() => {
     res.json({
@@ -31,6 +39,7 @@ router.post('/', async (req, res) => {
 })
 
 router.put('/', async (req, res) => {
+  const user = await getUserFromRequest(req)
   const data = req.body
 
   let status = false
@@ -39,7 +48,9 @@ router.put('/', async (req, res) => {
   }).catch(() => {
     status = false
   })
+
   data.status = status ? 'online' : 'offline'
+  data.userId = user.id
 
   DatabaseModel.update(data, {
     where: {
@@ -53,7 +64,12 @@ router.put('/', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-  DatabaseModel.findById(req.params.id).then((database) => {
+  const user = await getUserFromRequest(req)
+
+  DatabaseModel.findOne({
+    id: req.params.id,
+    userId: user.id
+  }).then((database) => {
     database.destroy().then(() => {
       res.json({
         status: 'OK'

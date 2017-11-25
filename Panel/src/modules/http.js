@@ -14,4 +14,9 @@ instance.interceptors.response.use(undefined, (error) => {
   return Promise.reject(error)
 })
 
+const setAuthToken = (token) => {
+  instance.defaults.headers.common['X-SESSION-TOKEN'] = token
+}
+
 export default instance
+export { setAuthToken }

@@ -10,6 +10,7 @@ const Database = sequelize.define('_jsrs_databases', {
   password: Sequelize.STRING,
   databaseName: Sequelize.STRING,
   status: Sequelize.STRING,
+  userId: Sequelize.INTEGER,
 })
 
 exports.model = Database

@@ -4,6 +4,8 @@ const sequelize = require('../modules/database-new/connection').getSequelizeConn
 const User = sequelize.define('_jsrs_users', {
   username: Sequelize.STRING,
   password: Sequelize.STRING,
+  token: Sequelize.STRING,
+  lastAction: Sequelize.DATE,
 })
 
 exports.model = User

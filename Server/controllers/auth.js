@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const bodyParser = require('body-parser')
+const md5 = require('md5')
 
 const UserModel = require('../models/user').model
 
@@ -13,10 +13,15 @@ router.post('/login', async (req, res) => {
     }
   }).then((user) => {
     if (user) {
-      res.json({
-        data: {
-          username: user.username
-        }
+      user.update({
+        token: md5((new Date()).getTime() + user.id)
+      }).then(() => {
+        res.json({
+          data: {
+            username: user.username,
+            token: user.token
+          }
+        })
       })
     } else {
       res.status(401)

@@ -1,4 +1,4 @@
-import http from '../modules/http'
+import http, { setAuthToken } from '../modules/http'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -29,6 +29,7 @@ export const login = (username, password) => (dispatch) => {
     password
   }).then((response) => {
     dispatch(loggedIn(response.data.data))
+    setAuthToken(response.data.data.token)
   }).catch(() => {
     dispatch(setLoginError(true))
   })
@@ -36,6 +37,7 @@ export const login = (username, password) => (dispatch) => {
 
 export const logoff = () => (dispatch) => {
   dispatch(loggedOff())
+  setAuthToken('')
 }
 
 export const actions = {

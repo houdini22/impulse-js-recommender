@@ -7,6 +7,7 @@ const SnapshotModel = require('../models/snapshot').model
 const SnapshotStatus = require('../modules/SnapshotStatus')
 const QueueModel = require('../models/queue').model
 const QueueStatus = require('../modules/QueueStatus')
+const { getUserFromRequest } = require('../helpers')
 
 router.get('/get_tables', async (req, res) => {
   DB.getRemoteConnection(req.query.databaseId).then(({ query }) => {
@@ -41,15 +42,18 @@ router.get('/get_rating_fields', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const data = req.body
+  const user = await getUserFromRequest(req)
+
   if (data.fileToken) {
     FileModel.findOne({
       where: {
-        token: data.fileToken
+        token: data.fileToken,
+        userId: user.id,
       }
     }).then((file) => {
       data.fileId = file.id
       data.status = SnapshotStatus.status.CREATED
-      delete data.fileToken
+      data.userId = user.id
       SnapshotModel.create(data).then((snapshot) => {
         res.json({
           status: 'OK'
@@ -68,8 +72,12 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
+  const user = await getUserFromRequest(req)
+
   SnapshotModel.findAll({
-    where: {}
+    where: {
+      userId: user.id
+    }
   }).then((snapshots) => {
     res.json({
       data: snapshots
@@ -78,7 +86,14 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/build_index', async (req, res) => {
-  SnapshotModel.findById(req.body.id).then((snapshot) => {
+  const user = await getUserFromRequest(req)
+
+  SnapshotModel.findOne({
+    where: {
+      id: req.body.id,
+      userId: user.id
+    }
+  }).then((snapshot) => {
     if (snapshot) {
       if (snapshot.get('fileId') && snapshot.get('status') !== SnapshotStatus.status.ADDED_TO_QUEUE) {
         return Promise.all([
