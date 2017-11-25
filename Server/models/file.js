@@ -9,6 +9,8 @@ const File = sequelize.define('_jsrs_files', {
   hasHeaderRow: Sequelize.BOOLEAN,
   userId: Sequelize.INTEGER,
   indexId: Sequelize.INTEGER,
+}, {
+  paranoid: true
 })
 
 exports.model = File

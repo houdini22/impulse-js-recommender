@@ -45,15 +45,15 @@ router.get('/get_rating_fields', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const data = req.body
-  if (data.file_token) {
+  if (data.fileToken) {
     FileModel.findOne({
       where: {
-        token: data.file_token
+        token: data.fileToken
       }
     }).then((file) => {
       data.fileId = file.id
       data.status = SnapshotStatus.status.CREATED
-      delete data.file_token
+      delete data.fileToken
       SnapshotModel.create(data).then((snapshot) => {
         res.json({
           status: 'OK'
@@ -94,6 +94,7 @@ router.post('/build_index', async (req, res) => {
           new Promise((resolve) => {
             QueueModel.create({
               type: 'BUILD_INDEX',
+              indexId: snapshot.id,
               fileId: snapshot.get('fileId'),
               status: QueueStatus.status.CREATED,
             }).then(() => resolve())
@@ -124,52 +125,6 @@ router.delete('/:id', async (req, res) => {
         })
       })
     }
-  })
-})
-
-router.post('/upload', async (req, res) => {
-  const file = req.files.file
-  const fileName = md5(file.name + Math.random() + (new Date()).getTime())
-  const data = req.body
-
-  FileModel.create({
-    name: file.name,
-    fileName: fileName,
-    userId: 1,
-    format: data.format,
-    token: md5(fileName + Math.random() + (new Date()).getTime())
-  }).then((createdFile) => {
-    file.mv(`./../data/files/${fileName}`)
-    res.json({
-      status: 'OK',
-      data: {
-        token: createdFile.get('token'),
-        name: createdFile.get('name'),
-        format: createdFile.get('format')
-      }
-    })
-  })
-})
-
-router.get('/get_file_info', async (req, res) => {
-  FileModel.findOne({
-    where: {
-      token: req.query.token
-    }
-  }).then((file) => {
-    const filePath = `./../data/files/${file.fileName}`
-    const content = fs.readFileSync(filePath, 'utf-8')
-    Papa.parse(content, {
-      complete: function (results) {
-        res.json({
-          status: 'OK',
-          data: {
-            firstRows: results.data.slice(0, 10),
-            fields: results.meta.fields,
-          }
-        })
-      }
-    })
   })
 })
 

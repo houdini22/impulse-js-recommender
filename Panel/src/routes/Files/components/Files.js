@@ -66,7 +66,7 @@ export class FilesView extends React.Component {
                           onYes={() => {
                             deleteFile(file.id)
                           }}
-                          message='Are you sure to delete Database?'
+                          message={'Are you sure to delete this File?'}
                         >
                           <Button
                             size='sm'

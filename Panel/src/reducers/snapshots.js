@@ -103,7 +103,7 @@ export const setUploadedFileInfo = (data) => (dispatch) => {
 }
 
 export const getFileInfo = (token) => (dispatch) => {
-  http.get('/snapshots/get_file_info', {
+  http.get('/files/get_file_info', {
       params: {
         token
       }

@@ -5,7 +5,6 @@ import {
   setCreateModalStep,
   appendNewSnapshotValues,
   getTables,
-  uploadFile,
   setUploadedFile,
 } from '../../../reducers/snapshots'
 import { getDatabases } from '../../../reducers/databases'
@@ -16,14 +15,14 @@ const FORM_NAME = 'index-choose-database-form'
 const validate = (values) => {
   const errors = {}
 
-  if (!values.databaseId && !values.file_token) {
+  if (!values.databaseId && !values.fileToken) {
     errors['databaseId'] = 'Required.'
-    errors['file_token'] = 'Required.'
+    errors['fileToken'] = 'Required.'
   }
 
-  if (values.databaseId && values.file_token) {
+  if (values.databaseId && values.fileToken) {
     errors['databaseId'] = 'Choose database or file.'
-    errors['file_token'] = 'Choose database or file.'
+    errors['fileToken'] = 'Choose database or file.'
   }
 
   return errors
@@ -44,24 +43,23 @@ const _reduxForm = reduxForm({
   validate,
   initialValues: {
     databaseId: '',
-    file_token: '',
+    fileToken: '',
   },
 })(ChooseSourceForm)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const { databaseId, file_token } = selector(state, 'databaseId', 'file_token')
+  const { databaseId, fileToken } = selector(state, 'databaseId', 'fileToken')
   return {
     databaseId,
-    file_token,
+    fileToken,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
     files: { ...state.files },
   }
 }, {
   getDatabases,
-  uploadFile,
   setUploadedFile,
   getFiles,
 })(_reduxForm)

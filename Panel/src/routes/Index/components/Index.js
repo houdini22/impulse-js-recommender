@@ -89,7 +89,7 @@ export class SnapshotsView extends React.Component {
                           onYes={() => {
                             deleteIndex(index.id)
                           }}
-                          message='Are you sure to delete Index?'
+                          message='Are you sure to delete this Index?'
                         >
                           <Button
                             size='sm'

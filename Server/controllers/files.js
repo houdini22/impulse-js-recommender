@@ -45,10 +45,6 @@ router.delete('/:id', async (req, res) => {
       Promise.all([
         new Promise((resolve) => {
           file.destroy().then(() => resolve())
-        }),
-        new Promise((resolve) => {
-          fs.unlinkSync(`./../data/files/${file.fileName}`)
-          resolve()
         })
       ]).then(() => {
         res.json({
@@ -65,19 +61,21 @@ router.get('/get_file_info', async (req, res) => {
       token: req.query.token
     }
   }).then((file) => {
-    const filePath = `./../data/files/${file.fileName}`
-    const content = fs.readFileSync(filePath, 'utf-8')
-    Papa.parse(content, {
-      complete: function (results) {
-        res.json({
-          status: 'OK',
-          data: {
-            firstRows: results.data.slice(0, 10),
-            fields: results.meta.fields,
-          }
-        })
-      }
-    })
+    if (file) {
+      const filePath = `./../data/files/${file.id}_${file.fileName}`
+      const content = fs.readFileSync(filePath, 'utf-8')
+      Papa.parse(content, {
+        complete: function (results) {
+          res.json({
+            status: 'OK',
+            data: {
+              firstRows: results.data.slice(0, 10),
+              fields: results.meta.fields,
+            }
+          })
+        }
+      })
+    }
   })
 })
 
@@ -89,11 +87,11 @@ router.post('/upload', async (req, res) => {
   FileModel.create({
     name: file.name,
     fileName: fileName,
-    userId: 1,
+    user_id: 1,
     format: data.format,
     token: md5(fileName + Math.random() + (new Date()).getTime())
   }).then((createdFile) => {
-    file.mv(`./../data/files/${fileName}`)
+    file.mv(`./../data/files/${createdFile.id}_${fileName}`)
     res.json({
       status: 'OK',
       data: {

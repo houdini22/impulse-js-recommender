@@ -15,7 +15,7 @@ export class ChooseSourceForm extends React.Component {
     getFiles: PropTypes.func.isRequired,
     files: PropTypes.object.isRequired,
     setUploadedFile: PropTypes.func.isRequired,
-    file_token: PropTypes.string.isRequired,
+    fileToken: PropTypes.string.isRequired,
     databaseId: PropTypes.string.isRequired,
   }
 
@@ -31,7 +31,7 @@ export class ChooseSourceForm extends React.Component {
       databases: { databases },
       files: { files },
       handleSubmit,
-      file_token,
+      fileToken,
       databaseId,
     } = this.props
 
@@ -53,7 +53,7 @@ export class ChooseSourceForm extends React.Component {
                         return [database.id, database.name]
                       })
                     }}
-                    disabled={file_token}
+                    disabled={fileToken}
                   />
                 </div>
               )}
@@ -63,7 +63,7 @@ export class ChooseSourceForm extends React.Component {
             <Card>
               <h6 className='text-center'>Create from file</h6>
               <Field
-                name='file_token'
+                name='fileToken'
                 component={Select}
                 type='select'
                 label='Choose file'

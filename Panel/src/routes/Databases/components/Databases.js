@@ -86,7 +86,7 @@ export class SnapshotsView extends React.Component {
                           onYes={() => {
                             deleteDatabase(database.id)
                           }}
-                          message='Are you sure to delete Database?'
+                          message='Are you sure to delete this Database?'
                         >
                           <Button
                             size='sm'
