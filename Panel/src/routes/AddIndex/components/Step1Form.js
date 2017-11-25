@@ -24,7 +24,7 @@ export class SnapshotsView extends React.Component {
         {tables && (
           <form onSubmit={handleSubmit}>
             <Field
-              name='items_table_name'
+              name='itemsTableName'
               component={Select}
               type='select'
               label='Choose your rated items table'
@@ -32,7 +32,7 @@ export class SnapshotsView extends React.Component {
               options={tables}
             />
             <Field
-              name='rated_by_table_name'
+              name='ratedByTableName'
               component={Select}
               type='select'
               label='Choose your rated by items table'
@@ -40,7 +40,7 @@ export class SnapshotsView extends React.Component {
               options={tables}
             />
             <Field
-              name='ratings_table_name'
+              name='ratingsTableName'
               component={Select}
               type='select'
               label='Choose your ratings table'

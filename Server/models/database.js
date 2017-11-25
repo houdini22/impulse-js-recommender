@@ -8,7 +8,7 @@ const Database = sequelize.define('_jsrs_databases', {
   port: Sequelize.INTEGER,
   username: Sequelize.STRING,
   password: Sequelize.STRING,
-  database_name: Sequelize.STRING,
+  databaseName: Sequelize.STRING,
   status: Sequelize.STRING,
 })
 

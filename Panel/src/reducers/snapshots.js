@@ -18,21 +18,21 @@ export const SET_UPLOADED_FILE_INFO = 'snapshots::set_uploaded_file_info'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const getTables = (database_id) => (dispatch) => {
+export const getTables = (databaseId) => (dispatch) => {
   http.get('/snapshots/get_tables', {
     params: {
-      database_id
+      databaseId
     }
   }).then((response) => {
     dispatch({ type: TABLES_FETCHED, payload: response.data.data })
   })
 }
 
-export const getRatingFields = (table_name, database_id) => (dispatch) => {
+export const getRatingFields = (table_name, databaseId) => (dispatch) => {
   http.get('/snapshots/get_rating_fields', {
     params: {
       table_name,
-      database_id,
+      databaseId,
     }
   }).then((response) => {
     dispatch({ type: RATING_FIELDS_FETCHED, payload: response.data.data })
@@ -61,10 +61,10 @@ export const setBuildingInProgress = (value) => (dispatch) => {
   dispatch({ type: BUILDING_IN_PROGRESS, payload: value })
 }
 
-export const buildIndex = (index_id) => (dispatch) => {
+export const buildIndex = (indexId) => (dispatch) => {
   dispatch(setBuildingInProgress(true))
   http.post('/snapshots/build_index', {
-    id: index_id
+    id: indexId
   }).then(() => {
     dispatch(getIndexes())
     dispatch(setBuildingInProgress(false))

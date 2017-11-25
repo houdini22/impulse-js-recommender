@@ -7,9 +7,9 @@ const FORM_NAME = 'index-step-4-form'
 
 const validate = (values) => {
   const requiredFields = [
-    'ratings_field_item_id',
-    'ratings_field_category_id',
-    'ratings_field_value',
+    'ratingsFieldItemId',
+    'ratingsFieldCategoryId',
+    'ratingsFieldValue',
   ]
 
   const errors = {}
@@ -34,9 +34,9 @@ const _reduxForm = reduxForm({
   onSubmit,
   validate,
   initialValues: {
-    ratings_field_item_id: '',
-    ratings_field_category_id: '',
-    ratings_field_value: ''
+    ratingsFieldItemId: '',
+    ratingsFieldCategoryId: '',
+    ratingsFieldValue: ''
   },
 })(Step4Form)
 
@@ -44,14 +44,14 @@ const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
   const {
-    ratings_field_item_id,
-    ratings_field_category_id,
-    ratings_field_value
-  } = selector(state, 'ratings_field_item_id', 'ratings_field_category_id', 'ratings_field_value')
+    ratingsFieldItemId,
+    ratingsFieldCategoryId,
+    ratingsFieldValue
+  } = selector(state, 'ratingsFieldItemId', 'ratingsFieldCategoryId', 'ratingsFieldValue')
   return {
-    ratings_field_item_id,
-    ratings_field_category_id,
-    ratings_field_value,
+    ratingsFieldItemId,
+    ratingsFieldCategoryId,
+    ratingsFieldValue,
     snapshots: { ...state.snapshots }
   }
 }, {

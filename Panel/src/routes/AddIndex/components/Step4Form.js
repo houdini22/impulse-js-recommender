@@ -14,9 +14,9 @@ export class SnapshotsView extends React.Component {
   }
 
   componentWillMount () {
-    const { snapshots: { newSnapshot: { ratings_table_name, database_id } }, getRatingFields } = this.props
+    const { snapshots: { newSnapshot: { ratingsTableName, databaseId } }, getRatingFields } = this.props
 
-    getRatingFields(ratings_table_name, database_id)
+    getRatingFields(ratingsTableName, databaseId)
   }
 
   render () {
@@ -33,7 +33,7 @@ export class SnapshotsView extends React.Component {
             <FormGroup>
               <Label for="field_item_id">Item ID field</Label>
               <Field
-                name='ratings_field_item_id'
+                name='ratingsFieldItemId'
                 component={Select}
                 type='select'
                 placeholder='RATED ITEM column relation'
@@ -43,7 +43,7 @@ export class SnapshotsView extends React.Component {
             <FormGroup>
               <Label for="field_item_id">Rated By ID field</Label>
               <Field
-                name='ratings_field_category_id'
+                name='ratingsFieldCategoryId'
                 component={Select}
                 type='select'
                 placeholder='RATED BY ITEM column relation'
@@ -53,7 +53,7 @@ export class SnapshotsView extends React.Component {
             <FormGroup>
               <Label for="field_item_id">Rating value</Label>
               <Field
-                name='ratings_field_value'
+                name='ratingsFieldValue'
                 component={Select}
                 type='select'
                 placeholder='RATING VALUE column relation'

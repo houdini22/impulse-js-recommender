@@ -14,9 +14,9 @@ export class SetupFile extends React.Component {
     getFileInfo: PropTypes.func.isRequired,
     snapshots: PropTypes.object.isRequired,
     change: PropTypes.func.isRequired,
-    items_column: PropTypes.number,
-    rated_by_column: PropTypes.number,
-    rating_column: PropTypes.number,
+    itemsColumn: PropTypes.number,
+    ratedByColumn: PropTypes.number,
+    ratingColumn: PropTypes.number,
   }
 
   constructor (props) {
@@ -39,9 +39,9 @@ export class SetupFile extends React.Component {
     const {
       handleSubmit,
       change,
-      items_column,
-      rated_by_column,
-      rating_column,
+      itemsColumn,
+      ratedByColumn,
+      ratingColumn,
       snapshots: { uploadedFileInfo }
     } = this.props
 
@@ -58,12 +58,12 @@ export class SetupFile extends React.Component {
             <div>
               <Alert
                 styleName='error-alert'
-                color={(items_column === -1 || rated_by_column === -1 || rating_column === -1) ? 'danger' : 'success'}
+                color={(itemsColumn === -1 || ratedByColumn === -1 || ratingColumn === -1) ? 'danger' : 'success'}
               >
-                {(items_column === -1 || rated_by_column === -1 || rating_column === -1) && (
+                {(itemsColumn === -1 || ratedByColumn === -1 || ratingColumn === -1) && (
                   <ExclamationIcon/>
                 )}
-                {(items_column !== -1 && rated_by_column !== -1 && rating_column !== -1) && (
+                {(itemsColumn !== -1 && ratedByColumn !== -1 && ratingColumn !== -1) && (
                   <CheckIcon/>
                 )}
                 Mark all columns.
@@ -83,42 +83,42 @@ export class SetupFile extends React.Component {
                               <Button
                                 size='xs'
                                 onClick={() => {
-                                  if (items_column === i) {
-                                    change('items_column', -1)
+                                  if (itemsColumn === i) {
+                                    change('itemsColumn', -1)
                                   } else {
-                                    change('items_column', i)
+                                    change('itemsColumn', i)
                                   }
                                 }}
-                                disabled={(items_column >= 0 && items_column !== i) || rated_by_column === i || rating_column === i}
-                                color={items_column === i ? 'success' : 'secondary'}
+                                disabled={(itemsColumn >= 0 && itemsColumn !== i) || ratedByColumn === i || ratingColumn === i}
+                                color={itemsColumn === i ? 'success' : 'secondary'}
                               >
                                 Items
                               </Button>{' '}
                               <Button
                                 size='xs'
                                 onClick={() => {
-                                  if (rated_by_column === i) {
-                                    change('rated_by_column', -1)
+                                  if (ratedByColumn === i) {
+                                    change('ratedByColumn', -1)
                                   } else {
-                                    change('rated_by_column', i)
+                                    change('ratedByColumn', i)
                                   }
                                 }}
-                                disabled={(rated_by_column >= 0 && rated_by_column !== i) || items_column === i || rating_column === i}
-                                color={rated_by_column === i ? 'success' : 'secondary'}
+                                disabled={(ratedByColumn >= 0 && ratedByColumn !== i) || itemsColumn === i || ratingColumn === i}
+                                color={ratedByColumn === i ? 'success' : 'secondary'}
                               >
                                 Rated by
                               </Button>{' '}
                               <Button
                                 size='xs'
                                 onClick={() => {
-                                  if (rating_column === i) {
-                                    change('rating_column', -1)
+                                  if (ratingColumn === i) {
+                                    change('ratingColumn', -1)
                                   } else {
-                                    change('rating_column', i)
+                                    change('ratingColumn', i)
                                   }
                                 }}
-                                disabled={(rating_column >= 0 && rating_column !== i) || items_column === i || rated_by_column === i}
-                                color={rating_column === i ? 'success' : 'secondary'}
+                                disabled={(ratingColumn >= 0 && ratingColumn !== i) || itemsColumn === i || ratedByColumn === i}
+                                color={ratingColumn === i ? 'success' : 'secondary'}
                               >Rating</Button>
                             </ButtonGroup>
                           </th>
@@ -150,17 +150,17 @@ export class SetupFile extends React.Component {
                 </div>
               </div>
               <Field
-                name='items_column'
+                name='itemsColumn'
                 component='input'
                 type='hidden'
               />
               <Field
-                name='rated_by_column'
+                name='ratedByColumn'
                 component='input'
                 type='hidden'
               />
               <Field
-                name='rating_column'
+                name='ratingColumn'
                 component='input'
                 type='hidden'
               />

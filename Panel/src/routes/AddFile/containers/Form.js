@@ -31,7 +31,7 @@ const onSubmit = (values, dispatch, props) => {
   dispatch(updateFile({
     token: uploadedFile.token,
     name: values.name,
-    has_header_row: values.has_header_row,
+    hasHeaderRow: values.hasHeaderRow,
   }))
   dispatch(getFiles())
   browserHistory.push('/app/file')
@@ -44,18 +44,18 @@ const _reduxForm = reduxForm({
   initialValues: {
     name: '',
     format: '',
-    has_header_row: 0
+    hasHeaderRow: 0
   },
 })(Form)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const { name, format, has_header_row } = selector(state, 'name', 'format', 'has_header_row')
+  const { name, format, hasHeaderRow } = selector(state, 'name', 'format', 'hasHeaderRow')
   return {
     name,
     format,
-    has_header_row,
+    hasHeaderRow,
     files: { ...state.files },
   }
 }, {

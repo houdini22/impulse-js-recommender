@@ -62,10 +62,10 @@ const getRemoteConnection = (databaseId) => {
         if (results[0]) {
           const config = results[0]
 
-          config.database = config.database_name
+          config.database = config.databaseName
           config.user = config.username
 
-          delete config.database_name
+          delete config.databaseName
           delete config.username
 
           const connection = createConnection(config)
@@ -119,7 +119,7 @@ exports.getSequelizeConnection = getSequelizeConnection
 
 const testConnection = (params) => {
   return new Promise((resolve, reject) => {
-    const sequelize = new Sequelize(params.database_name, params.username, params.password, {
+    const sequelize = new Sequelize(params.databaseName, params.username, params.password, {
       host: params.host,
       dialect: params.type,
       port: params.port

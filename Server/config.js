@@ -14,7 +14,7 @@ exports.config = {
       tableName: 'ratings',
       valueColumn: 'rating',
       ratedItemColumn: 'movie_id',
-      rateByColumn: 'user_id'
+      rateByColumn: 'userId'
     },
     ratedBy: {
       tableName: 'users',

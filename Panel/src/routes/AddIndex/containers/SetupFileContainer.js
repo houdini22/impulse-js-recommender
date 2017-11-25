@@ -12,9 +12,9 @@ const FORM_NAME = 'setup-file-form'
 
 const validate = (values) => {
   const requiredFields = [
-    'items_column',
-    'rated_by_column',
-    'rating_column',
+    'itemsColumn',
+    'ratedByColumn',
+    'ratingColumn',
   ]
 
   const errors = {}
@@ -48,21 +48,21 @@ const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
   const {
-    items_column,
-    rated_by_column,
-    rating_column,
+    itemsColumn,
+    ratedByColumn,
+    ratingColumn,
     name,
-  } = selector(state, 'items_column', 'rated_by_column', 'rating_column', 'name')
+  } = selector(state, 'itemsColumn', 'ratedByColumn', 'ratingColumn', 'name')
   return {
-    items_column,
-    rated_by_column,
-    rating_column,
+    itemsColumn,
+    ratedByColumn,
+    ratingColumn,
     name,
     initialValues: {
       name: '',
-      items_column: -1,
-      rated_by_column: -1,
-      rating_column: -1,
+      itemsColumn: -1,
+      ratedByColumn: -1,
+      ratingColumn: -1,
     },
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },

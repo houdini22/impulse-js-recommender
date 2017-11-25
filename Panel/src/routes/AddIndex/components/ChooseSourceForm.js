@@ -16,7 +16,7 @@ export class ChooseSourceForm extends React.Component {
     files: PropTypes.object.isRequired,
     setUploadedFile: PropTypes.func.isRequired,
     file_token: PropTypes.string.isRequired,
-    database_id: PropTypes.string.isRequired,
+    databaseId: PropTypes.string.isRequired,
   }
 
   componentDidMount () {
@@ -32,7 +32,7 @@ export class ChooseSourceForm extends React.Component {
       files: { files },
       handleSubmit,
       file_token,
-      database_id,
+      databaseId,
     } = this.props
 
     return (
@@ -44,7 +44,7 @@ export class ChooseSourceForm extends React.Component {
               {databases && (
                 <div>
                   <Field
-                    name='database_id'
+                    name='databaseId'
                     component={Select}
                     type='select'
                     label='Choose database'
@@ -72,7 +72,7 @@ export class ChooseSourceForm extends React.Component {
                     return [file.token, file.name]
                   })
                 }}
-                disabled={database_id}
+                disabled={databaseId}
               />
             </Card>
           </Col>

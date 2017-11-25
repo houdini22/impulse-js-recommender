@@ -140,7 +140,7 @@ export class Form extends React.Component {
           <Fieldset title='File properties'>
             <div>
               <Field
-                name='has_header_row'
+                name='hasHeaderRow'
                 component={Checkbox}
                 type='checkbox'
                 label='File contains header row?'

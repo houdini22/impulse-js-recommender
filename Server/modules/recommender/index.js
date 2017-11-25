@@ -21,7 +21,7 @@ const buildDatabase = async (config = { numOfFeatures: 2 }) => {
     ratedByItems.forEach((ratedByItem) => {
       let rating = ratings.filter((rating) => {
         if (rating.movie_id === ratedItem.id &&
-          rating.user_id === ratedByItem.id) {
+          rating.userId === ratedByItem.id) {
           return true
         }
         return false

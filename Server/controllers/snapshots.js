@@ -13,7 +13,7 @@ const QueueModel = require('../models/queue').model
 const QueueStatus = require('../modules/QueueStatus')
 
 router.get('/get_tables', async (req, res) => {
-  DB.getRemoteConnection(req.query.database_id).then(({ query }) => {
+  DB.getRemoteConnection(req.query.databaseId).then(({ query }) => {
     query('SHOW TABLES').then((result) => {
       const tables = []
       result.forEach((row) => {
@@ -30,7 +30,7 @@ router.get('/get_tables', async (req, res) => {
 })
 
 router.get('/get_rating_fields', async (req, res) => {
-  DB.getRemoteConnection(req.query.database_id).then(({ query }) => {
+  DB.getRemoteConnection(req.query.databaseId).then(({ query }) => {
     query(`SHOW COLUMNS FROM ${req.query.table_name}`).then((result) => {
       const fields = []
       result.forEach((row) => {
@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
         token: data.file_token
       }
     }).then((file) => {
-      data.file_id = file.id
+      data.fileId = file.id
       data.status = SnapshotStatus.status.CREATED
       delete data.file_token
       SnapshotModel.create(data).then((snapshot) => {
@@ -61,8 +61,8 @@ router.post('/', async (req, res) => {
       })
     })
   } else {
-    data.items_field_pk = 'id'
-    data.rated_by_field_pk = 'id'
+    data.itemsFieldPk = 'id'
+    data.ratedByFieldPk = 'id'
     SnapshotModel.create(data).then(() => {
       res.json({
         status: 'OK'
@@ -84,7 +84,7 @@ router.get('/', async (req, res) => {
 router.post('/build_index', async (req, res) => {
   SnapshotModel.findById(req.body.id).then((snapshot) => {
     if (snapshot) {
-      if (snapshot.get('file_id') && snapshot.get('status') !== SnapshotStatus.status.ADDED_TO_QUEUE) {
+      if (snapshot.get('fileId') && snapshot.get('status') !== SnapshotStatus.status.ADDED_TO_QUEUE) {
         return Promise.all([
           new Promise((resolve) => {
             snapshot.update({
@@ -94,7 +94,7 @@ router.post('/build_index', async (req, res) => {
           new Promise((resolve) => {
             QueueModel.create({
               type: 'BUILD_INDEX',
-              file_id: snapshot.get('file_id'),
+              fileId: snapshot.get('fileId'),
               status: QueueStatus.status.CREATED,
             }).then(() => resolve())
           })
@@ -134,8 +134,8 @@ router.post('/upload', async (req, res) => {
 
   FileModel.create({
     name: file.name,
-    file_name: fileName,
-    user_id: 1,
+    fileName: fileName,
+    userId: 1,
     format: data.format,
     token: md5(fileName + Math.random() + (new Date()).getTime())
   }).then((createdFile) => {
@@ -157,7 +157,7 @@ router.get('/get_file_info', async (req, res) => {
       token: req.query.token
     }
   }).then((file) => {
-    const filePath = `./../data/files/${file.file_name}`
+    const filePath = `./../data/files/${file.fileName}`
     const content = fs.readFileSync(filePath, 'utf-8')
     Papa.parse(content, {
       complete: function (results) {

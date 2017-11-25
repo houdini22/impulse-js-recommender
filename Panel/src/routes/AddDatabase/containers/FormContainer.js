@@ -16,7 +16,7 @@ const validate = (values) => {
     'port',
     'username',
     'password',
-    'database_name',
+    'databaseName',
     'type',
   ]
 
@@ -56,16 +56,16 @@ export default connect(state => {
     port,
     username,
     password,
-    database_name,
+    databaseName,
     type,
-  } = selector(state, 'name', 'host', 'port', 'username', 'password', 'database_name', 'type')
+  } = selector(state, 'name', 'host', 'port', 'username', 'password', 'databaseName', 'type')
   return {
     name,
     host,
     port,
     username,
     password,
-    database_name,
+    databaseName,
     type,
     databases: { ...state.databases },
   }

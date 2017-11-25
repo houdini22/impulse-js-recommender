@@ -3,12 +3,12 @@ const sequelize = require('../modules/database-new/connection').getSequelizeConn
 
 const File = sequelize.define('_jsrs_files', {
   name: Sequelize.STRING,
-  file_name: Sequelize.STRING,
+  fileName: Sequelize.STRING,
   format: Sequelize.STRING,
   token: Sequelize.STRING,
-  has_header_row: Sequelize.BOOLEAN,
-  user_id: Sequelize.INTEGER,
-  index_id: Sequelize.INTEGER,
+  hasHeaderRow: Sequelize.BOOLEAN,
+  userId: Sequelize.INTEGER,
+  indexId: Sequelize.INTEGER,
 })
 
 exports.model = File

@@ -11,6 +11,7 @@ instance.interceptors.response.use(undefined, (error) => {
   if (error.message === 'Network Error') {
     store.dispatch(setConnectionErrorModalVisible(true))
   }
+  return Promise.reject(error)
 })
 
 export default instance

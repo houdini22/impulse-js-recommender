@@ -16,13 +16,13 @@ const FORM_NAME = 'index-choose-database-form'
 const validate = (values) => {
   const errors = {}
 
-  if (!values.database_id && !values.file_token) {
-    errors['database_id'] = 'Required.'
+  if (!values.databaseId && !values.file_token) {
+    errors['databaseId'] = 'Required.'
     errors['file_token'] = 'Required.'
   }
 
-  if (values.database_id && values.file_token) {
-    errors['database_id'] = 'Choose database or file.'
+  if (values.databaseId && values.file_token) {
+    errors['databaseId'] = 'Choose database or file.'
     errors['file_token'] = 'Choose database or file.'
   }
 
@@ -32,8 +32,8 @@ const validate = (values) => {
 const onSubmit = (values, dispatch, props) => {
   const { snapshots: { createModalStep } } = props
   dispatch(appendNewSnapshotValues(values))
-  if (values.database_id) {
-    dispatch(getTables(values.database_id))
+  if (values.databaseId) {
+    dispatch(getTables(values.databaseId))
   }
   dispatch(setCreateModalStep(createModalStep + 1))
 }
@@ -43,7 +43,7 @@ const _reduxForm = reduxForm({
   onSubmit,
   validate,
   initialValues: {
-    database_id: '',
+    databaseId: '',
     file_token: '',
   },
 })(ChooseSourceForm)
@@ -51,9 +51,9 @@ const _reduxForm = reduxForm({
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const { database_id, file_token } = selector(state, 'database_id', 'file_token')
+  const { databaseId, file_token } = selector(state, 'databaseId', 'file_token')
   return {
-    database_id,
+    databaseId,
     file_token,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },

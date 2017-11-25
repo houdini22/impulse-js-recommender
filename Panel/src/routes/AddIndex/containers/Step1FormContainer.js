@@ -7,9 +7,9 @@ const FORM_NAME = 'index-step-1-form'
 
 const validate = (values) => {
   const requiredFields = [
-    'items_table_name',
-    'rated_by_table_name',
-    'ratings_table_name',
+    'itemsTableName',
+    'ratedByTableName',
+    'ratingsTableName',
   ]
 
   const errors = {}
@@ -34,9 +34,9 @@ const _reduxForm = reduxForm({
   onSubmit,
   validate,
   initialValues: {
-    items_table_name: '',
-    rated_by_table_name: '',
-    ratings_table_name: '',
+    itemsTableName: '',
+    ratedByTableName: '',
+    ratingsTableName: '',
   },
 })(Step1Form)
 
@@ -44,14 +44,14 @@ const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
   const {
-    items_table_name,
-    rated_by_table_name,
-    ratings_table_name,
-  } = selector(state, 'items_table_name', 'rated_by_table_name', 'ratings_table_name')
+    itemsTableName,
+    ratedByTableName,
+    ratingsTableName,
+  } = selector(state, 'itemsTableName', 'ratedByTableName', 'ratingsTableName')
   return {
-    items_table_name,
-    rated_by_table_name,
-    ratings_table_name,
+    itemsTableName,
+    ratedByTableName,
+    ratingsTableName,
     snapshots: { ...state.snapshots }
   }
 }, {

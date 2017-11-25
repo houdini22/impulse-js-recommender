@@ -3,8 +3,8 @@ const sequelize = require('../modules/database-new/connection').getSequelizeConn
 
 const Queue = sequelize.define('_jsrs_queues', {
   type: Sequelize.STRING,
-  file_id: Sequelize.INTEGER,
-  database_id: Sequelize.INTEGER,
+  fileId: Sequelize.INTEGER,
+  databaseId: Sequelize.INTEGER,
 })
 
 exports.model = Queue

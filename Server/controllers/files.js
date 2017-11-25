@@ -47,7 +47,7 @@ router.delete('/:id', async (req, res) => {
           file.destroy().then(() => resolve())
         }),
         new Promise((resolve) => {
-          fs.unlinkSync(`./../data/files/${file.file_name}`)
+          fs.unlinkSync(`./../data/files/${file.fileName}`)
           resolve()
         })
       ]).then(() => {
@@ -65,7 +65,7 @@ router.get('/get_file_info', async (req, res) => {
       token: req.query.token
     }
   }).then((file) => {
-    const filePath = `./../data/files/${file.file_name}`
+    const filePath = `./../data/files/${file.fileName}`
     const content = fs.readFileSync(filePath, 'utf-8')
     Papa.parse(content, {
       complete: function (results) {
@@ -88,8 +88,8 @@ router.post('/upload', async (req, res) => {
 
   FileModel.create({
     name: file.name,
-    file_name: fileName,
-    user_id: 1,
+    fileName: fileName,
+    userId: 1,
     format: data.format,
     token: md5(fileName + Math.random() + (new Date()).getTime())
   }).then((createdFile) => {

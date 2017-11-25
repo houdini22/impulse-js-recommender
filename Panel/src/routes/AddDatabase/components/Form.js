@@ -24,7 +24,7 @@ export class SnapshotsView extends React.Component {
     this.values = {
       host: '',
       type: '',
-      database_name: '',
+      databaseName: '',
       port: '',
     }
   }
@@ -45,8 +45,8 @@ export class SnapshotsView extends React.Component {
 
   fillName () {
     const { change } = this.props
-    const { host, database_name, port } = this.values
-    change('name', `${host}:${port}@${database_name}`)
+    const { host, databaseName, port } = this.values
+    change('name', `${host}:${port}@${databaseName}`)
   }
 
   resetStatus () {
@@ -64,10 +64,10 @@ export class SnapshotsView extends React.Component {
       databases: { connectionStatus: { status, message } },
       handleSubmit,
       dispatch,
-      type, host, port, username, password, database_name,
+      type, host, port, username, password, databaseName,
     } = this.props
 
-    const testDisabled = (!type || !host || !port || !username || !password || !database_name)
+    const testDisabled = (!type || !host || !port || !username || !password || !databaseName)
 
     return (
       <div>
@@ -137,13 +137,13 @@ export class SnapshotsView extends React.Component {
               }}
             />
             <Field
-              name='database_name'
+              name='databaseName'
               component={TextField}
               type='text'
               placeholder='Database Name'
               label='Database Name'
               onChange={(event, value) => {
-                this.values.database_name = value
+                this.values.databaseName = value
                 this.fillName()
                 this.resetStatus()
               }}
@@ -160,7 +160,7 @@ export class SnapshotsView extends React.Component {
                       port: this.props.port,
                       username: this.props.username,
                       password: this.props.password,
-                      database_name: this.props.database_name
+                      databaseName: this.props.databaseName
                     }))
                   }
                 }}
