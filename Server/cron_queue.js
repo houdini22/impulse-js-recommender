@@ -6,6 +6,8 @@ const intervalTime = 20000
 const QueueModel = require('./models/queue').model
 const SnapshotModel = require('./models/snapshot').model
 const FileModel = require('./models/file').model
+const UserModel = require('./models/user').model
+
 const command = require('./modules/command')
 
 const run = () => {
@@ -23,6 +25,8 @@ const run = () => {
           model: SnapshotModel,
         }, {
           model: FileModel
+        }, {
+          model: UserModel
         }],
         order: [['id', 'ASC']],
         limit: queueRunningLength - count

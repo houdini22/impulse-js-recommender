@@ -3,6 +3,7 @@ const sequelize = require('../modules/database-new/connection').getSequelizeConn
 
 const SnapshotModel = require('./snapshot').model
 const FileModel = require('./file').model
+const UserModel = require('./user').model
 
 const Queue = sequelize.define('queue', {
   type: Sequelize.STRING,
@@ -15,6 +16,7 @@ const Queue = sequelize.define('queue', {
 
 Queue.belongsTo(SnapshotModel)
 Queue.belongsTo(FileModel)
+Queue.belongsTo(UserModel)
 
 exports.model = Queue
 exports.sequelize = sequelize

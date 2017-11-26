@@ -31,14 +31,20 @@ app.use('/api/v1/auth', AuthController.router)
 const FilesController = require('./controllers/files')
 app.use('/api/v1/files', FilesController.router)
 
+const QueueController = require('./controllers/queue')
+app.use('/api/v1/queue', QueueController.router)
+
 const server = {
   instance: null
 }
+
+const socket = require('./modules/socket')
 
 const start = () => {
   server.instance = app.listen(port, function () {
     console.log('Express server listening on port ' + port)
   })
+  socket.startServer()
 }
 
 exports.start = start

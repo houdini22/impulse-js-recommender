@@ -1,4 +1,5 @@
 import http, { setAuthToken } from '../modules/http'
+import { connect } from './socket'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -30,6 +31,7 @@ export const login = (username, password) => (dispatch) => {
   }).then((response) => {
     dispatch(loggedIn(response.data.data))
     setAuthToken(response.data.data.token)
+    dispatch(connect(response.data.data.token))
   }).catch(() => {
     dispatch(setLoginError(true))
   })

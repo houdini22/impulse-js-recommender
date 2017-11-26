@@ -1,8 +1,21 @@
 import io from 'socket.io-client'
-import config from '../config'
 
-const socket = io(config.socket.address, {
-  autoConnect: false
-})
+let socket = null
 
-export default socket
+const connect = (token) => {
+  socket = io('http://localhost:5000/', {
+    query: {
+      token,
+    }
+  })
+  socket.connect()
+}
+
+const getSocket = () => {
+  return socket
+}
+
+export {
+  connect,
+  getSocket,
+}

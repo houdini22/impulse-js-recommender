@@ -23,6 +23,7 @@ import AddDatabaseContainer from './routes/AddDatabase'
 import AddIndexContainer from './routes/AddIndex'
 import FilesContainer from './routes/Files'
 import AddFileContainer from './routes/AddFile'
+import QueueContainer from './routes/Queue'
 
 const baseHistory = browserHistory
 const routingMiddleware = routerMiddleware(baseHistory)
@@ -53,6 +54,7 @@ ReactDOM.render(
           <Route path='database/edit/:id' component={userIsAuthenticated(AddDatabaseContainer)}/>
           <Route path='file' component={userIsAuthenticated(FilesContainer)}/>
           <Route path='file/add' component={userIsAuthenticated(AddFileContainer)}/>
+          <Route path='queue' component={userIsAuthenticated(QueueContainer)}/>
         </Route>
         <Route path='/' component={LoginLayout}>
           <IndexRoute component={LoginContainer}/>

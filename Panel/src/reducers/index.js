@@ -3,6 +3,7 @@ import snapshots from './snapshots'
 import databases from './databases'
 import files from './files'
 import common from './common'
+import queue from './queue'
 
 export {
   auth,
@@ -10,4 +11,5 @@ export {
   databases,
   files,
   common,
+  queue,
 }
