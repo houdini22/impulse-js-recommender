@@ -4,6 +4,7 @@ import databases from './databases'
 import files from './files'
 import common from './common'
 import queue from './queue'
+import notifications from './notifications'
 
 export {
   auth,
@@ -12,4 +13,5 @@ export {
   files,
   common,
   queue,
+  notifications,
 }

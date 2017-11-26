@@ -34,6 +34,9 @@ app.use('/api/v1/files', FilesController.router)
 const QueueController = require('./controllers/queue')
 app.use('/api/v1/queue', QueueController.router)
 
+const NotificationsController = require('./controllers/notifications')
+app.use('/api/v1/notifications', NotificationsController.router)
+
 const server = {
   instance: null
 }

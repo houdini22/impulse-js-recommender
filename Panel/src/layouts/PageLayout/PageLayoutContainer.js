@@ -11,6 +11,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) => ({
   auth: { ...(state.auth) },
   common: { ...(state.common) },
+  notifications: { ...(state.notifications) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageLayout)

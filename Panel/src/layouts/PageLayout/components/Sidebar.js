@@ -2,9 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import UserIcon from 'react-icons/lib/fa/user'
+import NotificationsIcon from 'react-icons/lib/md/notifications'
+import QueueEndedIcon from 'react-icons/lib/fa/calendar-check-o'
+import ExclamationIcon from 'react-icons/lib/fa/exclamation'
+import ClockIcon from 'react-icons/lib/fa/clock-o'
 import classNames from 'classnames'
-import { Button } from 'reactstrap'
+import { Button, Badge } from 'reactstrap'
 import { Link } from 'react-router'
+import { SidebarTabIcon } from './'
 import styles from './Sidebar.module.scss'
 
 class Sidebar extends React.Component {
@@ -22,7 +27,7 @@ class Sidebar extends React.Component {
   }
 
   render () {
-    const { children, onClickLogout } = this.props
+    const { children, onClickLogout, notifications: { notifications, read } } = this.props
     const { activeTab } = this.state
 
     return (
@@ -31,14 +36,32 @@ class Sidebar extends React.Component {
         <div className={classNames({ [styles['sidebar-tabs']]: true, [styles['is-tab-active']]: activeTab !== '' })}>
           <div styleName='tabs'>
             <ul>
-              <li onClick={() => {
-                if (activeTab === 'user') {
-                  this.switchTab('')
-                } else {
-                  this.switchTab('user')
-                }
-              }}>
+              <li
+                className={classNames({ [styles['sidebar-tab-active']]: activeTab === 'user' })}
+                onClick={() => {
+                  if (activeTab === 'user') {
+                    this.switchTab('')
+                  } else {
+                    this.switchTab('user')
+                  }
+                }}>
                 <UserIcon/>
+              </li>
+              <li
+                className={classNames({ [styles['sidebar-tab-active']]: activeTab === 'notifications' })}
+                onClick={() => {
+                  if (activeTab === 'notifications') {
+                    this.switchTab('')
+                  } else {
+                    this.switchTab('notifications')
+                  }
+                }}>
+                <NotificationsIcon/>
+                {!read && (
+                  <span styleName='tab-badge'>
+                    <ExclamationIcon/>
+                  </span>
+                )}
               </li>
             </ul>
           </div>
@@ -55,6 +78,41 @@ class Sidebar extends React.Component {
                 </div>
               </div>
             )}
+            {activeTab === 'notifications' && (
+              <div>
+                <div>
+                  <SidebarTabIcon
+                    icon={<QueueEndedIcon/>}
+                    iconCount={notifications.finished.value}
+                    iconCountColor='success'
+                  >
+                    finished tasks
+                  </SidebarTabIcon>
+                  <SidebarTabIcon
+                    icon={<ClockIcon/>}
+                    iconCount={notifications.running.value + notifications.awaiting.value}
+                    iconCountColor='warning'
+                  >
+                    awaiting tasks
+                  </SidebarTabIcon>
+                  <SidebarTabIcon
+                    icon={<ClockIcon/>}
+                    iconCount={notifications.running.value}
+                    iconCountColor='warning'
+                  >
+                    running tasks
+                  </SidebarTabIcon>
+                </div>
+                <div styleName='buttons-container'>
+                  <span>
+                    <Button size='sm'>Mark as read</Button>
+                  </span>
+                  <Link to='/app/notifications'>
+                    <Button size='sm'>All</Button>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -64,7 +122,8 @@ class Sidebar extends React.Component {
 
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
-  onClickLogout: PropTypes.func.isRequired
+  onClickLogout: PropTypes.func.isRequired,
+  notifications: PropTypes.object.isRequired,
 }
 
 export default CSSModules(Sidebar, styles)

@@ -29,13 +29,14 @@ class PageLayout extends React.Component {
   }
 
   render () {
-    const { children, logoff, common } = this.props
+    const { children, logoff, common, notifications } = this.props
     return (
       <div styleName='layout'>
         <Sidebar
           onClickLogout={() => {
             logoff()
           }}
+          notifications={notifications}
         >
           <SidebarHeader
             brand='Impulse-ML'

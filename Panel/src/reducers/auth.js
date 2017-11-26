@@ -1,5 +1,6 @@
 import http, { setAuthToken } from '../modules/http'
 import { connect } from './socket'
+import { setNotifications} from './notifications'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -29,9 +30,10 @@ export const login = (username, password) => (dispatch) => {
     username,
     password
   }).then((response) => {
-    dispatch(loggedIn(response.data.data))
-    setAuthToken(response.data.data.token)
-    dispatch(connect(response.data.data.token))
+    dispatch(loggedIn(response.data.data.user))
+    setAuthToken(response.data.data.user.token)
+    dispatch(connect(response.data.data.user.token))
+    dispatch(setNotifications(response.data.data.notifications))
   }).catch(() => {
     dispatch(setLoginError(true))
   })

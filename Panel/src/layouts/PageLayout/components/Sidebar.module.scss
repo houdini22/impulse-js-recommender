@@ -31,17 +31,20 @@
       display: inline-block;
       color: #fff;
       cursor: pointer;
+      border-right: 1px solid $sidebarBackgroundColor;
+      position: relative;
     }
   }
 }
 
 .tab-content-container {
-  background: $logoBackgroundColor;
+  background: lighten($logoBackgroundColor, 20);
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -$sidebarWidthDesktop;
-  height: $sidebarWidthDesktop;
+  bottom: -260px;
+  height: 260px;
+  padding: 10px;
 }
 
 .buttons-container {
@@ -63,5 +66,17 @@
 }
 
 .is-tab-active {
-  bottom: $sidebarWidthDesktop;
+  bottom: 260px;
+}
+
+.sidebar-tab-active {
+  background-color: lighten($logoBackgroundColor, 20) !important;
+}
+
+.tab-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 13px;
+  color: $color4;
 }

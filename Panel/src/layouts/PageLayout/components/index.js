@@ -9,6 +9,7 @@ import NavigationHeader from './NavigationHeader'
 import HeaderMenu from './HeaderMenu'
 import HeaderMenuItem from './HeaderMenuItem'
 import HeaderBar from './HeaderBar'
+import SidebarTabIcon from './SidebarTabIcon'
 
 export {
   Sidebar,
@@ -22,4 +23,5 @@ export {
   HeaderMenu,
   HeaderMenuItem,
   HeaderBar,
+  SidebarTabIcon,
 }
