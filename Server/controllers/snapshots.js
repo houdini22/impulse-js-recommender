@@ -106,7 +106,7 @@ router.post('/build_index', async (req, res) => {
             QueueModel.create({
               type: 'BUILD_INDEX',
               userId: snapshot.get('userId'),
-              indexId: snapshot.id,
+              snapshotId: snapshot.id,
               fileId: snapshot.get('fileId'),
               status: QueueStatus.status.CREATED,
             }).then(() => resolve())

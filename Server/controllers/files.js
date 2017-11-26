@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const user = await getUserFromRequest(req)
-  
+
   FileModel.findOne({
     where: {
       id: req.params.id,
@@ -57,6 +57,29 @@ router.delete('/:id', async (req, res) => {
     return res.json({
       status: 'ERR'
     })
+  })
+})
+
+router.put('/', async (req, res) => {
+  const user = await getUserFromRequest(req)
+
+  FileModel.findOne({
+    where: {
+      token: req.body.token,
+      userId: user.id
+    }
+  }).then((file) => {
+    if (file) {
+      return Promise.all([
+        new Promise((resolve) => {
+          file.update(req.body).then(() => resolve())
+        })
+      ]).then(() => {
+        res.json({
+          status: 'OK'
+        })
+      })
+    }
   })
 })
 
