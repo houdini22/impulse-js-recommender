@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../modules/database-new/connection').getSequelizeConnection()
 
-const Snapshot = sequelize.define('_jsrs_snapshots', {
+const Snapshot = sequelize.define('snapshot', {
   name: Sequelize.STRING,
   itemsTableName: Sequelize.STRING,
   itemsFieldPk: Sequelize.STRING,
@@ -14,12 +14,18 @@ const Snapshot = sequelize.define('_jsrs_snapshots', {
   itemsColumn: Sequelize.INTEGER,
   ratedByColumn: Sequelize.INTEGER,
   ratingColumn: Sequelize.INTEGER,
-  status: Sequelize.STRING,
+  status: Sequelize.ENUM('CREATED', 'ADDED_TO_QUEUE', 'PARSED', 'RUNNING'),
   isBuilt: Sequelize.BOOLEAN,
   isTrained: Sequelize.BOOLEAN,
   databaseId: Sequelize.INTEGER,
   userId: Sequelize.INTEGER,
   fileId: Sequelize.INTEGER,
+  indexDataPath: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return `${__dirname}/../../data/snapshots/${this.id}/`
+    },
+  },
 })
 
 exports.model = Snapshot

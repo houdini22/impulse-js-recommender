@@ -3,5 +3,5 @@ node_modules/
 Panel/node_modules/
 data
 !data/files/.gitkeep
-!data/snapshots/statuses/.gitkeep
+!data/snapshots/.gitkeep
 bin/logs/
