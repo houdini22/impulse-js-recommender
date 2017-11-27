@@ -5,13 +5,13 @@ const QueueModel = require('../models/queue').model
 const { getUserFromRequest } = require('../helpers')
 
 router.get('/', async (req, res) => {
-  //const user = await getUserFromRequest(req)
+  const user = await getUserFromRequest(req)
 
   Promise.all([
     new Promise((resolve) => {
       QueueModel.findAll({
         where: {
-          userId: 1,
+          userId: user.id,
           notificationIsRead: false,
           status: 'CREATED'
         }
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     new Promise((resolve) => {
       QueueModel.findAll({
         where: {
-          userId: 1,
+          userId: user.id,
           notificationIsRead: false,
           status: 'RUNNING'
         }
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
     new Promise((resolve) => {
       QueueModel.findAll({
         where: {
-          userId: 1,
+          userId: user.id,
           notificationIsRead: false,
           status: 'ENDED'
         }

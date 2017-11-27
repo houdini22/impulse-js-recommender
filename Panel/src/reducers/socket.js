@@ -1,4 +1,5 @@
 import { connect as connectSocket, getSocket } from '../modules/socket'
+import { setNotifications } from './notifications'
 
 // ------------------------------------
 // Constants
@@ -25,12 +26,16 @@ export const connect = (token) => async (dispatch, getState) => {
 
   socket.off('connect')
   socket.off('disconnect')
+  socket.off('notifications')
 
   socket.on('connect', () => {
     dispatch(connected())
   })
   socket.on('disconnect', () => {
     dispatch(disconnected())
+  })
+  socket.on('notifications', (data) => {
+    dispatch(setNotifications(data))
   })
 }
 
