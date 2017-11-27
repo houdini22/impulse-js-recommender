@@ -2,11 +2,27 @@ const app = require('express')()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 
+const UserModel = require('../models/user').model
+
 const clients = {}
 
 io.on('connection', async (socket) => {
-  console.log('client connected')
-  clients[socket.handshake.query.token] = socket.id
+  socket.on('disconnected', async () => {
+    delete clients[socket.handshake.query.token]
+  })
+
+  UserModel.findOne({
+    where: {
+      token: socket.handshake.query.token
+    }
+  }).then((user) => {
+    if (user) {
+      console.log('client connected')
+      clients[socket.handshake.query.token] = socket.id
+    } else {
+      socket.disconnect()
+    }
+  })
 })
 
 const startServer = () => {
@@ -15,8 +31,10 @@ const startServer = () => {
   })
 }
 
-const emitToClient = (token, message) => {
-  io.to(clients[token]).emit(message)
+const emitToClient = (token, message, data) => {
+  if (clients[token]) {
+    io.to(clients[token]).emit(message, data)
+  }
 }
 
 exports.startServer = startServer

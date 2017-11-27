@@ -4,8 +4,9 @@ const router = express.Router()
 const DB = require('../modules/database-new/connection')
 const FileModel = require('../models/file').model
 const SnapshotModel = require('../models/snapshot').model
-const SnapshotStatus = require('../modules/SnapshotStatus')
+const NotificationModel = require('../models/notification').model
 const QueueModel = require('../models/queue').model
+const SnapshotStatus = require('../modules/SnapshotStatus')
 const QueueStatus = require('../modules/QueueStatus')
 const { getUserFromRequest } = require('../helpers')
 
@@ -109,7 +110,13 @@ router.post('/build_index', async (req, res) => {
               snapshotId: snapshot.id,
               fileId: snapshot.get('fileId'),
               status: QueueStatus.status.CREATED,
-            }).then(() => resolve())
+            }).then((queue) => {
+              NotificationModel.create({
+                type: 'ADDED_TO_QUEUE',
+                userId: snapshot.get('userId'),
+                queueId: queue.id
+              }).then(() => resolve())
+            })
           })
         ]).then(() => {
           res.json({

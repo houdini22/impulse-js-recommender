@@ -13,7 +13,7 @@ import DatabaseIcon from 'react-icons/lib/fa/database'
 import IndexIcon from 'react-icons/lib/fa/book'
 import FileIcon from 'react-icons/lib/fa/file-text-o'
 import ModelIcon from 'react-icons/lib/fa/sliders'
-import QueueIcon from 'react-icons/lib/md/cloud-queue'
+import QueueIcon from 'react-icons/lib/fa/calendar-check-o'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap'
 import styles from './PageLayout.module.scss'
 

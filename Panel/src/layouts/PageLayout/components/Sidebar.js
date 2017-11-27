@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules'
 import UserIcon from 'react-icons/lib/fa/user'
 import NotificationsIcon from 'react-icons/lib/md/notifications'
 import QueueEndedIcon from 'react-icons/lib/fa/calendar-check-o'
+import QueueRunningIcon from 'react-icons/lib/md/cloud-queue'
 import ExclamationIcon from 'react-icons/lib/fa/exclamation'
 import ClockIcon from 'react-icons/lib/fa/clock-o'
 import classNames from 'classnames'
@@ -90,13 +91,13 @@ class Sidebar extends React.Component {
                   </SidebarTabIcon>
                   <SidebarTabIcon
                     icon={<ClockIcon/>}
-                    iconCount={notifications.running.value + notifications.awaiting.value}
+                    iconCount={notifications.awaiting.value}
                     iconCountColor='warning'
                   >
                     awaiting tasks
                   </SidebarTabIcon>
                   <SidebarTabIcon
-                    icon={<ClockIcon/>}
+                    icon={<QueueRunningIcon/>}
                     iconCount={notifications.running.value}
                     iconCountColor='warning'
                   >

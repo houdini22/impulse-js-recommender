@@ -7,6 +7,7 @@ const QueueModel = require('./models/queue').model
 const SnapshotModel = require('./models/snapshot').model
 const FileModel = require('./models/file').model
 const UserModel = require('./models/user').model
+const NotificationModel = require('./models/notification').model
 
 const command = require('./modules/command')
 
@@ -46,6 +47,13 @@ const run = () => {
                   snapshot.update({
                     status: 'RUNNING'
                   }).then(() => resolve())
+                }),
+                new Promise((resolve) => {
+                  NotificationModel.create({
+                    type: 'QUEUE_RUNNED',
+                    userId: snapshot.get('userId'),
+                    queueId: queue.id,
+                  }).then(() => resolve())
                 })
               ]).then(() => {
                 command.runBuildIndex([
@@ -61,6 +69,11 @@ const run = () => {
                   })
                   snapshot.update({
                     status: 'PARSED'
+                  })
+                  NotificationModel.create({
+                    type: 'QUEUE_ENDED',
+                    userId: snapshot.get('userId'),
+                    queueId: queue.id,
                   })
                 })
               })
