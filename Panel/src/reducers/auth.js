@@ -1,6 +1,6 @@
 import http, { setAuthToken } from '../modules/http'
 import { connect } from './socket'
-import { setNotifications} from './notifications'
+import { setNotifications } from './notifications'
 // ------------------------------------
 // Constants
 // ------------------------------------

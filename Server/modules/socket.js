@@ -33,11 +33,11 @@ const sendNotifications = () => {
     .query('SELECT _notifications.userId, ' +
       '(SELECT token from users WHERE users.id = _notifications.userId LIMIT 1) as token, ' +
       'IF((SELECT COUNT(*) as count FROM notifications WHERE notifications.userId = _notifications.userId AND notifications.isSent = 0 LIMIT 1) > 0, 1, 0) as ifSend ' +
-      'from notifications as _notifications WHERE isRead = 0 GROUP BY userId')
+      'from notifications as _notifications WHERE _notifications.isRead = 0 GROUP BY _notifications.userId')
     .then(userIds => {
       const promises = []
       userIds.forEach(row => {
-        if (row[0].ifSend) {
+        if (row[0] && row[0].ifSend) {
           promises.push(new Promise((resolve) => {
             getUserNotifications({
               id: row[0].userId

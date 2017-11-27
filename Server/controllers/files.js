@@ -99,7 +99,7 @@ router.get('/get_file_info', async (req, res) => {
           res.json({
             status: 'OK',
             data: {
-              firstRows: results.data.slice(0, 10),
+              firstRows: results.data.slice(file.get('hasHeaderRow') ? 1 : 0, file.get('hasHeaderRow') ? 11 : 10),
               fields: results.meta.fields,
             }
           })

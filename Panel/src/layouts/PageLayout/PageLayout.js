@@ -29,7 +29,7 @@ class PageLayout extends React.Component {
   }
 
   render () {
-    const { children, logoff, common, notifications } = this.props
+    const { children, logoff, common, notifications, markAsRead } = this.props
     return (
       <div styleName='layout'>
         <Sidebar
@@ -37,6 +37,7 @@ class PageLayout extends React.Component {
             logoff()
           }}
           notifications={notifications}
+          markAsRead={markAsRead}
         >
           <SidebarHeader
             brand='Impulse-ML'
@@ -103,6 +104,7 @@ PageLayout.propTypes = {
   common: PropTypes.object.isRequired,
   setConnectionErrorModalVisible: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  markAsRead: PropTypes.func.isRequired,
 }
 
 export default CSSModules(PageLayout, styles)

@@ -28,7 +28,7 @@ class Sidebar extends React.Component {
   }
 
   render () {
-    const { children, onClickLogout, notifications: { notifications, read } } = this.props
+    const { children, onClickLogout, notifications: { notifications, read }, markAsRead } = this.props
     const { activeTab } = this.state
 
     return (
@@ -90,23 +90,23 @@ class Sidebar extends React.Component {
                     finished tasks
                   </SidebarTabIcon>
                   <SidebarTabIcon
-                    icon={<ClockIcon/>}
-                    iconCount={notifications.awaiting.value}
-                    iconCountColor='warning'
-                  >
-                    awaiting tasks
-                  </SidebarTabIcon>
-                  <SidebarTabIcon
                     icon={<QueueRunningIcon/>}
                     iconCount={notifications.running.value}
                     iconCountColor='warning'
                   >
                     running tasks
                   </SidebarTabIcon>
+                  <SidebarTabIcon
+                    icon={<ClockIcon/>}
+                    iconCount={notifications.awaiting.value}
+                    iconCountColor='warning'
+                  >
+                    awaiting tasks
+                  </SidebarTabIcon>
                 </div>
                 <div styleName='buttons-container'>
                   <span>
-                    <Button size='sm'>Mark as read</Button>
+                    <Button size='sm' onClick={() => markAsRead()}>Mark as read</Button>
                   </span>
                   <Link to='/app/notifications'>
                     <Button size='sm'>All</Button>
@@ -125,6 +125,7 @@ Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
   onClickLogout: PropTypes.func.isRequired,
   notifications: PropTypes.object.isRequired,
+  markAsRead: PropTypes.func.isRequired,
 }
 
 export default CSSModules(Sidebar, styles)
