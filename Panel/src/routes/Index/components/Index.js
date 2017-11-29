@@ -3,27 +3,27 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Table, Button, Badge } from 'reactstrap'
 import IconPlus from 'react-icons/lib/md/add'
-import { StateButton, Confirm } from '../../../components'
+import { StateButton, Confirm, Pagination } from '../../../components'
 import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {
   static propTypes = {
-    getIndexes: PropTypes.func.isRequired,
+    getSnapshots: PropTypes.func.isRequired,
     buildIndex: PropTypes.func.isRequired,
     deleteIndex: PropTypes.func.isRequired,
     snapshots: PropTypes.object.isRequired,
   }
 
   componentDidMount () {
-    const { getIndexes } = this.props
-    getIndexes()
+    const { getSnapshots } = this.props
+    getSnapshots()
   }
 
   render () {
     const {
-      snapshots: { indexes, buildingInProgress },
-      buildIndex, deleteIndex
+      snapshots: { indexes, buildingInProgress, pagination },
+      buildIndex, deleteIndex, getSnapshots
     } = this.props
 
     return (
@@ -101,6 +101,20 @@ export class SnapshotsView extends React.Component {
                   )
                 })}
                 </tbody>
+                <tfoot>
+                <tr>
+                  <td colSpan='4'>
+                    <Pagination
+                      onPageChange={({ selected }) => {
+                        getSnapshots(selected)
+                      }}
+                      pageCount={pagination.totalPages}
+                      limit={pagination.limit}
+                      totalItems={pagination.totalItems}
+                    />
+                  </td>
+                </tr>
+                </tfoot>
               </Table>
             </div>
           </div>

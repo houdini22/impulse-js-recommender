@@ -79,6 +79,15 @@ body {
       }
     }
   }
+  td, th {
+    padding: 0.4rem;
+  }
+  tfoot {
+    background: #fff;
+    td {
+      padding: 0;
+    }
+  }
 }
 
 .no-margin {

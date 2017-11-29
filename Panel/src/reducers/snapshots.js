@@ -24,7 +24,7 @@ export const getTables = (databaseId) => (dispatch) => {
       databaseId
     }
   }).then((response) => {
-    dispatch({ type: TABLES_FETCHED, payload: response.data.data })
+    dispatch({ type: TABLES_FETCHED, payload: response.data })
   })
 }
 
@@ -42,7 +42,7 @@ export const getRatingFields = (table_name, databaseId) => (dispatch) => {
 export const createSnapshot = () => (dispatch, getState) => {
   const values = getState().snapshots.newSnapshot
   http.post('/snapshots', values).then((response) => {
-    dispatch(getIndexes())
+    dispatch(getSnapshots())
     dispatch({ type: CLEAR_NEW_SNAPSHOT })
   })
 }
@@ -51,9 +51,13 @@ export const setCreateModalStep = (value) => (dispatch) => {
   dispatch({ type: SET_CREATE_MODAL_STEP, payload: value })
 }
 
-export const getIndexes = () => (dispatch) => {
-  http.get('/snapshots').then((response) => {
-    dispatch({ type: INDEXES_LOADED, payload: response.data.data })
+export const getSnapshots = (page = 0) => (dispatch) => {
+  http.get('/snapshots', {
+    params: {
+      page
+    }
+  }).then((response) => {
+    dispatch({ type: INDEXES_LOADED, payload: response.data })
   })
 }
 
@@ -66,7 +70,7 @@ export const buildIndex = (indexId) => (dispatch) => {
   http.post('/snapshots/build_index', {
     id: indexId
   }).then(() => {
-    dispatch(getIndexes())
+    dispatch(getSnapshots())
     dispatch(setBuildingInProgress(false))
   })
 }
@@ -77,7 +81,7 @@ export const appendNewSnapshotValues = (data) => (dispatch) => {
 
 export const deleteIndex = (id) => (dispatch) => {
   http.delete(`/snapshots/${id}`).then(() => {
-    dispatch(getIndexes())
+    dispatch(getSnapshots())
   })
 }
 
@@ -118,7 +122,7 @@ export const actions = {
   getRatingFields,
   createSnapshot,
   setCreateModalStep,
-  getIndexes,
+  getSnapshots,
   buildIndex,
   deleteIndex,
 }
@@ -153,7 +157,8 @@ const ACTION_HANDLERS = {
   [INDEXES_LOADED]: (state, { payload }) => {
     return {
       ...state,
-      indexes: payload,
+      indexes: payload.data,
+      pagination: payload.pagination
     }
   },
   [BUILDING_IN_PROGRESS]: (state, { payload }) => {
@@ -201,6 +206,9 @@ const initialState = {
   newSnapshot: {},
   uploadedFile: null,
   uploadedFileInfo: null,
+  pagination: {
+    totalPages: 1
+  }
 }
 
 export default function userReducer (state = initialState, action) {

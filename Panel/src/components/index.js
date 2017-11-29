@@ -7,6 +7,7 @@ import Panel from './Panel'
 import Fieldset from './Fieldset'
 import Checkbox from './Checkbox'
 import Card from './Card'
+import Pagination from './Pagination'
 
 export {
   TextField,
@@ -18,4 +19,5 @@ export {
   Fieldset,
   Checkbox,
   Card,
+  Pagination,
 }

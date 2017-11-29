@@ -7,15 +7,16 @@ import { setNotifications } from './notifications'
 export const CONNECTED = 'socket::connected'
 export const DISCONNECTED = 'socket::disconnected'
 
+let socket = null
+
 const connected = () => (dispatch) => {
   dispatch({ type: CONNECTED })
 }
 
 const disconnected = () => (dispatch) => {
   dispatch({ type: DISCONNECTED })
+  socket.disconnect()
 }
-
-let socket = null
 
 // ------------------------------------
 // Actions

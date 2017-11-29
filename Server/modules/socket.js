@@ -74,7 +74,6 @@ const startServer = () => {
 
 const emitToClient = (token, message, data) => {
   if (clients[token]) {
-    console.log('SENDING TO CLIENT', message, data)
     io.to(clients[token]).emit(message, data)
   }
 }

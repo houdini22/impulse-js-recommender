@@ -10,14 +10,40 @@ const { getUserFromRequest } = require('../helpers')
 
 router.get('/', async (req, res) => {
   const user = await getUserFromRequest(req)
+  const page = req.query.page ? Number(req.query.page) : 0
+  const limit = 10
+  const offset = page * limit
 
-  FileModel.findAll({
-    where: {
-      userId: user.id
-    }
-  }).then((files) => {
+  Promise.all([
+    new Promise((resolve) => {
+      FileModel.findAll({
+        where: {
+          userId: user.id
+        },
+        limit,
+        offset
+      }).then((files) => {
+        resolve(files)
+      })
+    }),
+    new Promise((resolve) => {
+      FileModel.count({
+        where: {
+          userId: user.id
+        }
+      }).then((count) => {
+        resolve(count)
+      })
+    })
+  ]).then(([files, count]) => {
     res.json({
-      data: files
+      data: files,
+      pagination: {
+        totalItems: count,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit),
+        limit
+      }
     })
   })
 })

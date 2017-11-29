@@ -8,9 +8,13 @@ export const SET_UPLOADED_FILE_INFO = 'files::set_uploaded_file_info'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const getFiles = () => (dispatch) => {
-  http.get('/files').then((response) => {
-    dispatch({ type: FILES_LOADED, payload: response.data.data })
+export const getFiles = (page = 0) => (dispatch) => {
+  http.get('/files', {
+    params: {
+      page
+    }
+  }).then((response) => {
+    dispatch({ type: FILES_LOADED, payload: response.data })
   })
 }
 
@@ -77,7 +81,8 @@ const ACTION_HANDLERS = {
   [FILES_LOADED]: (state, { payload }) => {
     return {
       ...state,
-      files: payload,
+      files: payload.data,
+      pagination: payload.pagination
     }
   },
   [SET_UPLOADED_FILE]: (state, { payload }) => {
@@ -99,6 +104,9 @@ const ACTION_HANDLERS = {
 const initialState = {
   files: [],
   uploadedFile: null,
+  pagination: {
+    totalPages: 1
+  }
 }
 
 export default function userReducer (state = initialState, action) {
