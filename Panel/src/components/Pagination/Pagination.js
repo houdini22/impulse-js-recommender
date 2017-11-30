@@ -18,10 +18,19 @@ class Pagination extends React.Component {
     return (
       <div>
         <div className={styles['total-items']}>
-          Showing {currentPage * limit + 1}{' '}
-          to {Math.min(currentPage * limit + limit, totalItems)}{' '}
-          of {totalItems}{' '}
-          entries.
+          {totalItems > 0 && (
+            <span>
+              Showing {currentPage * limit + 1}{' '}
+              to {Math.min(currentPage * limit + limit, totalItems)}{' '}
+              of {totalItems}{' '}
+              entries.
+            </span>
+          )}
+          {totalItems === 0 && (
+            <span>
+              No entries
+            </span>
+          )}
         </div>
         {pageCount > 1 && (
           <ReactPaginate

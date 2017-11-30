@@ -1,3 +1,3 @@
-import IndexContainer from './containers/IndexContainer'
+import IndexContainer from './containers/QueueContainer'
 
 export default IndexContainer

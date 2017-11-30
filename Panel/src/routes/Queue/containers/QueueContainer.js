@@ -1,11 +1,15 @@
 import { connect } from 'react-redux'
-import Snapshots from '../components/Index'
+import Snapshots from '../components/Queue'
 import {
-  getQueue
+  load,
+  loadFinishedTasks,
+  loadRunningTasks,
 } from 'reducers/queue'
 
 const mapDispatchToProps = {
-  getQueue,
+  load,
+  loadFinishedTasks,
+  loadRunningTasks
 }
 
 const mapStateToProps = (state) => ({

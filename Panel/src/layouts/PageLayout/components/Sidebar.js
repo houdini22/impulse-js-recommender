@@ -6,7 +6,7 @@ import NotificationsIcon from 'react-icons/lib/md/notifications'
 import QueueEndedIcon from 'react-icons/lib/fa/calendar-check-o'
 import QueueRunningIcon from 'react-icons/lib/md/cloud-queue'
 import ExclamationIcon from 'react-icons/lib/fa/exclamation'
-import ClockIcon from 'react-icons/lib/fa/clock-o'
+import HourGlassIcon from 'react-icons/lib/fa/hourglass'
 import classNames from 'classnames'
 import { Button } from 'reactstrap'
 import { Link } from 'react-router'
@@ -97,7 +97,7 @@ class Sidebar extends React.Component {
                     running tasks
                   </SidebarTabIcon>
                   <SidebarTabIcon
-                    icon={<ClockIcon />}
+                    icon={<HourGlassIcon />}
                     iconCount={notifications.awaiting.value}
                     iconCountColor='warning'
                   >
