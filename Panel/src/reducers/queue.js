@@ -22,10 +22,14 @@ const fetchFinishedTasks = async (page) => {
   })
 }
 
-const fetchAwaitingTasks = async () => {
+const fetchAwaitingTasks = async (page) => {
   return new Promise((resolve) => {
-    http.get('/queue/awaiting').then((response) => {
-      resolve(response.data.data)
+    http.get('/queue/awaiting', {
+      params: {
+        page,
+      }
+    }).then((response) => {
+      resolve(response.data)
     })
   })
 }
@@ -51,10 +55,10 @@ const fetchQueueTimeSummary = async () => {
 }
 
 export const load = () => async (dispatch) => {
-  const finishedTasks = await fetchFinishedTasks(0)
-  const awaitingTasks = await fetchAwaitingTasks()
-  const runningTasks = await fetchRunningTasks(0)
   const queueSum = await fetchQueueTimeSummary()
+  const finishedTasks = await fetchFinishedTasks(0)
+  const runningTasks = await fetchRunningTasks(0)
+  const awaitingTasks = await fetchAwaitingTasks(0)
   if (!_.isUndefined(finishedTasks)) {
     dispatch({ type: QUEUE_FINISHED_LOADED, payload: finishedTasks })
   }
@@ -83,10 +87,18 @@ export const loadRunningTasks = (page) => async (dispatch) => {
   }
 }
 
+export const loadAwaitingTasks = (page) => async (dispatch) => {
+  const awaitingTasks = await fetchAwaitingTasks(page)
+  if (!_.isUndefined(awaitingTasks)) {
+    dispatch({ type: QUEUE_AWAITING_LOADED, payload: awaitingTasks })
+  }
+}
+
 export const actions = {
   load,
   loadFinishedTasks,
   loadRunningTasks,
+  loadAwaitingTasks
 }
 // ------------------------------------
 // Action Handlers
@@ -107,12 +119,21 @@ const ACTION_HANDLERS = {
       }
     }
   },
-  [QUEUE_RUNNING_LOADED]: (state, {payload}) => {
+  [QUEUE_RUNNING_LOADED]: (state, { payload }) => {
     return {
       ...state,
       queueRunning: {
         queueRunning: payload.data,
         paginationRunning: payload.pagination
+      }
+    }
+  },
+  [QUEUE_AWAITING_LOADED]: (state, { payload }) => {
+    return {
+      ...state,
+      queueAwaiting: {
+        queueAwaiting: payload.data,
+        paginationAwaiting: payload.pagination
       }
     }
   },

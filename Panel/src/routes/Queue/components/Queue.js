@@ -109,7 +109,6 @@ export class QueueView extends React.Component {
                 <tr>
                   <th style={{ width: '100px' }}>#</th>
                   <th style={{ width: '150px' }}>Task</th>
-                  <th>Running time</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -119,11 +118,8 @@ export class QueueView extends React.Component {
                       <th scope='row'>{queue.id}</th>
                       <td>
                         {queue.type === 'BUILD_INDEX' && (
-                          <h5><Badge color='info'>Index</Badge></h5>
+                          <h5><Badge color='info'>Build index</Badge></h5>
                         )}
-                      </td>
-                      <td>
-                        {queue.runningTime} seconds
                       </td>
                     </tr>
                   )
@@ -139,6 +135,53 @@ export class QueueView extends React.Component {
                       pageCount={paginationRunning.totalPages}
                       limit={paginationRunning.limit}
                       totalItems={paginationRunning.totalItems}
+                    />
+                  </td>
+                </tr>
+                </tfoot>
+              </Table>
+            </div>
+          </div>
+          <div>
+            <h3>Awaiting tasks</h3>
+          </div>
+          <div>
+            <div>
+              <Table striped>
+                <thead>
+                <tr>
+                  <th style={{ width: '100px' }}>#</th>
+                  <th style={{ width: '150px' }}>Task</th>
+                  <th>Place in queue</th>
+                </tr>
+                </thead>
+                <tbody>
+                {queueAwaiting.map((queue) => {
+                  return (
+                    <tr key={queue.id}>
+                      <th scope='row'>{queue.id}</th>
+                      <td>
+                        {queue.type === 'BUILD_INDEX' && (
+                          <h5><Badge color='info'>Build index</Badge></h5>
+                        )}
+                      </td>
+                      <td>
+                        {queue.place}
+                      </td>
+                    </tr>
+                  )
+                })}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td colSpan={5}>
+                    <Pagination
+                      onPageChange={({ selected }) => {
+                        loadAwaitingTasks(selected)
+                      }}
+                      pageCount={paginationAwaiting.totalPages}
+                      limit={paginationAwaiting.limit}
+                      totalItems={paginationAwaiting.totalItems}
                     />
                   </td>
                 </tr>

@@ -3,6 +3,7 @@ const router = express.Router()
 
 const DB = require('../modules/database-new/connection')
 const QueueModel = require('../models/queue').model
+const sequelize = require('../models/queue').sequelize
 const { getUserFromRequest } = require('../helpers')
 
 router.get('/finished', async (req, res) => {
@@ -93,15 +94,51 @@ router.get('/running', async (req, res) => {
 
 router.get('/awaiting', async (req, res) => {
   const user = await getUserFromRequest(req)
+  const page = req.query.page ? Number(req.query.page) : 0
+  const limit = 10
+  const offset = page * limit
 
-  QueueModel.findAll({
-    where: {
-      userId: user.id,
-      status: 'CREATED'
-    }
-  }).then((tasks) => {
+  Promise.all([
+    new Promise((resolve) => {
+      QueueModel.findAll({
+        where: {
+          userId: user.id,
+          status: 'CREATED'
+        },
+        limit,
+        offset,
+        order: [['id', 'DESC']],
+        attributes: [
+          'id',
+          'type',
+          [sequelize.literal(
+            '(SELECT COUNT(*) FROM queues AS _queues ' +
+            'WHERE _queues.status = \'CREATED\' AND _queues.id < id LIMIT 1)'
+          ), 'place']
+        ]
+      }).then((tasks) => {
+        resolve(tasks)
+      })
+    }),
+    new Promise((resolve) => {
+      QueueModel.count({
+        where: {
+          userId: user.id,
+          status: 'CREATED'
+        }
+      }).then((count) => {
+        resolve(count)
+      })
+    })
+  ]).then(([tasks, count]) => {
     res.json({
-      data: tasks
+      data: tasks,
+      pagination: {
+        totalItems: count,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit),
+        limit
+      }
     })
   })
 })
