@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button, Row, Col, Progress, FormGroup, Label, Table } from 'reactstrap'
 import Dropzone from 'react-dropzone'
-import { Select, TextField, Fieldset, Checkbox } from '../../../components'
+import { Select, TextField, Fieldset, Checkbox } from 'components'
 import styles from './AddFile.module.scss'
 
 export class Form extends React.Component {

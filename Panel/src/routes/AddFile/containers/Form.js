@@ -9,7 +9,7 @@ import {
   getFiles,
   getFileInfo,
   setUploadedFileInfo,
-} from '../../../reducers/files'
+} from 'reducers/files'
 
 const FORM_NAME = 'index-choose-database-form'
 

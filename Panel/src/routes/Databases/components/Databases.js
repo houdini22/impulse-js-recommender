@@ -4,9 +4,9 @@ import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
 import IconPlus from 'react-icons/lib/md/add'
 import { Badge, Table, Button } from 'reactstrap'
-import { Confirm, Pagination } from '../../../components'
-import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
-import { formatDate } from '../../../helpers/date'
+import { Confirm, Pagination } from 'components'
+import { HeaderBar, HeaderMenuItem } from 'layouts/PageLayout/components'
+import { formatDate } from 'helpers/date'
 import styles from './Databases.module.scss'
 
 export class SnapshotsView extends React.Component {

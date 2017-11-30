@@ -13,6 +13,7 @@ const Queue = sequelize.define('queue', {
   databaseId: Sequelize.INTEGER,
   status: Sequelize.ENUM('CREATED', 'RUNNING', 'ENDED'),
   notificationIsRead: Sequelize.BOOLEAN,
+  executionTime: Sequelize.INTEGER,
 })
 
 Queue.belongsTo(SnapshotModel)

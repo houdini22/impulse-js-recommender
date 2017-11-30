@@ -4,9 +4,9 @@ import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
 import { Field } from 'redux-form'
 import { Button, Alert } from 'reactstrap'
-import { Fieldset, TextField, Select, StateButton } from '../../../components'
+import { Fieldset, TextField, Select, StateButton } from 'components'
 import styles from './Form.module.scss'
-import { testCurrentConnection } from '../../../reducers/databases'
+import { testCurrentConnection } from 'reducers/databases'
 
 export class Form extends React.Component {
   constructor (props) {

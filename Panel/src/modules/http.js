@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setConnectionErrorModalVisible } from '../reducers/common'
+import { setConnectionErrorModalVisible } from 'reducers/common'
 import { store } from '../main'
 
 const instance = axios.create({

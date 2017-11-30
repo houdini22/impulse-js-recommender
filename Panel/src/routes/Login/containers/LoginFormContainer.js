@@ -1,7 +1,7 @@
 import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import LoginForm from '../components/LoginForm'
-import { login } from '../../../reducers/auth'
+import { login } from 'reducers/auth'
 
 const FORM_NAME = 'login-form'
 
@@ -15,7 +15,7 @@ const validate = (values) => {
 
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required'
+      errors[field] = 'Required.'
     }
   })
 

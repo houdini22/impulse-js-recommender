@@ -4,7 +4,7 @@ import AddFile from '../components/AddFile'
 import {
   createFile,
   uploadFile,
-} from '../../../reducers/files'
+} from 'reducers/files'
 
 const mapDispatchToProps = {
   createFile,

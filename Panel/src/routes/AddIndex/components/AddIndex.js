@@ -6,7 +6,7 @@ import Step1FormContainer from '../containers/Step1FormContainer'
 import Step4FormContainer from '../containers/Step4FormContainer'
 import Step5FormContainer from '../containers/Step5FormContainer'
 import SetupFileContainer from '../containers/SetupFileContainer'
-import { HeaderBar } from '../../../layouts/PageLayout/components'
+import { HeaderBar } from 'layouts/PageLayout/components'
 import styles from './AddIndex.module.scss'
 
 class Form extends React.Component {

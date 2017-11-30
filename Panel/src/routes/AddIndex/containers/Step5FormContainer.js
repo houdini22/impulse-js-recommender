@@ -2,7 +2,7 @@ import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import Step5Form from '../components/Step5Form'
-import { appendNewSnapshotValues, createSnapshot } from '../../../reducers/snapshots'
+import { appendNewSnapshotValues, createSnapshot } from 'reducers/snapshots'
 
 const FORM_NAME = 'index-step-5-form'
 

@@ -6,7 +6,7 @@ import {
   getFileInfo,
   appendNewSnapshotValues,
   createSnapshot,
-} from '../../../reducers/snapshots'
+} from 'reducers/snapshots'
 
 const FORM_NAME = 'setup-file-form'
 

@@ -9,7 +9,7 @@ import {
   getSnapshots,
   buildIndex,
   deleteIndex,
-} from '../../../reducers/snapshots'
+} from 'reducers/snapshots'
 
 const mapDispatchToProps = {
   getTables,

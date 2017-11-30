@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Table, Button, Badge } from 'reactstrap'
 import IconPlus from 'react-icons/lib/md/add'
-import { StateButton, Confirm, Pagination } from '../../../components'
-import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
-import { formatDate } from '../../../helpers/date'
+import { StateButton, Confirm, Pagination } from 'components'
+import { HeaderBar, HeaderMenuItem } from 'layouts/PageLayout/components'
+import { formatDate } from 'helpers/date'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {

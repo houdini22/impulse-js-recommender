@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import IconPlus from 'react-icons/lib/md/add'
 import { Badge, Table, Button } from 'reactstrap'
-import { Confirm, Pagination } from '../../../components'
-import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
-import { formatDate } from '../../../helpers/date'
+import { Confirm, Pagination } from 'components'
+import { HeaderBar, HeaderMenuItem } from 'layouts/PageLayout/components'
+import { formatDate } from 'helpers/date'
 import styles from './Files.module.scss'
 
 export class FilesView extends React.Component {

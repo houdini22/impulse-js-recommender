@@ -63,9 +63,10 @@ const run = () => {
                   snapshot.get('ratedByColumn'),
                   snapshot.get('ratingColumn'),
                   snapshot.get('indexDataPath')
-                ], () => {
+                ], (executionTime) => {
                   queue.update({
-                    status: 'ENDED'
+                    status: 'ENDED',
+                    executionTime,
                   })
                   snapshot.update({
                     status: 'PARSED'

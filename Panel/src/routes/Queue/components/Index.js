@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Table, Button } from 'reactstrap'
-import { Confirm } from '../../../components'
-import { HeaderBar } from '../../../layouts/PageLayout/components'
+import { Confirm } from 'components'
+import { HeaderBar } from 'layouts/PageLayout/components'
 import styles from './Index.module.scss'
 
 export class QueueView extends React.Component {

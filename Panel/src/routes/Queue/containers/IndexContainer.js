@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import Snapshots from '../components/Index'
 import {
   getQueue
-} from '../../../reducers/queue'
+} from 'reducers/queue'
 
 const mapDispatchToProps = {
   getQueue,

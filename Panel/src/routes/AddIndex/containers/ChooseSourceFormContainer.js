@@ -6,9 +6,9 @@ import {
   appendNewSnapshotValues,
   getTables,
   setUploadedFile,
-} from '../../../reducers/snapshots'
-import { getDatabases } from '../../../reducers/databases'
-import { getFiles } from '../../../reducers/files'
+} from 'reducers/snapshots'
+import { getDatabases } from 'reducers/databases'
+import { getFiles } from 'reducers/files'
 
 const FORM_NAME = 'index-choose-database-form'
 

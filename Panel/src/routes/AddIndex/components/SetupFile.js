@@ -5,7 +5,7 @@ import { Field } from 'redux-form'
 import { Button, Table, Row, Col, ButtonGroup, Alert } from 'reactstrap'
 import ExclamationIcon from 'react-icons/lib/fa/exclamation-circle'
 import CheckIcon from 'react-icons/lib/fa/check-circle-o'
-import { Fieldset, TextField } from '../../../components/index'
+import { Fieldset, TextField } from 'components'
 import styles from './AddIndex.module.scss'
 
 export class SetupFile extends React.Component {

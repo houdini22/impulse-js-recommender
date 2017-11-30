@@ -4,7 +4,7 @@ import Form from '../components/Form'
 import {
   createDatabase, getDatabases, testCurrentConnection, setConnectionStatus,
   updateDatabase
-} from '../../../reducers/databases'
+} from 'reducers/databases'
 import { browserHistory } from 'react-router'
 
 const FORM_NAME = 'databases-add-form'

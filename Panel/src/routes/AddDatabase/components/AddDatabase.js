@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import FormContainer from '../containers/FormContainer'
-import { HeaderBar } from '../../../layouts/PageLayout/components'
+import { HeaderBar } from 'layouts/PageLayout/components'
 import styles from './AddDatabase.module.scss'
 
 export class AddDatabase extends React.Component {

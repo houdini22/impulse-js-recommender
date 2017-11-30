@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
 import CSSModules from 'react-css-modules'
 import { Button } from 'reactstrap'
-import { TextField } from '../../../components'
+import { TextField } from 'components'
 import styles from './LoginForm.module.scss'
 
 export class LoginForm extends React.Component {

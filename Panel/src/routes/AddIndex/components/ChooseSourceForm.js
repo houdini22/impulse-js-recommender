@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button, Row, Col } from 'reactstrap'
-import { Select, Card } from '../../../components/index'
+import { Select, Card } from 'components/index'
 import styles from './AddIndex.module.scss'
 
 export class ChooseSourceForm extends React.Component {
