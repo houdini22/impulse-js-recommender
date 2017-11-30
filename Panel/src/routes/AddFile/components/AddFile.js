@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import FormContainer from '../containers/Form'
 import styles from './AddFile.module.scss'
@@ -18,7 +17,7 @@ class Form extends React.Component {
           back='/app/file'
         />
         <div className='page-content'>
-          <FormContainer/>
+          <FormContainer />
         </div>
       </div>
     )

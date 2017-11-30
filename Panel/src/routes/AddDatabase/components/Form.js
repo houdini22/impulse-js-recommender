@@ -6,19 +6,9 @@ import { Field } from 'redux-form'
 import { Button, Alert } from 'reactstrap'
 import { Fieldset, TextField, Select, StateButton } from '../../../components'
 import styles from './Form.module.scss'
-import { setConnectionStatus, testCurrentConnection } from '../../../reducers/databases'
+import { testCurrentConnection } from '../../../reducers/databases'
 
-export class SnapshotsView extends React.Component {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    databases: PropTypes.object.isRequired,
-    change: PropTypes.func.isRequired,
-    setConnectionStatus: PropTypes.func.isRequired,
-    testCurrentConnection: PropTypes.func.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    database: PropTypes.object,
-  }
-
+export class Form extends React.Component {
   constructor (props) {
     super(props)
     this.values = {
@@ -209,4 +199,19 @@ export class SnapshotsView extends React.Component {
   }
 }
 
-export default CSSModules(SnapshotsView, styles)
+Form.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  databases: PropTypes.object.isRequired,
+  change: PropTypes.func.isRequired,
+  setConnectionStatus: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  database: PropTypes.object,
+  type: PropTypes.string,
+  host: PropTypes.string,
+  port: PropTypes.string,
+  username: PropTypes.string,
+  password: PropTypes.string,
+  databaseName: PropTypes.string,
+}
+
+export default CSSModules(Form, styles)

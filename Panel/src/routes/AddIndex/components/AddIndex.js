@@ -33,19 +33,19 @@ class Form extends React.Component {
         />
         <div className='page-content'>
           {createModalStep === 1 && (
-            <ChooseSourceFormContainer/>
+            <ChooseSourceFormContainer />
           )}
           {createModalStep === 2 && newSnapshot.databaseId && (
-            <Step1FormContainer/>
+            <Step1FormContainer />
           )}
           {createModalStep === 2 && newSnapshot.fileToken && (
-            <SetupFileContainer/>
+            <SetupFileContainer />
           )}
           {createModalStep === 3 && newSnapshot.databaseId && (
-            <Step4FormContainer/>
+            <Step4FormContainer />
           )}
           {createModalStep === 4 && (
-            <Step5FormContainer/>
+            <Step5FormContainer />
           )}
         </div>
       </div>

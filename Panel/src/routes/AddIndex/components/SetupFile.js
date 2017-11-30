@@ -5,7 +5,7 @@ import { Field } from 'redux-form'
 import { Button, Table, Row, Col, ButtonGroup, Alert } from 'reactstrap'
 import ExclamationIcon from 'react-icons/lib/fa/exclamation-circle'
 import CheckIcon from 'react-icons/lib/fa/check-circle-o'
-import { Checkbox, Fieldset, TextField } from '../../../components/index'
+import { Fieldset, TextField } from '../../../components/index'
 import styles from './AddIndex.module.scss'
 
 export class SetupFile extends React.Component {
@@ -61,10 +61,10 @@ export class SetupFile extends React.Component {
                 color={(itemsColumn === -1 || ratedByColumn === -1 || ratingColumn === -1) ? 'danger' : 'success'}
               >
                 {(itemsColumn === -1 || ratedByColumn === -1 || ratingColumn === -1) && (
-                  <ExclamationIcon/>
+                  <ExclamationIcon />
                 )}
                 {(itemsColumn !== -1 && ratedByColumn !== -1 && ratingColumn !== -1) && (
-                  <CheckIcon/>
+                  <CheckIcon />
                 )}
                 Mark all columns.
               </Alert>
@@ -72,79 +72,79 @@ export class SetupFile extends React.Component {
                 <div styleName='table-container-inner'>
                   <Table styleName='table' style={{ width: `${uploadedFileInfo.firstRows[0].length * 300}px` }}>
                     <thead>
-                    <tr>
-                      {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows[0].map((field, i) => {
-                        return (
-                          <th
-                            key={i}
+                      <tr>
+                        {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows[0].map((field, i) => {
+                          return (
+                            <th
+                              key={i}
                           >
                             Column {i + 1}
-                            <ButtonGroup styleName='button-group'>
-                              <Button
-                                size='xs'
-                                onClick={() => {
-                                  if (itemsColumn === i) {
-                                    change('itemsColumn', -1)
-                                  } else {
-                                    change('itemsColumn', i)
-                                  }
-                                }}
-                                disabled={(itemsColumn >= 0 && itemsColumn !== i) || ratedByColumn === i || ratingColumn === i}
-                                color={itemsColumn === i ? 'success' : 'secondary'}
+                              <ButtonGroup styleName='button-group'>
+                                <Button
+                                  size='xs'
+                                  onClick={() => {
+                                    if (itemsColumn === i) {
+                                      change('itemsColumn', -1)
+                                    } else {
+                                      change('itemsColumn', i)
+                                    }
+                                  }}
+                                  disabled={(itemsColumn >= 0 && itemsColumn !== i) || ratedByColumn === i || ratingColumn === i}
+                                  color={itemsColumn === i ? 'success' : 'secondary'}
                               >
                                 Items
                               </Button>{' '}
-                              <Button
-                                size='xs'
-                                onClick={() => {
-                                  if (ratedByColumn === i) {
-                                    change('ratedByColumn', -1)
-                                  } else {
-                                    change('ratedByColumn', i)
-                                  }
-                                }}
-                                disabled={(ratedByColumn >= 0 && ratedByColumn !== i) || itemsColumn === i || ratingColumn === i}
-                                color={ratedByColumn === i ? 'success' : 'secondary'}
+                                <Button
+                                  size='xs'
+                                  onClick={() => {
+                                    if (ratedByColumn === i) {
+                                      change('ratedByColumn', -1)
+                                    } else {
+                                      change('ratedByColumn', i)
+                                    }
+                                  }}
+                                  disabled={(ratedByColumn >= 0 && ratedByColumn !== i) || itemsColumn === i || ratingColumn === i}
+                                  color={ratedByColumn === i ? 'success' : 'secondary'}
                               >
                                 Rated by
                               </Button>{' '}
-                              <Button
-                                size='xs'
-                                onClick={() => {
-                                  if (ratingColumn === i) {
-                                    change('ratingColumn', -1)
-                                  } else {
-                                    change('ratingColumn', i)
-                                  }
-                                }}
-                                disabled={(ratingColumn >= 0 && ratingColumn !== i) || itemsColumn === i || ratedByColumn === i}
-                                color={ratingColumn === i ? 'success' : 'secondary'}
+                                <Button
+                                  size='xs'
+                                  onClick={() => {
+                                    if (ratingColumn === i) {
+                                      change('ratingColumn', -1)
+                                    } else {
+                                      change('ratingColumn', i)
+                                    }
+                                  }}
+                                  disabled={(ratingColumn >= 0 && ratingColumn !== i) || itemsColumn === i || ratedByColumn === i}
+                                  color={ratingColumn === i ? 'success' : 'secondary'}
                               >Rating</Button>
-                            </ButtonGroup>
-                          </th>
-                        )
-                      })}
-                    </tr>
+                              </ButtonGroup>
+                            </th>
+                          )
+                        })}
+                      </tr>
                     </thead>
                     <tbody>
-                    {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows.map((row, i) => {
-                      return (
-                        <tr
-                          className={i === 0 && hasHeaderRow ? 'background-red shaded' : ''}
-                          key={i}
+                      {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows.map((row, i) => {
+                        return (
+                          <tr
+                            className={i === 0 && hasHeaderRow ? 'background-red shaded' : ''}
+                            key={i}
                         >
-                          {row.map((column, j) => {
-                            return (
-                              <td
-                                key={j}
+                            {row.map((column, j) => {
+                              return (
+                                <td
+                                  key={j}
                               >
-                                {column}
-                              </td>
-                            )
-                          })}
-                        </tr>
-                      )
-                    })}
+                                  {column}
+                                </td>
+                              )
+                            })}
+                          </tr>
+                        )
+                      })}
                     </tbody>
                   </Table>
                 </div>

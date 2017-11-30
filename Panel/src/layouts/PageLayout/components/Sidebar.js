@@ -8,7 +8,7 @@ import QueueRunningIcon from 'react-icons/lib/md/cloud-queue'
 import ExclamationIcon from 'react-icons/lib/fa/exclamation'
 import ClockIcon from 'react-icons/lib/fa/clock-o'
 import classNames from 'classnames'
-import { Button, Badge } from 'reactstrap'
+import { Button } from 'reactstrap'
 import { Link } from 'react-router'
 import { SidebarTabIcon } from './'
 import styles from './Sidebar.module.scss'
@@ -46,7 +46,7 @@ class Sidebar extends React.Component {
                     this.switchTab('user')
                   }
                 }}>
-                <UserIcon/>
+                <UserIcon />
               </li>
               <li
                 className={classNames({ [styles['sidebar-tab-active']]: activeTab === 'notifications' })}
@@ -57,10 +57,10 @@ class Sidebar extends React.Component {
                     this.switchTab('notifications')
                   }
                 }}>
-                <NotificationsIcon/>
+                <NotificationsIcon />
                 {!read && (
                   <span styleName='tab-badge'>
-                    <ExclamationIcon/>
+                    <ExclamationIcon />
                   </span>
                 )}
               </li>
@@ -83,21 +83,21 @@ class Sidebar extends React.Component {
               <div>
                 <div>
                   <SidebarTabIcon
-                    icon={<QueueEndedIcon/>}
+                    icon={<QueueEndedIcon />}
                     iconCount={notifications.finished.value}
                     iconCountColor='success'
                   >
                     finished tasks
                   </SidebarTabIcon>
                   <SidebarTabIcon
-                    icon={<QueueRunningIcon/>}
+                    icon={<QueueRunningIcon />}
                     iconCount={notifications.running.value}
                     iconCountColor='warning'
                   >
                     running tasks
                   </SidebarTabIcon>
                   <SidebarTabIcon
-                    icon={<ClockIcon/>}
+                    icon={<ClockIcon />}
                     iconCount={notifications.awaiting.value}
                     iconCountColor='warning'
                   >

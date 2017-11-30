@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import FormContainer from '../containers/FormContainer'
-import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
+import { HeaderBar } from '../../../layouts/PageLayout/components'
 import styles from './AddDatabase.module.scss'
 
 export class AddDatabase extends React.Component {
@@ -39,7 +39,7 @@ export class AddDatabase extends React.Component {
           back='/app/database'
         />
         <div className='page-content'>
-          <FormContainer database={database}/>
+          <FormContainer database={database} />
         </div>
       </div>
     )

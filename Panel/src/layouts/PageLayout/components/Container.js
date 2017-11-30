@@ -13,7 +13,7 @@ class Container extends React.Component {
         <div styleName='app-container-content'>
           {children}
         </div>
-        <Footer/>
+        <Footer />
       </div>
     )
   }

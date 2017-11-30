@@ -5,6 +5,7 @@ import IconPlus from 'react-icons/lib/md/add'
 import { Badge, Table, Button } from 'reactstrap'
 import { Confirm, Pagination } from '../../../components'
 import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
+import { formatDate } from '../../../helpers/date'
 import styles from './Files.module.scss'
 
 export class FilesView extends React.Component {
@@ -31,7 +32,7 @@ export class FilesView extends React.Component {
             href='/app/file/add'
             color='success'
           >
-            <IconPlus/>
+            <IconPlus />
             {' '}
             Create
           </HeaderMenuItem>
@@ -41,56 +42,58 @@ export class FilesView extends React.Component {
             <div>
               <Table striped>
                 <thead>
-                <tr>
-                  <th style={{ width: '100px' }}>#</th>
-                  <th>Name</th>
-                  <th style={{ width: '200px' }}>Actions</th>
-                </tr>
+                  <tr>
+                    <th>Name</th>
+                    <th style={{ width: '200px' }}>Created at</th>
+                    <th style={{ width: '200px' }}>Actions</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {files.map((file) => {
-                  return (
-                    <tr key={file.id}>
-                      <th scope='row'>{file.id}</th>
-                      <td>
-                        <Badge color='info' styleName='format-badge'>
-                          {file.format === 'csv' && (
+                  {files.map((file) => {
+                    return (
+                      <tr key={file.id}>
+                        <td>
+                          <Badge color='info' styleName='format-badge'>
+                            {file.format === 'csv' && (
                             <span>CSV</span>
                           )}
-                        </Badge>
-                        {' '}
-                        {file.name}
-                      </td>
-                      <td className='actions'>
-                        <Confirm
-                          onYes={() => {
-                            deleteFile(file.id)
-                          }}
-                          message={'Are you sure to delete this File?'}
+                          </Badge>
+                          {' '}
+                          {file.name}
+                        </td>
+                        <td>
+                          {formatDate(file.createdAt)}
+                        </td>
+                        <td className='actions'>
+                          <Confirm
+                            onYes={() => {
+                              deleteFile(file.id)
+                            }}
+                            message={'Are you sure to delete this File?'}
                         >
-                          <Button
-                            size='sm'
-                            color='danger'
+                            <Button
+                              size='sm'
+                              color='danger'
                           >Delete</Button>
-                        </Confirm>
-                      </td>
-                    </tr>
-                  )
-                })}
+                          </Confirm>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
                 <tfoot>
-                <tr>
-                  <td colSpan='3'>
-                    <Pagination
-                      onPageChange={({ selected }) => {
-                        getFiles(selected)
-                      }}
-                      pageCount={pagination.totalPages}
-                      limit={pagination.limit}
-                      totalItems={pagination.totalItems}
+                  <tr>
+                    <td colSpan='3'>
+                      <Pagination
+                        onPageChange={({ selected }) => {
+                          getFiles(selected)
+                        }}
+                        pageCount={pagination.totalPages}
+                        limit={pagination.limit}
+                        totalItems={pagination.totalItems}
                     />
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
                 </tfoot>
               </Table>
             </div>

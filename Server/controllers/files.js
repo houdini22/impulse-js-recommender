@@ -21,7 +21,8 @@ router.get('/', async (req, res) => {
           userId: user.id
         },
         limit,
-        offset
+        offset,
+        order: [['id', 'DESC']]
       }).then((files) => {
         resolve(files)
       })

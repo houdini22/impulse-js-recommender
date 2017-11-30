@@ -59,10 +59,10 @@ export const setUploadedFileInfo = (data) => (dispatch) => {
 
 export const getFileInfo = (token) => (dispatch) => {
   http.get('/files/get_file_info', {
-      params: {
-        token
-      }
+    params: {
+      token
     }
+  }
   ).then((response) => {
     dispatch(setUploadedFileInfo(response.data.data))
   })

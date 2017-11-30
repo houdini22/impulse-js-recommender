@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import { Table, Button, Badge } from 'reactstrap'
+import { Table, Button } from 'reactstrap'
 import { Confirm } from '../../../components'
-import { HeaderBar, HeaderMenuItem } from '../../../layouts/PageLayout/components'
+import { HeaderBar } from '../../../layouts/PageLayout/components'
 import styles from './Index.module.scss'
 
 export class QueueView extends React.Component {
   static propTypes = {
     getQueue: PropTypes.func.isRequired,
     queue: PropTypes.object.isRequired,
+    deleteQueue: PropTypes.func.isRequired
   }
 
   componentDidMount () {
@@ -20,35 +21,35 @@ export class QueueView extends React.Component {
   render () {
     const {
       queue: { queue },
+      deleteQueue,
     } = this.props
 
     return (
       <div>
         <HeaderBar
           title='Queue'
-        >
-        </HeaderBar>
+         />
         <div className='page-content'>
           <div>
             <div>
               <Table striped>
                 <thead>
-                <tr>
-                  <th style={{ width: '100px' }}>#</th>
-                  <th>Task</th>
-                  <th style={{ width: '200px' }}>Actions</th>
-                </tr>
+                  <tr>
+                    <th style={{ width: '100px' }}>#</th>
+                    <th>Task</th>
+                    <th style={{ width: '200px' }}>Actions</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {queue.map((queue) => {
-                  return (
-                    <tr key={queue.id}>
-                      <th scope='row'>{queue.id}</th>
-                      <td>
-                        {queue.type}
-                      </td>
-                      <td className='actions'>
-                        {queue.status === 'CREATED' && (
+                  {queue.map((queue) => {
+                    return (
+                      <tr key={queue.id}>
+                        <th scope='row'>{queue.id}</th>
+                        <td>
+                          {queue.type}
+                        </td>
+                        <td className='actions'>
+                          {queue.status === 'CREATED' && (
                           <Confirm
                             onYes={() => {
                               deleteQueue(queue.id)
@@ -61,10 +62,10 @@ export class QueueView extends React.Component {
                             >Delete</Button>
                           </Confirm>
                         )}
-                      </td>
-                    </tr>
-                  )
-                })}
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </Table>
             </div>

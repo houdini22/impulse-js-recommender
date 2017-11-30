@@ -15,7 +15,7 @@ class HeaderBar extends React.Component {
               <HeaderMenuItem
                 href={back}
               >
-                <IconArrowBack/>
+                <IconArrowBack />
                 {' '}
                 Back
               </HeaderMenuItem>

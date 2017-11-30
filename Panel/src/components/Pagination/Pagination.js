@@ -49,8 +49,8 @@ class Pagination extends React.Component {
 Pagination.propTypes = {
   onPageChange: PropTypes.func.isRequired,
   pageCount: PropTypes.number.isRequired,
-  limit: PropTypes.number.isRequired,
-  totalItems: PropTypes.number.isRequired,
+  limit: PropTypes.number,
+  totalItems: PropTypes.number,
 }
 
 export default Pagination

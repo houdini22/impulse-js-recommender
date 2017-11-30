@@ -46,18 +46,18 @@ ReactDOM.render(
     <div>
       <Router history={history}>
         <Route path='/app' component={PageLayoutContainer}>
-          <IndexRoute component={userIsAuthenticated(DashboardContainer)}/>
-          <Route path='index' component={userIsAuthenticated(IndexContainer)}/>
-          <Route path='index/add' component={userIsAuthenticated(AddIndexContainer)}/>
-          <Route path='database' component={userIsAuthenticated(DatabasesContainer)}/>
-          <Route path='database/add' component={userIsAuthenticated(AddDatabaseContainer)}/>
-          <Route path='database/edit/:id' component={userIsAuthenticated(AddDatabaseContainer)}/>
-          <Route path='file' component={userIsAuthenticated(FilesContainer)}/>
-          <Route path='file/add' component={userIsAuthenticated(AddFileContainer)}/>
-          <Route path='queue' component={userIsAuthenticated(QueueContainer)}/>
+          <IndexRoute component={userIsAuthenticated(DashboardContainer)} />
+          <Route path='index' component={userIsAuthenticated(IndexContainer)} />
+          <Route path='index/add' component={userIsAuthenticated(AddIndexContainer)} />
+          <Route path='database' component={userIsAuthenticated(DatabasesContainer)} />
+          <Route path='database/add' component={userIsAuthenticated(AddDatabaseContainer)} />
+          <Route path='database/edit/:id' component={userIsAuthenticated(AddDatabaseContainer)} />
+          <Route path='file' component={userIsAuthenticated(FilesContainer)} />
+          <Route path='file/add' component={userIsAuthenticated(AddFileContainer)} />
+          <Route path='queue' component={userIsAuthenticated(QueueContainer)} />
         </Route>
         <Route path='/' component={LoginLayout}>
-          <IndexRoute component={LoginContainer}/>
+          <IndexRoute component={LoginContainer} />
         </Route>
       </Router>
     </div>

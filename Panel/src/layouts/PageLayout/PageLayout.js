@@ -44,35 +44,35 @@ class PageLayout extends React.Component {
             brandSmall='Recommender System'
           />
           <Navigation>
-            <NavigationHeader caption='Data sources'/>
+            <NavigationHeader caption='Data sources' />
             <NavigationLink
               href='/app/database'
-              icon={<DatabaseIcon/>}
+              icon={<DatabaseIcon />}
             >
               Databases
             </NavigationLink>
             <NavigationLink
               href='/app/file'
-              icon={<FileIcon/>}
+              icon={<FileIcon />}
             >
               Files
             </NavigationLink>
-            <NavigationHeader caption='Recommender'/>
+            <NavigationHeader caption='Recommender' />
             <NavigationLink
               href='/app/index'
-              icon={<IndexIcon/>}
+              icon={<IndexIcon />}
             >
               Indexes
             </NavigationLink>
             <NavigationLink
               href='/app/model'
-              icon={<ModelIcon/>}
+              icon={<ModelIcon />}
             >
               Models
             </NavigationLink>
             <NavigationLink
               href='/app/queue'
-              icon={<QueueIcon/>}
+              icon={<QueueIcon />}
             >
               Queue
             </NavigationLink>
@@ -103,8 +103,9 @@ PageLayout.propTypes = {
   children: PropTypes.node.isRequired,
   common: PropTypes.object.isRequired,
   setConnectionErrorModalVisible: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
+  logoff: PropTypes.func.isRequired,
   markAsRead: PropTypes.func.isRequired,
+  notifications: PropTypes.object.isRequired
 }
 
 export default CSSModules(PageLayout, styles)

@@ -112,24 +112,24 @@ export class Form extends React.Component {
               <div styleName='table-container-inner'>
                 <Table styleName='table' style={{ width: `${uploadedFileInfo.firstRows[0].length * 300}px` }}>
                   <tbody>
-                  {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows.map((row, i) => {
-                    return (
-                      <tr
-                        className={i === 0 && hasHeaderRow ? 'background-red shaded' : ''}
-                        key={i}
+                    {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows.map((row, i) => {
+                      return (
+                        <tr
+                          className={i === 0 && hasHeaderRow ? 'background-red shaded' : ''}
+                          key={i}
                       >
-                        {row.map((column, j) => {
-                          return (
-                            <td
-                              key={j}
+                          {row.map((column, j) => {
+                            return (
+                              <td
+                                key={j}
                             >
-                              {column}
-                            </td>
-                          )
-                        })}
-                      </tr>
-                    )
-                  })}
+                                {column}
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      )
+                    })}
                   </tbody>
                 </Table>
               </div>

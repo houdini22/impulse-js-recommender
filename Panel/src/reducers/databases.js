@@ -12,9 +12,13 @@ export const setConnectionStatus = (value) => (dispatch) => {
   dispatch({ type: SET_CONNECTION_STATUS, payload: value })
 }
 
-export const getDatabases = () => (dispatch) => {
-  http.get('/databases').then((response) => {
-    dispatch({ type: DATABASES_LOADED, payload: response.data.data })
+export const getDatabases = (page = 0) => (dispatch) => {
+  http.get('/databases', {
+    params: {
+      page
+    }
+  }).then((response) => {
+    dispatch({ type: DATABASES_LOADED, payload: response.data })
   })
 }
 
@@ -62,7 +66,8 @@ const ACTION_HANDLERS = {
   [DATABASES_LOADED]: (state, { payload }) => {
     return {
       ...state,
-      databases: payload,
+      databases: payload.data,
+      pagination: payload.pagination
     }
   },
   [SET_CREATE_MODAL_IS_VISIBLE]: (state, { payload }) => {
@@ -88,6 +93,9 @@ const initialState = {
     status: 0,
     message: ''
   },
+  pagination: {
+    totalPages: 1
+  }
 }
 
 export default function userReducer (state = initialState, action) {

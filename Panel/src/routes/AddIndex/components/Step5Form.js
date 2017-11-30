@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
-import { Button, FormGroup, Label } from 'reactstrap'
+import { Button, FormGroup } from 'reactstrap'
 import { TextField } from '../../../components/index'
 import styles from '../../Index/components/Index.module.scss'
 
@@ -10,10 +10,6 @@ export class SnapshotsView extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     snapshots: PropTypes.object.isRequired
-  }
-
-  constructor (props) {
-    super(props)
   }
 
   render () {

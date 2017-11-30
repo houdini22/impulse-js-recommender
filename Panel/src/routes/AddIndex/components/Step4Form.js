@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button, FormGroup, Label } from 'reactstrap'
-import { StateButton, Select } from '../../../components/index'
+import { Select } from '../../../components/index'
 import styles from '../../Index/components/Index.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -31,7 +31,7 @@ export class SnapshotsView extends React.Component {
         {rating_fields && (
           <form onSubmit={handleSubmit}>
             <FormGroup>
-              <Label for="field_item_id">Item ID field</Label>
+              <Label for='field_item_id'>Item ID field</Label>
               <Field
                 name='ratingsFieldItemId'
                 component={Select}
@@ -41,7 +41,7 @@ export class SnapshotsView extends React.Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="field_item_id">Rated By ID field</Label>
+              <Label for='field_item_id'>Rated By ID field</Label>
               <Field
                 name='ratingsFieldCategoryId'
                 component={Select}
@@ -51,7 +51,7 @@ export class SnapshotsView extends React.Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="field_item_id">Rating value</Label>
+              <Label for='field_item_id'>Rating value</Label>
               <Field
                 name='ratingsFieldValue'
                 component={Select}

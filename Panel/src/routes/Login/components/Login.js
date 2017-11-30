@@ -8,6 +8,7 @@ import styles from './Login.module.scss'
 export class LoginView extends React.Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    router: PropTypes.any,
   }
 
   componentWillReceiveProps (nextProps) {
@@ -28,7 +29,7 @@ export class LoginView extends React.Component {
               Wrong credentials!
             </Alert>
           )}
-          <LoginFormContainer/>
+          <LoginFormContainer />
         </div>
       </div>
     )

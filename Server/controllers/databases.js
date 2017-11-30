@@ -7,14 +7,41 @@ const { getUserFromRequest } = require('../helpers')
 
 router.get('/', async (req, res) => {
   const user = await getUserFromRequest(req)
+  const page = req.query.page ? Number(req.query.page) : 0
+  const limit = 10
+  const offset = page * limit
 
-  DatabaseModel.findAll({
-    where: {
-      userId: user.id
-    }
-  }).then((databases) => {
+  Promise.all([
+    new Promise((resolve) => {
+      DatabaseModel.findAll({
+        where: {
+          userId: user.id
+        },
+        limit,
+        offset,
+        order: [['id', 'DESC']]
+      }).then((files) => {
+        resolve(files)
+      })
+    }),
+    new Promise((resolve) => {
+      DatabaseModel.count({
+        where: {
+          userId: user.id
+        }
+      }).then((count) => {
+        resolve(count)
+      })
+    })
+  ]).then(([files, count]) => {
     res.json({
-      data: databases
+      data: files,
+      pagination: {
+        totalItems: count,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit),
+        limit
+      }
     })
   })
 })
