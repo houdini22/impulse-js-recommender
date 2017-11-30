@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Table, Button, Badge } from 'reactstrap'
 import IconPlus from 'react-icons/lib/md/add'
+import moment from 'moment'
 import { StateButton, Confirm, Pagination } from 'components'
 import { HeaderBar, HeaderMenuItem } from 'layouts/PageLayout/components'
-import { formatDate } from 'helpers/date'
+import { formatDate } from 'helpers/date-time'
 import styles from './Index.module.scss'
 
 export class SnapshotsView extends React.Component {
@@ -30,7 +31,7 @@ export class SnapshotsView extends React.Component {
     return (
       <div>
         <HeaderBar
-          title='Databases'
+          title='Indexes'
         >
           <HeaderMenuItem
             href='/app/index/add'
@@ -73,7 +74,9 @@ export class SnapshotsView extends React.Component {
                           {index.name}
                         </td>
                         <td>
-                          {formatDate(index.createdAt)}
+                          {moment(index.createdAt).fromNow()}
+                          <br/>
+                          <span className='text-muted text-sm'>{formatDate(index.createdAt)}</span>
                         </td>
                         <td>
                           {index.status}

@@ -54,6 +54,10 @@ body {
   padding: 15px;
   animation-name: slideIn;
   animation-duration: .3s;
+
+  h3 {
+    margin-top: 16px;
+  }
 }
 
 @keyframes slideIn {
@@ -96,4 +100,8 @@ body {
 
 .badge-success {
   color: #fff;
+}
+
+.text-sm {
+  font-size: 85%;
 }

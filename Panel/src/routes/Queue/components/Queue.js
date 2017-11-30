@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Table, Button, Row, Col, Badge } from 'reactstrap'
 import ClockIcon from 'react-icons/lib/fa/clock-o'
+import moment from 'moment'
 import { Confirm, IconBox, Pagination } from 'components'
 import { HeaderBar } from 'layouts/PageLayout/components'
-import { formatDate } from 'helpers/date'
+import { formatDate, msToTime } from 'helpers/date-time'
 import styles from './Queue.module.scss'
 
 export class QueueView extends React.Component {
@@ -44,7 +45,7 @@ export class QueueView extends React.Component {
               <IconBox
                 icon={<ClockIcon/>}
               >
-                Used server time: <strong>{queueTimeSummary.sum} ms</strong>
+                Used server time: <strong>{msToTime(queueTimeSummary.sum)} ms</strong>
               </IconBox>
             </Col>
           </Row>
@@ -58,7 +59,7 @@ export class QueueView extends React.Component {
                 <tr>
                   <th style={{ width: '100px' }}>#</th>
                   <th style={{ width: '150px' }}>Task</th>
-                  <th>Finish date</th>
+                  <th>Finished at</th>
                   <th>Execution time</th>
                 </tr>
                 </thead>
@@ -73,10 +74,12 @@ export class QueueView extends React.Component {
                         )}
                       </td>
                       <td>
-                        {formatDate(queue.createdAt)}
+                        {moment(queue.createdAt).fromNow()}
+                        <br/>
+                        <span className='text-muted text-sm'>{formatDate(queue.createdAt)}</span>
                       </td>
                       <td>
-                        {queue.executionTime} ms
+                        {msToTime(queue.executionTime)}
                       </td>
                     </tr>
                   )

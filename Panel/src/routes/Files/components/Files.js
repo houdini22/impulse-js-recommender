@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import IconPlus from 'react-icons/lib/md/add'
 import { Badge, Table, Button } from 'reactstrap'
+import moment from 'moment'
 import { Confirm, Pagination } from 'components'
 import { HeaderBar, HeaderMenuItem } from 'layouts/PageLayout/components'
-import { formatDate } from 'helpers/date'
+import { formatDate } from 'helpers/date-time'
 import styles from './Files.module.scss'
 
 export class FilesView extends React.Component {
@@ -62,7 +63,9 @@ export class FilesView extends React.Component {
                           {file.name}
                         </td>
                         <td>
-                          {formatDate(file.createdAt)}
+                          {moment(file.createdAt).fromNow()}
+                          <br/>
+                          <span className='text-muted text-sm'>{formatDate(file.createdAt)}</span>
                         </td>
                         <td className='actions'>
                           <Confirm
