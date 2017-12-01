@@ -9,6 +9,19 @@ $warning: #FED766;
 $success: $successColor;
 $danger: #D80032;
 
+$grid-breakpoints: (
+  // Extra small screen / phone
+        xs: 0,
+  // Small screen / phone
+        sm: 768px,
+  // Medium screen / tablet
+        md: 992px,
+  // Large screen / desktop
+        lg: 1200px,
+  // Extra large screen / wide desktop
+        xl: 1400px
+);
+
 //
 @import '~roboto-fontface/css/roboto/roboto-fontface.css';
 

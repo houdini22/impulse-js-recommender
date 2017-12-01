@@ -48,6 +48,7 @@ class Pagination extends React.Component {
             containerClassName={styles.pagination}
             subContainerClassName={styles.pages}
             activeClassName={styles.active}
+            disabledClassName={styles.disabled}
           />
         )}
       </div>

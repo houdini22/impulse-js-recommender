@@ -45,8 +45,8 @@ export class FilesView extends React.Component {
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th style={{ width: '200px' }}>Created at</th>
-                    <th style={{ width: '200px' }}>Actions</th>
+                    <th style={{ width: '150px' }}>Created at</th>
+                    <th style={{ width: '150px' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>

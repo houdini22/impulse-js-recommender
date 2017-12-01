@@ -5,3 +5,4 @@ data
 !data/files/.gitkeep
 !data/snapshots/.gitkeep
 bin/logs/
+!bin/logs/.gitkeep

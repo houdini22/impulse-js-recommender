@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
-import { Table, Button, Row, Col, Badge } from 'reactstrap'
+import { Table, Row, Col, Badge } from 'reactstrap'
 import ClockIcon from 'react-icons/lib/fa/clock-o'
-import moment from 'moment'
-import { Confirm, IconBox, Pagination, PageHeader, LoadingOverlay } from 'components'
+import { Confirm, IconBox, Pagination, PageHeader } from 'components'
 import { HeaderBar } from 'layouts/PageLayout/components'
-import { formatDate, msToTime } from 'helpers/date-time'
+import QueueFinishedTasks from './QueueFinishedTasks'
+import { msToTime } from 'helpers/date-time'
 import styles from './Queue.module.scss'
 
 export class QueueView extends React.Component {
@@ -53,161 +53,111 @@ export class QueueView extends React.Component {
               </IconBox>
             </Col>
           </Row>
-          <div>
-            <PageHeader
-              isLoading={loadingParts['finished_tasks']}
-            >
-              Finished tasks
-            </PageHeader>
-          </div>
-          <div>
-            <div>
-              <Table striped>
-                <thead>
-                <tr>
-                  <th style={{ width: '100px' }}>#</th>
-                  <th style={{ width: '150px' }}>Task</th>
-                  <th>Finished at</th>
-                  <th>Execution time</th>
-                </tr>
-                </thead>
-                <tbody>
-                {queueFinished.map((queue) => {
-                  return (
-                    <tr key={queue.id}>
-                      <th scope='row'>{queue.id}</th>
-                      <td>
-                        {queue.type === 'BUILD_INDEX' && (
-                          <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
-                        )}
-                      </td>
-                      <td>
-                        {moment(queue.createdAt).fromNow()}
-                        <br/>
-                        <span className='text-muted text-sm'>{formatDate(queue.createdAt)}</span>
-                      </td>
-                      <td>
-                        {msToTime(queue.executionTime)}
+          <Row>
+            <Col md={6} sm={12} xs={12}>
+              <QueueFinishedTasks
+                queueFinished={queueFinished}
+                paginationFinished={paginationFinished}
+                loadingParts={loadingParts}
+              />
+            </Col>
+            <Col md={6} sm={12} xs={12}>
+              <div>
+                <PageHeader
+                  isLoading={loadingParts['running_tasks']}
+                >
+                  Running tasks
+                </PageHeader>
+              </div>
+              <div>
+                <div>
+                  <Table striped>
+                    <thead>
+                    <tr>
+                      <th>Task</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {queueRunning.map((queue) => {
+                      return (
+                        <tr key={queue.id}>
+                          <td>
+                            {queue.type === 'BUILD_INDEX' && (
+                              <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                      <td colSpan={5}>
+                        <Pagination
+                          onPageChange={({ selected }) => {
+                            loadRunningTasks(selected)
+                          }}
+                          pageCount={paginationRunning.totalPages}
+                          limit={paginationRunning.limit}
+                          totalItems={paginationRunning.totalItems}
+                        />
                       </td>
                     </tr>
-                  )
-                })}
-                </tbody>
-                <tfoot>
-                <tr>
-                  <td colSpan={5}>
-                    <Pagination
-                      onPageChange={({ selected }) => {
-                        loadFinishedTasks(selected)
-                      }}
-                      pageCount={paginationFinished.totalPages}
-                      limit={paginationFinished.limit}
-                      totalItems={paginationFinished.totalItems}
-                    />
-                  </td>
-                </tr>
-                </tfoot>
-              </Table>
-            </div>
-          </div>
-          <div>
-            <PageHeader
-              isLoading={loadingParts['running_tasks']}
-            >
-              Running tasks
-            </PageHeader>
-          </div>
-          <div>
-            <div>
-              <Table striped>
-                <thead>
-                <tr>
-                  <th style={{ width: '100px' }}>#</th>
-                  <th style={{ width: '150px' }}>Task</th>
-                </tr>
-                </thead>
-                <tbody>
-                {queueRunning.map((queue) => {
-                  return (
-                    <tr key={queue.id}>
-                      <th scope='row'>{queue.id}</th>
-                      <td>
-                        {queue.type === 'BUILD_INDEX' && (
-                          <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
-                        )}
+                    </tfoot>
+                  </Table>
+                </div>
+              </div>
+              <div>
+                <PageHeader
+                  isLoading={loadingParts['awaiting_tasks']}
+                >
+                  Awaiting tasks
+                </PageHeader>
+              </div>
+              <div>
+                <div>
+                  <Table striped>
+                    <thead>
+                    <tr>
+                      <th style={{ width: '150px' }}>Task</th>
+                      <th>Place in queue</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {queueAwaiting.map((queue) => {
+                      return (
+                        <tr key={queue.id}>
+                          <td>
+                            {queue.type === 'BUILD_INDEX' && (
+                              <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
+                            )}
+                          </td>
+                          <td>
+                            {queue.place}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                      <td colSpan={5}>
+                        <Pagination
+                          onPageChange={({ selected }) => {
+                            loadAwaitingTasks(selected)
+                          }}
+                          pageCount={paginationAwaiting.totalPages}
+                          limit={paginationAwaiting.limit}
+                          totalItems={paginationAwaiting.totalItems}
+                        />
                       </td>
                     </tr>
-                  )
-                })}
-                </tbody>
-                <tfoot>
-                <tr>
-                  <td colSpan={5}>
-                    <Pagination
-                      onPageChange={({ selected }) => {
-                        loadRunningTasks(selected)
-                      }}
-                      pageCount={paginationRunning.totalPages}
-                      limit={paginationRunning.limit}
-                      totalItems={paginationRunning.totalItems}
-                    />
-                  </td>
-                </tr>
-                </tfoot>
-              </Table>
-            </div>
-          </div>
-          <div>
-            <PageHeader
-              isLoading={loadingParts['awaiting_tasks']}
-            >
-              Awaiting tasks
-            </PageHeader>
-          </div>
-          <div>
-            <div>
-              <Table striped>
-                <thead>
-                <tr>
-                  <th style={{ width: '100px' }}>#</th>
-                  <th style={{ width: '150px' }}>Task</th>
-                  <th>Place in queue</th>
-                </tr>
-                </thead>
-                <tbody>
-                {queueAwaiting.map((queue) => {
-                  return (
-                    <tr key={queue.id}>
-                      <th scope='row'>{queue.id}</th>
-                      <td>
-                        {queue.type === 'BUILD_INDEX' && (
-                          <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
-                        )}
-                      </td>
-                      <td>
-                        {queue.place}
-                      </td>
-                    </tr>
-                  )
-                })}
-                </tbody>
-                <tfoot>
-                <tr>
-                  <td colSpan={5}>
-                    <Pagination
-                      onPageChange={({ selected }) => {
-                        loadAwaitingTasks(selected)
-                      }}
-                      pageCount={paginationAwaiting.totalPages}
-                      limit={paginationAwaiting.limit}
-                      totalItems={paginationAwaiting.totalItems}
-                    />
-                  </td>
-                </tr>
-                </tfoot>
-              </Table>
-            </div>
-          </div>
+                    </tfoot>
+                  </Table>
+                </div>
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
     )

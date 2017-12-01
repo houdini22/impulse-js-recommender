@@ -52,7 +52,7 @@ router.get('/finished', async (req, res) => {
 router.get('/running', async (req, res) => {
   const user = await getUserFromRequest(req)
   const page = req.query.page ? Number(req.query.page) : 0
-  const limit = 10
+  const limit = 5
   const offset = page * limit
 
   Promise.all([
@@ -95,7 +95,7 @@ router.get('/running', async (req, res) => {
 router.get('/awaiting', async (req, res) => {
   const user = await getUserFromRequest(req)
   const page = req.query.page ? Number(req.query.page) : 0
-  const limit = 10
+  const limit = 5
   const offset = page * limit
 
   Promise.all([
