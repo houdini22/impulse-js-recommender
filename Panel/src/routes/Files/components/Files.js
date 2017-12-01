@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import IconPlus from 'react-icons/lib/md/add'
+import {Link} from 'react-router'
 import { Badge, Table, Button } from 'reactstrap'
 import moment from 'moment'
 import { Confirm, Pagination } from 'components'
@@ -33,7 +34,7 @@ export class FilesView extends React.Component {
             href='/app/file/add'
             color='success'
           >
-            <IconPlus />
+            <IconPlus/>
             {' '}
             Create
           </HeaderMenuItem>
@@ -43,62 +44,69 @@ export class FilesView extends React.Component {
             <div>
               <Table striped>
                 <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th style={{ width: '150px' }}>Created at</th>
-                    <th style={{ width: '150px' }}>Actions</th>
-                  </tr>
+                <tr>
+                  <th>Name</th>
+                  <th style={{ width: '150px' }}>Created at</th>
+                  <th style={{ width: '150px' }}>Actions</th>
+                </tr>
                 </thead>
                 <tbody>
-                  {files.map((file) => {
-                    return (
-                      <tr key={file.id}>
-                        <td>
-                          <h6 className='no-margin'>
-                            <Badge color='info'>
-                              {file.format === 'csv' && (
-                                <span>CSV</span>
-                              )}
-                            </Badge>
-                          </h6>
-                          {' '}
-                          {file.name}
-                        </td>
-                        <td>
-                          {moment(file.createdAt).fromNow()}
-                          <br/>
-                          <span className='text-muted text-sm'>{formatDate(file.createdAt)}</span>
-                        </td>
-                        <td className='actions'>
-                          <Confirm
-                            onYes={() => {
-                              deleteFile(file.id)
-                            }}
-                            message={'Are you sure to delete this File?'}
+                {files.map((file) => {
+                  return (
+                    <tr key={file.id}>
+                      <td>
+                        <h6 className='no-margin'>
+                          <Badge color='info'>
+                            {file.format === 'csv' && (
+                              <span>CSV</span>
+                            )}
+                          </Badge>
+                        </h6>
+                        {' '}
+                        {file.name}
+                      </td>
+                      <td>
+                        {moment(file.createdAt).fromNow()}
+                        <br/>
+                        <span className='text-muted text-sm'>{formatDate(file.createdAt)}</span>
+                      </td>
+                      <td className='actions'>
+                        <Link to={`/app/file/edit/${file.id}`}>
+                          <Button
+                            size='sm'
+                          >
+                            Edit
+                          </Button>
+                        </Link>
+                        <Confirm
+                          onYes={() => {
+                            deleteFile(file.id)
+                          }}
+                          message={'Are you sure to delete this File?'}
                         >
-                            <Button
-                              size='sm'
-                              color='danger'
+                          <Button
+                            size='sm'
+                            color='danger'
                           >Delete</Button>
-                          </Confirm>
-                        </td>
-                      </tr>
-                    )
-                  })}
+                        </Confirm>
+                      </td>
+                    </tr>
+                  )
+                })}
                 </tbody>
                 <tfoot>
-                  <tr>
-                    <td colSpan='3'>
-                      <Pagination
-                        onPageChange={({ selected }) => {
-                          getFiles(selected)
-                        }}
-                        pageCount={pagination.totalPages}
-                        limit={pagination.limit}
-                        totalItems={pagination.totalItems}
+                <tr>
+                  <td colSpan='3'>
+                    <Pagination
+                      onPageChange={({ selected }) => {
+                        getFiles(selected)
+                      }}
+                      pageCount={pagination.totalPages}
+                      limit={pagination.limit}
+                      totalItems={pagination.totalItems}
                     />
-                    </td>
-                  </tr>
+                  </td>
+                </tr>
                 </tfoot>
               </Table>
             </div>

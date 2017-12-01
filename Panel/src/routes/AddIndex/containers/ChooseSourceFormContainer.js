@@ -15,14 +15,14 @@ const FORM_NAME = 'index-choose-database-form'
 const validate = (values) => {
   const errors = {}
 
-  if (!values.databaseId && !values.fileToken) {
+  if (!values.databaseId && !values.fileId) {
     errors['databaseId'] = 'Required.'
-    errors['fileToken'] = 'Required.'
+    errors['fileId'] = 'Required.'
   }
 
-  if (values.databaseId && values.fileToken) {
+  if (values.databaseId && values.fileId) {
     errors['databaseId'] = 'Choose database or file.'
-    errors['fileToken'] = 'Choose database or file.'
+    errors['fileId'] = 'Choose database or file.'
   }
 
   return errors
@@ -43,17 +43,17 @@ const _reduxForm = reduxForm({
   validate,
   initialValues: {
     databaseId: '',
-    fileToken: '',
+    fileId: '',
   },
 })(ChooseSourceForm)
 
 const selector = formValueSelector(FORM_NAME)
 
 export default connect(state => {
-  const { databaseId, fileToken } = selector(state, 'databaseId', 'fileToken')
+  const { databaseId, fileId } = selector(state, 'databaseId', 'fileId')
   return {
     databaseId,
-    fileToken,
+    fileId,
     snapshots: { ...state.snapshots },
     databases: { ...state.databases },
     files: { ...state.files },

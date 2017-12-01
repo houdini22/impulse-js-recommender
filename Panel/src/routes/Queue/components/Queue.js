@@ -59,6 +59,7 @@ export class QueueView extends React.Component {
                 queueFinished={queueFinished}
                 paginationFinished={paginationFinished}
                 loadingParts={loadingParts}
+                loadFinishedTasks={loadFinishedTasks}
               />
             </Col>
             <Col md={6} sm={12} xs={12}>

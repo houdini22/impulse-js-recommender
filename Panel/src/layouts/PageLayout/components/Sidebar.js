@@ -106,7 +106,7 @@ class Sidebar extends React.Component {
                 </div>
                 <div styleName='buttons-container'>
                   <span>
-                    <Button size='sm' onClick={() => markAsRead()}>Mark as read</Button>
+                    <Button size='sm' onClick={() => markAsRead()} disabled={read}>Mark as read</Button>
                   </span>
                   <Link to='/app/notifications'>
                     <Button size='sm'>All</Button>

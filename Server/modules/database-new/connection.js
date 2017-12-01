@@ -103,6 +103,7 @@ const createSequelizeConnection = () => {
       acquire: 30000,
       idle: 10000
     },
+    logging: false,
   })
   return sequelize
 }

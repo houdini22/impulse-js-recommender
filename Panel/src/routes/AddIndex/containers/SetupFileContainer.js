@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SetupFile from '../components/SetupFile'
 import {
-  getFileInfo,
   appendNewSnapshotValues,
   createSnapshot,
+  getFileInfo
 } from 'reducers/snapshots'
 
 const FORM_NAME = 'setup-file-form'

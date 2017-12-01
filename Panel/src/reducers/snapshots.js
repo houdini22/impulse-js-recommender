@@ -1,4 +1,5 @@
 import http from '../modules/http'
+import { fetchFileInfo } from './files'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -106,15 +107,9 @@ export const setUploadedFileInfo = (data) => (dispatch) => {
   dispatch({ type: SET_UPLOADED_FILE_INFO, payload: data })
 }
 
-export const getFileInfo = (token) => (dispatch) => {
-  http.get('/files/get_file_info', {
-    params: {
-      token
-    }
-  }
-  ).then((response) => {
-    dispatch(setUploadedFileInfo(response.data.data))
-  })
+export const getFileInfo = (id) => async (dispatch) => {
+  const fileInfo = await fetchFileInfo(id)
+  dispatch(setUploadedFileInfo(fileInfo))
 }
 
 export const actions = {

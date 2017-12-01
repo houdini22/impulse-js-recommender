@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
-import AddFile from '../components/AddFile'
+import AddFile from '../components/EditFile'
 
 import {
-  uploadFile,
+  loadEditFile,
 } from 'reducers/files'
 
 const mapDispatchToProps = {
-  uploadFile,
+  loadEditFile,
 }
 
 const mapStateToProps = (state) => ({

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import http from '../modules/http'
 // ------------------------------------
 // Constants
@@ -5,6 +6,8 @@ import http from '../modules/http'
 export const FILES_LOADED = 'files::files_loaded'
 export const SET_UPLOADED_FILE = 'files::set_uploaded_file'
 export const SET_UPLOADED_FILE_INFO = 'files::set_uploaded_file_info'
+export const SET_FILE = 'files::set_file'
+export const SET_FILE_INFO = 'files::set_file_info'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -18,26 +21,10 @@ export const getFiles = (page = 0) => (dispatch) => {
   })
 }
 
-export const createFile = (values) => (dispatch, getState) => {
-  http.post('/files', values).then((response) => {
-    dispatch(getFiles())
-  })
-}
-
-export const updateFile = (values) => (dispatch) => {
-  http.put('/files', values).then((response) => {
-    dispatch(getFiles())
-  })
-}
-
 export const deleteFile = (id) => (dispatch) => {
   http.delete(`/files/${id}`).then(() => {
     dispatch(getFiles())
   })
-}
-
-export const setUploadedFile = (data) => (dispatch) => {
-  dispatch({ type: SET_UPLOADED_FILE, payload: data })
 }
 
 export const uploadFile = (file, fields, onUploadProgress, successCallback) => (dispatch) => {
@@ -47,9 +34,14 @@ export const uploadFile = (file, fields, onUploadProgress, successCallback) => (
   const config = {
     onUploadProgress,
   }
-  http.post('/files/upload', data, config).then((response) => {
-    dispatch(setUploadedFile(response.data.data))
-    successCallback(response.data.data)
+  http.post('/files/upload', data, config).then(async (response) => {
+    const uploadedFile = response.data.data;
+    dispatch(setFile(uploadedFile))
+    const fileInfo = await fetchFileInfo(uploadedFile.id)
+    if (!_.isUndefined(fileInfo)) {
+      dispatch(setFileInfo(fileInfo))
+    }
+    successCallback(uploadedFile)
   })
 }
 
@@ -57,22 +49,67 @@ export const setUploadedFileInfo = (data) => (dispatch) => {
   dispatch({ type: SET_UPLOADED_FILE_INFO, payload: data })
 }
 
-export const getFileInfo = (token) => (dispatch) => {
-  http.get('/files/get_file_info', {
-    params: {
-      token
+const fetchFile = async (id) => {
+  return new Promise((resolve) => {
+    http.get(`/files/${id}`).then((response) => {
+      resolve(response.data.data)
+    })
+  })
+}
+
+export const fetchFileInfo = async (id) => {
+  return new Promise((resolve) => {
+    http.get('/files/get_file_info', {
+        params: {
+          id
+        }
+      }
+    ).then((response) => {
+      resolve(response.data.data)
+    })
+  })
+}
+
+export const setFile = (file) => async (dispatch) => {
+  dispatch({ type: SET_FILE, payload: file })
+}
+
+export const setFileInfo = (info) => async (dispatch) => {
+  dispatch({ type: SET_FILE_INFO, payload: info })
+}
+
+export const loadEditFile = (id) => async (dispatch) => {
+  const file = await fetchFile(id)
+  if (!_.isUndefined(file)) {
+    dispatch(setFile(file))
+    const fileInfo = await fetchFileInfo(file.id)
+    if (!_.isUndefined(fileInfo)) {
+      dispatch(setFileInfo(fileInfo))
     }
   }
-  ).then((response) => {
-    dispatch(setUploadedFileInfo(response.data.data))
+}
+
+const putFile = async (id, values) => {
+  return new Promise((resolve) => {
+    http.put(`/files/${id}`, values).then((response) => {
+      resolve()
+    })
   })
+}
+
+export const editFile = (id, values) => async (dispatch) => {
+  await putFile(id, values)
+  dispatch(getFiles())
+  dispatch(setFile({}))
+  dispatch(setFileInfo({}))
 }
 
 export const actions = {
   getFiles,
-  createFile,
-  updateFile,
+  editFile,
   deleteFile,
+  loadEditFile,
+  uploadFile,
 }
 // ------------------------------------
 // Action Handlers
@@ -96,6 +133,18 @@ const ACTION_HANDLERS = {
       ...state,
       uploadedFileInfo: payload
     }
+  },
+  [SET_FILE]: (state, { payload }) => {
+    return {
+      ...state,
+      file: payload
+    }
+  },
+  [SET_FILE_INFO]: (state, { payload }) => {
+    return {
+      ...state,
+      fileInfo: payload
+    }
   }
 }
 // ------------------------------------
@@ -106,7 +155,9 @@ const initialState = {
   uploadedFile: null,
   pagination: {
     totalPages: 1
-  }
+  },
+  file: {},
+  fileInfo: {}
 }
 
 export default function userReducer (state = initialState, action) {

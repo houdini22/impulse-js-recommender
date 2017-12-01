@@ -4,11 +4,10 @@ import { browserHistory } from 'react-router'
 import Form from '../components/Form'
 import {
   uploadFile,
-  setUploadedFile,
-  updateFile,
+  setFile,
+  editFile,
   getFiles,
-  getFileInfo,
-  setUploadedFileInfo,
+  setFileInfo,
 } from 'reducers/files'
 
 const FORM_NAME = 'index-choose-database-form'
@@ -27,9 +26,8 @@ const validate = (values) => {
 }
 
 const onSubmit = (values, dispatch, props) => {
-  const { files: { uploadedFile } } = props
-  dispatch(updateFile({
-    token: uploadedFile.token,
+  const { files: { file } } = props
+  dispatch(editFile(file.id, {
     name: values.name,
     hasHeaderRow: values.hasHeaderRow,
   }))
@@ -60,7 +58,6 @@ export default connect(state => {
   }
 }, {
   uploadFile,
-  setUploadedFile,
-  getFileInfo,
-  setUploadedFileInfo,
+  setFile,
+  setFileInfo,
 })(_reduxForm)

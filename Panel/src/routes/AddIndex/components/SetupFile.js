@@ -32,7 +32,7 @@ export class SetupFile extends React.Component {
       snapshots: { newSnapshot }
     } = this.props
 
-    getFileInfo(newSnapshot.fileToken)
+    getFileInfo(newSnapshot.fileId)
   }
 
   render () {

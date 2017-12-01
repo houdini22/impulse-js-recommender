@@ -45,10 +45,10 @@ router.post('/', async (req, res) => {
   const data = req.body
   const user = await getUserFromRequest(req)
 
-  if (data.fileToken) {
+  if (data.fileId) {
     FileModel.findOne({
       where: {
-        token: data.fileToken,
+        id: data.fileId,
         userId: user.id,
       }
     }).then((file) => {

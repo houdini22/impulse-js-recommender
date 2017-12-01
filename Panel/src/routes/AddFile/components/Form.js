@@ -12,10 +12,9 @@ export class Form extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
     uploadFile: PropTypes.func.isRequired,
     change: PropTypes.func.isRequired,
-    setUploadedFile: PropTypes.func.isRequired,
-    setUploadedFileInfo: PropTypes.func.isRequired,
+    setFile: PropTypes.func.isRequired,
+    setFileInfo: PropTypes.func.isRequired,
     format: PropTypes.string.isRequired,
-    getFileInfo: PropTypes.func.isRequired,
     files: PropTypes.object.isRequired,
   }
 
@@ -30,9 +29,9 @@ export class Form extends React.Component {
   }
 
   componentDidMount () {
-    const { setUploadedFile, setUploadedFileInfo } = this.props
-    setUploadedFile(null)
-    setUploadedFileInfo(null)
+    const { setFile, setFileInfo } = this.props
+    setFile({})
+    setFileInfo({})
   }
 
   onDrop (files) {
@@ -54,7 +53,6 @@ export class Form extends React.Component {
       })
     }, (uploadedFile) => {
       change('name', uploadedFile.name)
-      getFileInfo(uploadedFile.token)
     })
   }
 
@@ -62,7 +60,7 @@ export class Form extends React.Component {
     const {
       handleSubmit,
       format,
-      files: { uploadedFileInfo }
+      files: { fileInfo }
     } = this.props
     const { files, progress, hasHeaderRow } = this.state
 
@@ -106,30 +104,30 @@ export class Form extends React.Component {
             </div>
           )}
         </div>
-        {uploadedFileInfo && (
+        {(!!fileInfo && !!fileInfo.firstRows) && (
           <Fieldset title='File preview'>
             <div styleName='table-container-outer'>
               <div styleName='table-container-inner'>
-                <Table styleName='table' style={{ width: `${uploadedFileInfo.firstRows[0].length * 300}px` }}>
+                <Table styleName='table' style={{ width: `${fileInfo.firstRows[0].length * 300}px` }}>
                   <tbody>
-                    {uploadedFileInfo.firstRows && uploadedFileInfo.firstRows.map((row, i) => {
-                      return (
-                        <tr
-                          className={i === 0 && hasHeaderRow ? 'background-red shaded' : ''}
-                          key={i}
+                  {fileInfo.firstRows && fileInfo.firstRows.map((row, i) => {
+                    return (
+                      <tr
+                        className={i === 0 && hasHeaderRow ? 'background-red shaded' : ''}
+                        key={i}
                       >
-                          {row.map((column, j) => {
-                            return (
-                              <td
-                                key={j}
+                        {row.map((column, j) => {
+                          return (
+                            <td
+                              key={j}
                             >
-                                {column}
-                              </td>
-                            )
-                          })}
-                        </tr>
-                      )
-                    })}
+                              {column}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    )
+                  })}
                   </tbody>
                 </Table>
               </div>
