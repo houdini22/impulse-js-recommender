@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules'
 import { Table, Button, Row, Col, Badge } from 'reactstrap'
 import ClockIcon from 'react-icons/lib/fa/clock-o'
 import moment from 'moment'
-import { Confirm, IconBox, Pagination } from 'components'
+import { Confirm, IconBox, Pagination, PageHeader, LoadingOverlay } from 'components'
 import { HeaderBar } from 'layouts/PageLayout/components'
 import { formatDate, msToTime } from 'helpers/date-time'
 import styles from './Queue.module.scss'
@@ -28,7 +28,8 @@ export class QueueView extends React.Component {
         queueFinished: { queueFinished, paginationFinished },
         queueAwaiting: { queueAwaiting, paginationAwaiting },
         queueRunning: { queueRunning, paginationRunning },
-        queueTimeSummary
+        queueTimeSummary,
+        loadingParts
       },
       deleteQueue,
       loadFinishedTasks,
@@ -44,13 +45,20 @@ export class QueueView extends React.Component {
             <Col md={4} sm={6} xs={12}>
               <IconBox
                 icon={<ClockIcon/>}
+                isLoading={loadingParts['time_summary']}
               >
-                Used server time: <strong>{msToTime(queueTimeSummary.sum)} ms</strong>
+                Used server time:
+                <br/>
+                <strong>{msToTime(queueTimeSummary.sum)} ms</strong>
               </IconBox>
             </Col>
           </Row>
           <div>
-            <h3>Finished tasks</h3>
+            <PageHeader
+              isLoading={loadingParts['finished_tasks']}
+            >
+              Finished tasks
+            </PageHeader>
           </div>
           <div>
             <div>
@@ -70,7 +78,7 @@ export class QueueView extends React.Component {
                       <th scope='row'>{queue.id}</th>
                       <td>
                         {queue.type === 'BUILD_INDEX' && (
-                          <h5><Badge color='info'>Build index</Badge></h5>
+                          <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
                         )}
                       </td>
                       <td>
@@ -103,7 +111,11 @@ export class QueueView extends React.Component {
             </div>
           </div>
           <div>
-            <h3>Running tasks</h3>
+            <PageHeader
+              isLoading={loadingParts['running_tasks']}
+            >
+              Running tasks
+            </PageHeader>
           </div>
           <div>
             <div>
@@ -121,7 +133,7 @@ export class QueueView extends React.Component {
                       <th scope='row'>{queue.id}</th>
                       <td>
                         {queue.type === 'BUILD_INDEX' && (
-                          <h5><Badge color='info'>Build index</Badge></h5>
+                          <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
                         )}
                       </td>
                     </tr>
@@ -146,7 +158,11 @@ export class QueueView extends React.Component {
             </div>
           </div>
           <div>
-            <h3>Awaiting tasks</h3>
+            <PageHeader
+              isLoading={loadingParts['awaiting_tasks']}
+            >
+              Awaiting tasks
+            </PageHeader>
           </div>
           <div>
             <div>
@@ -165,7 +181,7 @@ export class QueueView extends React.Component {
                       <th scope='row'>{queue.id}</th>
                       <td>
                         {queue.type === 'BUILD_INDEX' && (
-                          <h5><Badge color='info'>Build index</Badge></h5>
+                          <h6 className='no-margin'><Badge color='info'>Build index</Badge></h6>
                         )}
                       </td>
                       <td>

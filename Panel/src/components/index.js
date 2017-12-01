@@ -9,6 +9,7 @@ import Checkbox from './Checkbox'
 import Card from './Card'
 import Pagination from './Pagination'
 import IconBox from './IconBox'
+import PageHeader from './PageHeader'
 
 export {
   TextField,
@@ -22,4 +23,5 @@ export {
   Card,
   Pagination,
   IconBox,
+  PageHeader,
 }

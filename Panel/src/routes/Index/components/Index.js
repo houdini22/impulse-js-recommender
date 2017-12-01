@@ -60,16 +60,19 @@ export class SnapshotsView extends React.Component {
                       <tr key={index.id}>
                         <td>
                           {index.databaseId > 0 && (
-                          <Badge
-                            color='info'
-                            styleName='index-source'
-                          >DB</Badge>
+                          <h6>
+                            <Badge
+                              color='info'
+                              styleName='index-source'
+                            >DB</Badge>
+                          </h6>
                         )}
                           {index.fileId > 0 && (
-                          <Badge
-                            color='info'
-                            styleName='index-source'
-                          >FILE</Badge>
+                          <h6 className='no-margin'>
+                            <Badge
+                              color='info'
+                            >FILE</Badge>
+                          </h6>
                         )}
                           {index.name}
                         </td>

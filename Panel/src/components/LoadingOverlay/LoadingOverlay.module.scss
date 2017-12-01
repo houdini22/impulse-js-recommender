@@ -110,3 +110,16 @@
     opacity: 0;
   }
 }
+
+.size-xs {
+  .sk-folding-cube {
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    margin-top: -6px;
+  }
+}
+
+.no-background {
+  background: transparent !important;
+}

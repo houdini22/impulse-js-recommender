@@ -1,0 +1,25 @@
+@import '~styles/variables';
+
+.page-header {
+  font-size: 20px;
+  height: 28px;
+  line-height: 28px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid $sidebarBackgroundColor;
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.page-header-loading-container {
+  width: 28px;
+  height: 28px;
+  margin-left: 12px;
+  display: inline-block;
+  position: relative;
+}
+
+.page-header-caption {
+  display: inline-block;
+  vertical-align: top;
+  color: $sidebarBackgroundColor;
+}

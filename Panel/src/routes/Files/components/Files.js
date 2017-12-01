@@ -54,11 +54,13 @@ export class FilesView extends React.Component {
                     return (
                       <tr key={file.id}>
                         <td>
-                          <Badge color='info' styleName='format-badge'>
-                            {file.format === 'csv' && (
-                            <span>CSV</span>
-                          )}
-                          </Badge>
+                          <h6 className='no-margin'>
+                            <Badge color='info'>
+                              {file.format === 'csv' && (
+                                <span>CSV</span>
+                              )}
+                            </Badge>
+                          </h6>
                           {' '}
                           {file.name}
                         </td>

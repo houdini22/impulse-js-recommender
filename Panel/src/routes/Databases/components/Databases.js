@@ -57,7 +57,7 @@ export class SnapshotsView extends React.Component {
                       <tr key={database.id}>
                         <td>
                           {database.type === 'mysql' && (
-                          <Badge color='info' styleName='type-badge'>MySQL</Badge>
+                          <h6 className='no-margin'><Badge color='info' styleName='type-badge'>MySQL</Badge></h6>
                         )}
                           {database.name}
                         </td>
@@ -67,13 +67,13 @@ export class SnapshotsView extends React.Component {
                           <span className='text-muted text-sm'>{formatDate(database.createdAt)}</span>
                         </td>
                         <td>
-                          <h5 className='no-margin'>
+                          <h6 className='no-margin'>
                             <Badge
                               color={database.status === 'online' ? 'success' : 'danger'}
                           >
                               {database.status}
                             </Badge>
-                          </h5>
+                          </h6>
                         </td>
                         <td className='actions'>
                           <Link to={`/app/database/edit/${database.id}`}>
