@@ -25,6 +25,7 @@ import FilesContainer from './routes/Files'
 import AddFileContainer from './routes/AddFile'
 import QueueContainer from './routes/Queue'
 import EditFileContainer from './routes/EditFile'
+import CreateIndexFromFile from './routes/CreateIndexFromFile'
 
 const baseHistory = browserHistory
 const routingMiddleware = routerMiddleware(baseHistory)
@@ -50,6 +51,7 @@ ReactDOM.render(
           <IndexRoute component={userIsAuthenticated(DashboardContainer)} />
           <Route path='index' component={userIsAuthenticated(IndexContainer)} />
           <Route path='index/add' component={userIsAuthenticated(AddIndexContainer)} />
+          <Route path='index/from_file/:id' component={userIsAuthenticated(CreateIndexFromFile)} />
           <Route path='database' component={userIsAuthenticated(DatabasesContainer)} />
           <Route path='database/add' component={userIsAuthenticated(AddDatabaseContainer)} />
           <Route path='database/edit/:id' component={userIsAuthenticated(AddDatabaseContainer)} />

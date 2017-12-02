@@ -42,7 +42,7 @@ const _reduxForm = reduxForm({
   initialValues: {
     name: '',
     format: '',
-    hasHeaderRow: 0
+    hasHeaderRow: true,
   },
 })(Form)
 

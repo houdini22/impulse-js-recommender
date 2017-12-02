@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button, Row, Col, Progress, FormGroup, Label, Table } from 'reactstrap'
 import Dropzone from 'react-dropzone'
-import { Select, TextField, Fieldset, Checkbox } from 'components'
+import { Select, TextField, Fieldset, Checkbox, FilePreview } from 'components'
 import styles from './AddFile.module.scss'
 
 export class Form extends React.Component {
@@ -24,7 +24,7 @@ export class Form extends React.Component {
     this.state = {
       files: null,
       progress: 0,
-      hasHeaderRow: false,
+      hasHeaderRow: true,
     }
   }
 
@@ -39,7 +39,6 @@ export class Form extends React.Component {
       httpUploadFile,
       format,
       change,
-      getFileInfo,
     } = this.props
 
     this.setState({ files })
@@ -105,34 +104,10 @@ export class Form extends React.Component {
           )}
         </div>
         {(!!fileInfo && !!fileInfo.firstRows) && (
-          <Fieldset title='File preview'>
-            <div styleName='table-container-outer'>
-              <div styleName='table-container-inner'>
-                <Table styleName='table' style={{ width: `${fileInfo.firstRows[0].length * 300}px` }}>
-                  <tbody>
-                  {fileInfo.firstRows && fileInfo.firstRows.map((row, i) => {
-                    return (
-                      <tr
-                        className={i === 0 && hasHeaderRow ? 'background-red shaded' : ''}
-                        key={i}
-                      >
-                        {row.map((column, j) => {
-                          return (
-                            <td
-                              key={j}
-                            >
-                              {column}
-                            </td>
-                          )
-                        })}
-                      </tr>
-                    )
-                  })}
-                  </tbody>
-                </Table>
-              </div>
-            </div>
-          </Fieldset>
+          <FilePreview
+            fileInfo={fileInfo}
+            highlightFirstRow={hasHeaderRow}
+          />
         )}
         {progress === 100 && (
           <Fieldset title='File properties'>

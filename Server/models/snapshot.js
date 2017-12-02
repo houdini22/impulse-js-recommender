@@ -16,7 +16,6 @@ const Snapshot = sequelize.define('snapshot', {
   ratingColumn: Sequelize.INTEGER,
   status: Sequelize.ENUM('CREATED', 'ADDED_TO_QUEUE', 'PARSED', 'RUNNING'),
   isBuilt: Sequelize.BOOLEAN,
-  isTrained: Sequelize.BOOLEAN,
   databaseId: Sequelize.INTEGER,
   userId: Sequelize.INTEGER,
   fileId: Sequelize.INTEGER,

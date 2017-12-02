@@ -18,7 +18,7 @@ router.get('/get_file_info/:id', async (req, res) => {
     }
   }).then((file) => {
     if (file) {
-      const filePath = `./../data/files/${file.id}_${file.fileName}`
+      const filePath = `./../data/files/${file.id}`
       const content = fs.readFileSync(filePath, 'utf-8')
       return Papa.parse(content, {
         complete: function (results) {
@@ -48,18 +48,16 @@ router.get('/get_file_info/:id', async (req, res) => {
 
 router.post('/upload', async (req, res) => {
   const file = req.files.file
-  const fileName = md5(file.name + Math.random() + (new Date()).getTime())
   const data = req.body
   const user = await getUserFromRequest(req)
 
   FileModel.create({
     name: file.name,
-    fileName: fileName,
     userId: user.id,
     format: data.format,
-    token: md5(fileName + Math.random() + (new Date()).getTime())
+    hasHeaderRow: true,
   }).then((createdFile) => {
-    file.mv(`./../data/files/${createdFile.id}_${fileName}`)
+    file.mv(`./../data/files/${createdFile.id}`)
     res.json({
       status: 'OK',
       data: {

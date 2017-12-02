@@ -1,0 +1,36 @@
+@import '~styles/variables';
+
+.table-container-outer {
+  width: 100%;
+  position: relative;
+  overflow-x: scroll;
+}
+
+.table-container-inner {
+  min-width: 100%;
+}
+
+.table {
+  max-width: none;
+  margin: 0;
+  td, th {
+    width: 300px;
+    padding: 0.25rem;
+  }
+  tbody {
+    background-color: #fff;
+  }
+}
+
+.button-group {
+  float: right;
+}
+
+.error-alert {
+  margin-bottom: 40px;
+  margin-top: 0;
+
+  svg {
+    margin-right: 15px;
+  }
+}

@@ -1,0 +1,3 @@
+import CreateIndexFromFileContainer from './containers/CreateIndexFromFileContainer'
+
+export default CreateIndexFromFileContainer

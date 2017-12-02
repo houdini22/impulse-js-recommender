@@ -82,10 +82,29 @@ const httpPutFile = async (id, values) => {
 
 // page loaders
 export const loadForEditFile = (id) => async (dispatch) => {
+  dispatch(setFile({}))
+  dispatch(setFileInfo({}))
+
   const file = await httpGetFile(id)
   if (!_.isUndefined(file)) {
     dispatch(setFile(file))
     const fileInfo = await httpGetFileInfo(file.id)
+    if (!_.isUndefined(fileInfo)) {
+      dispatch(setFileInfo(fileInfo))
+    }
+  }
+}
+
+export const loadForCreateIndex = (id) => async (dispatch) => {
+  dispatch(setFile({}))
+  dispatch(setFileInfo({}))
+
+  const file = await httpGetFile(id)
+  if (!_.isUndefined(file)) {
+    dispatch(setFile(file))
+    const fileInfo = await httpGetFileInfo(file.id, {
+      snapshot: true
+    })
     if (!_.isUndefined(fileInfo)) {
       dispatch(setFileInfo(fileInfo))
     }

@@ -71,6 +71,13 @@ export class FilesView extends React.Component {
                         <span className='text-muted text-sm'>{formatDate(file.createdAt)}</span>
                       </td>
                       <td className='actions'>
+                        <Link to={`/app/index/from_file/${file.id}`}>
+                          <Button
+                            size='sm'
+                          >
+                            Create Index
+                          </Button>
+                        </Link>
                         <Link to={`/app/file/edit/${file.id}`}>
                           <Button
                             size='sm'

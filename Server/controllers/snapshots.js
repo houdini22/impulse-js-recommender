@@ -52,14 +52,16 @@ router.post('/', async (req, res) => {
         userId: user.id,
       }
     }).then((file) => {
-      data.fileId = file.id
-      data.status = SnapshotStatus.status.CREATED
-      data.userId = user.id
-      SnapshotModel.create(data).then((snapshot) => {
-        res.json({
-          status: 'OK'
+      if (file) {
+        data.fileId = file.id
+        data.status = SnapshotStatus.status.CREATED
+        data.userId = user.id
+        SnapshotModel.create(data).then((snapshot) => {
+          res.json({
+            status: 'OK'
+          })
         })
-      })
+      }
     })
   } else {
     data.itemsFieldPk = 'id'

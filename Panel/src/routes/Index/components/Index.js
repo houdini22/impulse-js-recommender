@@ -33,14 +33,6 @@ export class SnapshotsView extends React.Component {
         <HeaderBar
           title='Indexes'
         >
-          <HeaderMenuItem
-            href='/app/index/add'
-            color='success'
-          >
-            <IconPlus />
-            {' '}
-            Create
-          </HeaderMenuItem>
         </HeaderBar>
         <div className='page-content'>
           <div>

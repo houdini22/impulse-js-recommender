@@ -10,6 +10,7 @@ import Card from './Card'
 import Pagination from './Pagination'
 import IconBox from './IconBox'
 import PageHeader from './PageHeader'
+import FilePreview from './FilePreview'
 
 export {
   TextField,
@@ -24,4 +25,5 @@ export {
   Pagination,
   IconBox,
   PageHeader,
+  FilePreview,
 }
