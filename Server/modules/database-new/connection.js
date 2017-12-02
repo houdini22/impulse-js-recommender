@@ -103,7 +103,7 @@ const createSequelizeConnection = () => {
       acquire: 30000,
       idle: 10000
     },
-    logging: false,
+    // logging: false,
     timezone: '+00:00'
   })
   return sequelize

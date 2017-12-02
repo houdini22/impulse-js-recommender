@@ -85,17 +85,19 @@ export class FilesView extends React.Component {
                             Edit
                           </Button>
                         </Link>
-                        <Confirm
-                          onYes={() => {
-                            removeFile(file.id)
-                          }}
-                          message={'Are you sure to delete this File?'}
-                        >
-                          <Button
-                            size='sm'
-                            color='danger'
-                          >Delete</Button>
-                        </Confirm>
+                        {(file.canBeDeleted === 1) && (
+                          <Confirm
+                            onYes={() => {
+                              removeFile(file.id)
+                            }}
+                            message={'Are you sure to delete this File?'}
+                          >
+                            <Button
+                              size='sm'
+                              color='danger'
+                            >Delete</Button>
+                          </Confirm>
+                        )}
                       </td>
                     </tr>
                   )

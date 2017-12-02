@@ -86,17 +86,19 @@ export class SnapshotsView extends React.Component {
                             isLoading={buildingInProgress}
                           >Build Index</StateButton>
                         )}
-                          <Confirm
-                            onYes={() => {
-                              deleteIndex(index.id)
-                            }}
-                            message='Are you sure to delete this Index?'
-                        >
-                            <Button
-                              size='sm'
-                              color='danger'
-                          >Delete</Button>
-                          </Confirm>
+                          {(index.canBeDeleted === 1) && (
+                            <Confirm
+                              onYes={() => {
+                                deleteIndex(index.id)
+                              }}
+                              message='Are you sure to delete this Index?'
+                            >
+                              <Button
+                                size='sm'
+                                color='danger'
+                              >Delete</Button>
+                            </Confirm>
+                          )}
                         </td>
                       </tr>
                     )

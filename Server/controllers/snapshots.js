@@ -7,6 +7,7 @@ const SnapshotModel = require('../models/snapshot').model
 const NotificationModel = require('../models/notification').model
 const QueueModel = require('../models/queue').model
 const SnapshotStatus = require('../modules/SnapshotStatus')
+const sequelize = require('../models/snapshot').sequelize
 const QueueStatus = require('../modules/QueueStatus')
 const { getUserFromRequest } = require('../helpers')
 
@@ -88,7 +89,20 @@ router.get('/', async (req, res) => {
         },
         limit,
         offset,
-        order: [['id', 'DESC']]
+        order: [['id', 'DESC']],
+        attributes: [
+          'id',
+          'name',
+          'status',
+          'createdAt',
+          'databaseId',
+          'fileId',
+          [sequelize.literal('(' +
+            'IF(' +
+            'snapshot.status != \'ADDED_TO_QUEUE\' AND snapshot.status != \'RUNNING\'' +
+            ', 1, 0)' +
+            ')'), 'canBeDeleted']
+        ]
       }).then((files) => {
         resolve(files)
       })

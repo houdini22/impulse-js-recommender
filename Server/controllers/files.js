@@ -6,6 +6,7 @@ const md5 = require('md5')
 
 const DB = require('../modules/database-new/connection')
 const FileModel = require('../models/file').model
+const sequelize = require('../models/file').sequelize
 const { getUserFromRequest } = require('../helpers')
 
 router.get('/get_file_info/:id', async (req, res) => {
@@ -83,7 +84,19 @@ router.get('/paginate', async (req, res) => {
         },
         limit,
         offset,
-        order: [['id', 'DESC']]
+        order: [['id', 'DESC']],
+        attributes: [
+          'id',
+          'name',
+          'createdAt',
+          'hasHeaderRow',
+          'format',
+          [sequelize.literal('(' +
+            'IF(' +
+            '(SELECT COUNT(*) FROM snapshots AS _snapshots WHERE _snapshots.fileId = file.id AND _snapshots.status IN(\'ADDED_TO_QUEUE\',\'RUNNING\') ) = 0' +
+            ', 1, 0)' +
+            ')'), 'canBeDeleted']
+        ]
       }).then((files) => {
         resolve(files)
       })
