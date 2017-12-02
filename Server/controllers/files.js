@@ -8,11 +8,12 @@ const DB = require('../modules/database-new/connection')
 const FileModel = require('../models/file').model
 const { getUserFromRequest } = require('../helpers')
 
-router.get('/get_file_info', async (req, res) => {
+router.get('/get_file_info/:id', async (req, res) => {
   const user = await getUserFromRequest(req)
+
   FileModel.findOne({
     where: {
-      id: req.query.id,
+      id: req.params.id,
       userId: user.id
     }
   }).then((file) => {
@@ -21,10 +22,18 @@ router.get('/get_file_info', async (req, res) => {
       const content = fs.readFileSync(filePath, 'utf-8')
       return Papa.parse(content, {
         complete: function (results) {
+          let firstRows
+
+          if (req.query.snapshot && file.get('hasHeaderRow')) {
+            firstRows = results.data.slice(1, 11)
+          } else {
+            firstRows = results.data.slice(0, 10)
+          }
+
           res.json({
             status: 'OK',
             data: {
-              firstRows: results.data.slice(0, 10),
+              firstRows,
               fields: results.meta.fields,
             }
           })
@@ -62,7 +71,7 @@ router.post('/upload', async (req, res) => {
   })
 })
 
-router.get('/', async (req, res) => {
+router.get('/paginate', async (req, res) => {
   const user = await getUserFromRequest(req)
   const page = req.query.page ? Number(req.query.page) : 0
   const limit = 10

@@ -13,17 +13,17 @@ import styles from './Files.module.scss'
 export class FilesView extends React.Component {
   static propTypes = {
     files: PropTypes.object.isRequired,
-    getFiles: PropTypes.func.isRequired,
-    deleteFile: PropTypes.func.isRequired
+    loadForFilesList: PropTypes.func.isRequired,
+    removeFile: PropTypes.func.isRequired
   }
 
   componentDidMount () {
-    const { getFiles } = this.props
-    getFiles()
+    const { loadForFilesList } = this.props
+    loadForFilesList()
   }
 
   render () {
-    const { files: { files, pagination }, deleteFile, getFiles, } = this.props
+    const { files: { files, pagination }, removeFile, loadForFilesList, } = this.props
 
     return (
       <div>
@@ -80,7 +80,7 @@ export class FilesView extends React.Component {
                         </Link>
                         <Confirm
                           onYes={() => {
-                            deleteFile(file.id)
+                            removeFile(file.id)
                           }}
                           message={'Are you sure to delete this File?'}
                         >
@@ -99,7 +99,7 @@ export class FilesView extends React.Component {
                   <td colSpan='3'>
                     <Pagination
                       onPageChange={({ selected }) => {
-                        getFiles(selected)
+                        loadForFilesList(selected)
                       }}
                       pageCount={pagination.totalPages}
                       limit={pagination.limit}

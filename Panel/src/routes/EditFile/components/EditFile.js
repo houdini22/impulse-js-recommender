@@ -8,13 +8,13 @@ import { HeaderBar } from 'layouts/PageLayout/components'
 class EditFile extends React.Component {
   static propTypes = {
     routeParams: PropTypes.object.isRequired,
-    loadEditFile: PropTypes.func.isRequired,
+    loadForEditFile: PropTypes.func.isRequired,
     files: PropTypes.object.isRequired,
   }
 
   componentDidMount () {
-    const { loadEditFile, routeParams: { id } } = this.props
-    loadEditFile(id)
+    const { loadForEditFile, routeParams: { id } } = this.props
+    loadForEditFile(id)
   }
 
   render () {

@@ -11,7 +11,7 @@ export class ChooseSourceForm extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
     getDatabases: PropTypes.func.isRequired,
     databases: PropTypes.object.isRequired,
-    getFiles: PropTypes.func.isRequired,
+    loadForFilesList: PropTypes.func.isRequired,
     files: PropTypes.object.isRequired,
     setUploadedFile: PropTypes.func.isRequired,
     fileId: PropTypes.string.isRequired,
@@ -19,9 +19,9 @@ export class ChooseSourceForm extends React.Component {
   }
 
   componentDidMount () {
-    const { getDatabases, setUploadedFile, getFiles, } = this.props
+    const { getDatabases, setUploadedFile, loadForFilesList, } = this.props
     getDatabases()
-    getFiles()
+    loadForFilesList()
     setUploadedFile(null)
   }
 

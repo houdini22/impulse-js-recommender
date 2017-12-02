@@ -12,7 +12,7 @@ export class QueueView extends React.Component {
     loadFinishedTasks: PropTypes.func.isRequired,
     queueFinished: PropTypes.array.isRequired,
     paginationFinished: PropTypes.object.isRequired,
-    loadingParts: PropTypes.func.isRequired,
+    loadingParts: PropTypes.object.isRequired,
   }
 
   render () {

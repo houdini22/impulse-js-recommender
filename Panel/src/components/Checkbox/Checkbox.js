@@ -22,8 +22,8 @@ class Checkbox extends React.Component {
 
     return (
       <FormGroup check color={validationState}>
-        <Label check>
-          <Input {...input} {...custom} type='checkbox' state={validationState} />
+        <Label check styleName='label'>
+          <Input {...input} {...custom} type='checkbox' state={validationState} styleName='checkbox' />
           {' '}
           {label}
         </Label>

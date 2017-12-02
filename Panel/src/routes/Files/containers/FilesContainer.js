@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import Files from '../components/Files'
-import { getFiles, deleteFile } from 'reducers/files'
+import { loadForFilesList, removeFile } from 'reducers/files'
 
 const mapDispatchToProps = {
-  getFiles,
-  deleteFile,
+  loadForFilesList,
+  removeFile,
 }
 
 const mapStateToProps = (state) => ({

@@ -2,11 +2,11 @@ import { connect } from 'react-redux'
 import AddFile from '../components/EditFile'
 
 import {
-  loadEditFile,
+  loadForEditFile,
 } from 'reducers/files'
 
 const mapDispatchToProps = {
-  loadEditFile,
+  loadForEditFile,
 }
 
 const mapStateToProps = (state) => ({

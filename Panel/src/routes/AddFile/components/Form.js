@@ -10,7 +10,7 @@ import styles from './AddFile.module.scss'
 export class Form extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    uploadFile: PropTypes.func.isRequired,
+    httpUploadFile: PropTypes.func.isRequired,
     change: PropTypes.func.isRequired,
     setFile: PropTypes.func.isRequired,
     setFileInfo: PropTypes.func.isRequired,
@@ -36,7 +36,7 @@ export class Form extends React.Component {
 
   onDrop (files) {
     const {
-      uploadFile,
+      httpUploadFile,
       format,
       change,
       getFileInfo,
@@ -44,7 +44,7 @@ export class Form extends React.Component {
 
     this.setState({ files })
 
-    uploadFile(files[0], {
+    httpUploadFile(files[0], {
       format,
     }, (progressEvent) => {
       const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)

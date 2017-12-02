@@ -8,7 +8,7 @@ import {
   setUploadedFile,
 } from 'reducers/snapshots'
 import { getDatabases } from 'reducers/databases'
-import { getFiles } from 'reducers/files'
+import { loadForFilesList } from 'reducers/files'
 
 const FORM_NAME = 'index-choose-database-form'
 
@@ -61,5 +61,5 @@ export default connect(state => {
 }, {
   getDatabases,
   setUploadedFile,
-  getFiles,
+  loadForFilesList,
 })(_reduxForm)

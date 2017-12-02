@@ -32,7 +32,9 @@ export class SetupFile extends React.Component {
       snapshots: { newSnapshot }
     } = this.props
 
-    getFileInfo(newSnapshot.fileId)
+    getFileInfo(newSnapshot.fileId, {
+      snapshot: true
+    })
   }
 
   render () {
@@ -92,7 +94,7 @@ export class SetupFile extends React.Component {
                                   disabled={(itemsColumn >= 0 && itemsColumn !== i) || ratedByColumn === i || ratingColumn === i}
                                   color={itemsColumn === i ? 'success' : 'secondary'}
                               >
-                                Items
+                                Subject
                               </Button>{' '}
                                 <Button
                                   size='xs'
@@ -106,7 +108,7 @@ export class SetupFile extends React.Component {
                                   disabled={(ratedByColumn >= 0 && ratedByColumn !== i) || itemsColumn === i || ratingColumn === i}
                                   color={ratedByColumn === i ? 'success' : 'secondary'}
                               >
-                                Rated by
+                                User
                               </Button>{' '}
                                 <Button
                                   size='xs'
@@ -119,7 +121,9 @@ export class SetupFile extends React.Component {
                                   }}
                                   disabled={(ratingColumn >= 0 && ratingColumn !== i) || itemsColumn === i || ratedByColumn === i}
                                   color={ratingColumn === i ? 'success' : 'secondary'}
-                              >Rating</Button>
+                              >
+                                  Rating
+                                </Button>
                               </ButtonGroup>
                             </th>
                           )

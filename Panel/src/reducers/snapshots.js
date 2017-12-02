@@ -1,5 +1,5 @@
 import http from '../modules/http'
-import { fetchFileInfo } from './files'
+import { httpGetFileInfo } from './files'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -90,7 +90,7 @@ export const setUploadedFile = (data) => (dispatch) => {
   dispatch({ type: SET_UPLOADED_FILE, payload: data })
 }
 
-export const uploadFile = (file, fields, onUploadProgress, successCallback) => (dispatch) => {
+export const httpUploadFile = (file, fields, onUploadProgress, successCallback) => (dispatch) => {
   const data = new FormData()
   data.append('file', file)
   data.append('format', fields.format)
@@ -107,8 +107,8 @@ export const setUploadedFileInfo = (data) => (dispatch) => {
   dispatch({ type: SET_UPLOADED_FILE_INFO, payload: data })
 }
 
-export const getFileInfo = (id) => async (dispatch) => {
-  const fileInfo = await fetchFileInfo(id)
+export const getFileInfo = (id, params) => async (dispatch) => {
+  const fileInfo = await httpGetFileInfo(id, params)
   dispatch(setUploadedFileInfo(fileInfo))
 }
 

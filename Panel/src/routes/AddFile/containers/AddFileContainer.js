@@ -2,11 +2,11 @@ import { connect } from 'react-redux'
 import AddFile from '../components/AddFile'
 
 import {
-  uploadFile,
+  httpUploadFile,
 } from 'reducers/files'
 
 const mapDispatchToProps = {
-  uploadFile,
+  httpUploadFile,
 }
 
 const mapStateToProps = (state) => ({

@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import Form from '../components/Form'
 import {
-  uploadFile,
+  httpUploadFile,
   setFile,
   editFile,
-  getFiles,
+  loadForFilesList,
   setFileInfo,
 } from 'reducers/files'
 
@@ -31,7 +31,7 @@ const onSubmit = (values, dispatch, props) => {
     name: values.name,
     hasHeaderRow: values.hasHeaderRow,
   }))
-  dispatch(getFiles())
+  dispatch(loadForFilesList())
   browserHistory.push('/app/file')
 }
 
@@ -57,7 +57,7 @@ export default connect(state => {
     files: { ...state.files },
   }
 }, {
-  uploadFile,
+  httpUploadFile,
   setFile,
   setFileInfo,
 })(_reduxForm)
