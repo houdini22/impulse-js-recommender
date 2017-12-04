@@ -112,6 +112,12 @@ export const loadForCreateIndex = (id) => async (dispatch) => {
 }
 
 export const loadForFilesList = (page = 0) => async (dispatch) => {
+  dispatch(setFiles({
+    data: [],
+    pagination: {
+      totalPages: 1
+    }
+  }))
   httpGetFilesPaginate(page).then((files) => {
     dispatch(setFiles(files))
     dispatch(setFile({}))

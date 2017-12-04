@@ -70,6 +70,18 @@ export const load = () => async (dispatch) => {
   dispatch(setQueuePartIsLoading('running_tasks', true))
   dispatch(setQueuePartIsLoading('awaiting_tasks', true))
 
+  const defaultPayload = {
+    data: [],
+    pagination: {
+      totalPages: 1
+    }
+  }
+
+  dispatch({ type: QUEUE_SUMMARY_LOADED, payload: {} })
+  dispatch({ type: QUEUE_FINISHED_LOADED, payload: defaultPayload })
+  dispatch({ type: QUEUE_RUNNING_LOADED, payload: defaultPayload })
+  dispatch({ type: QUEUE_AWAITING_LOADED, payload: defaultPayload })
+
   const queueSum = await fetchQueueTimeSummary()
   if (!_.isUndefined(queueSum)) {
     dispatch({ type: QUEUE_SUMMARY_LOADED, payload: queueSum })

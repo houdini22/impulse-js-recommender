@@ -8,7 +8,7 @@ export const TABLES_FETCHED = 'snapshots::tables_fetched'
 export const RATING_FIELDS_FETCHED = 'snapshots::ratings_fields_fetched'
 export const SET_CREATE_MODAL_IS_VISIBLE = 'snapshots::set_create_modal_is_visible'
 export const SET_CREATE_MODAL_STEP = 'snapshots::set_create_modal_step'
-export const INDEXES_LOADED = 'snapshots::indexes_loaded'
+export const SNAPSHOTS_LOADED = 'snapshots::indexes_loaded'
 export const BUILD_INDEX = 'snapshots::build_index'
 export const BUILDING_IN_PROGRESS = 'snapshots::building_in_progress'
 export const APPEND_NEW_SNAPSHOT_VALUES = 'snapshots::append_new_snapshot_values'
@@ -53,12 +53,13 @@ export const setCreateModalStep = (value) => (dispatch) => {
 }
 
 export const getSnapshots = (page = 0) => (dispatch) => {
+  dispatch({ type: SNAPSHOTS_LOADED, payload: { data: [], pagination: { totalPages: 1 } } })
   http.get('/snapshots', {
     params: {
       page
     }
   }).then((response) => {
-    dispatch({ type: INDEXES_LOADED, payload: response.data })
+    dispatch({ type: SNAPSHOTS_LOADED, payload: response.data })
   })
 }
 
@@ -149,7 +150,7 @@ const ACTION_HANDLERS = {
       createModalStep: payload,
     }
   },
-  [INDEXES_LOADED]: (state, { payload }) => {
+  [SNAPSHOTS_LOADED]: (state, { payload }) => {
     return {
       ...state,
       indexes: payload.data,
