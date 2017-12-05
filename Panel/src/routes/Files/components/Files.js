@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import IconPlus from 'react-icons/lib/md/add'
-import {Link} from 'react-router'
+import { Link } from 'react-router'
 import { Badge, Table, Button } from 'reactstrap'
 import moment from 'moment'
 import { Confirm, Pagination } from 'components'
@@ -36,7 +36,7 @@ export class FilesView extends React.Component {
           >
             <IconPlus/>
             {' '}
-            Create
+            Upload
           </HeaderMenuItem>
         </HeaderBar>
         <div className='page-content'>
@@ -46,7 +46,8 @@ export class FilesView extends React.Component {
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th style={{ width: '150px' }}>Created at</th>
+                  <th style={{ width: '150px' }} className='hidden-sm hidden-xs'>Created at</th>
+                  <th style={{ width: '150px' }}>Meta</th>
                   <th style={{ width: '150px' }}>Actions</th>
                 </tr>
                 </thead>
@@ -65,10 +66,13 @@ export class FilesView extends React.Component {
                         {' '}
                         {file.name}
                       </td>
-                      <td>
+                      <td className='hidden-sm hidden-xs'>
                         {moment(file.createdAt).fromNow()}
                         <br/>
                         <span className='text-muted text-sm'>{formatDate(file.createdAt)}</span>
+                      </td>
+                      <td>
+                        {file.fileSize}
                       </td>
                       <td className='actions'>
                         <Link to={`/app/index/from_file/${file.id}`}>
@@ -105,7 +109,7 @@ export class FilesView extends React.Component {
                 </tbody>
                 <tfoot>
                 <tr>
-                  <td colSpan='3'>
+                  <td colSpan='4'>
                     <Pagination
                       onPageChange={({ selected }) => {
                         loadForFilesList(selected)
@@ -122,8 +126,8 @@ export class FilesView extends React.Component {
           </div>
         </div>
       </div>
-    )
+  )
   }
-}
+  }
 
-export default CSSModules(FilesView, styles)
+  export default CSSModules(FilesView, styles)

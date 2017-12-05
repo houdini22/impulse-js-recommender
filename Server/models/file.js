@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../modules/database-new/connection').getSequelizeConnection()
+const fs = require('fs')
+const filesize = require('filesize')
 
 const File = sequelize.define('file', {
   name: Sequelize.STRING,
@@ -13,6 +15,13 @@ const File = sequelize.define('file', {
       return `${__dirname}/../../data/files/${this.id}`
     },
   },
+  fileSize: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      const stats = fs.statSync(`${__dirname}/../../data/files/${this.id}`)
+      return filesize(stats["size"])
+    }
+  }
 }, {
   paranoid: true
 })

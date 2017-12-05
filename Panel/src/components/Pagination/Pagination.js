@@ -49,6 +49,7 @@ class Pagination extends React.Component {
             subContainerClassName={styles.pages}
             activeClassName={styles.active}
             disabledClassName={styles.disabled}
+            forcePage={currentPage}
           />
         )}
       </div>

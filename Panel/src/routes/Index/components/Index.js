@@ -41,8 +41,9 @@ export class SnapshotsView extends React.Component {
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th style={{ width: '150px' }}>Created at</th>
-                  <th style={{ width: '150px' }}>Status</th>
+                  <th style={{ width: '150px' }} className='hidden-sm hidden-xs'>Created at</th>
+                  <th style={{ width: '100px' }}>Status</th>
+                  <th style={{ width: '150px' }}>Meta</th>
                   <th style={{ width: '150px' }}>Actions</th>
                 </tr>
                 </thead>
@@ -68,13 +69,26 @@ export class SnapshotsView extends React.Component {
                         )}
                         {index.name}
                       </td>
-                      <td>
+                      <td className='hidden-sm hidden-xs'>
                         {moment(index.createdAt).fromNow()}
                         <br/>
                         <span className='text-muted text-sm'>{formatDate(index.createdAt)}</span>
                       </td>
                       <td>
                         {index.status}
+                      </td>
+                      <td>
+                        {(index.status !== 'PARSED') && (
+                          <span className='text-muted'>not built</span>
+                        )}
+                        {(index.status === 'PARSED') && (
+                          <div style={{fontSize: '11px'}}>
+                            <strong>{index.subjectsCount}</strong> items.<br/>
+                            <strong>{index.usersCount}</strong> users.<br/>
+                            <strong>{index.ratingsCount}</strong> ratings.<br/>
+                            <strong>{(index.density * 100).toFixed(4)}%</strong> density.
+                          </div>
+                        )}
                       </td>
                       <td className='actions'>
                         {(index.status === 'PARSED') && (
@@ -115,7 +129,7 @@ export class SnapshotsView extends React.Component {
                 </tbody>
                 <tfoot>
                 <tr>
-                  <td colSpan='4'>
+                  <td colSpan='5'>
                     <Pagination
                       onPageChange={({ selected }) => {
                         getSnapshots(selected)
@@ -132,8 +146,8 @@ export class SnapshotsView extends React.Component {
           </div>
         </div>
       </div>
-    )
+  )
   }
-}
+  }
 
-export default CSSModules(SnapshotsView, styles)
+  export default CSSModules(SnapshotsView, styles)

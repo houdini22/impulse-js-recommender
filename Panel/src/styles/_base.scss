@@ -1,4 +1,5 @@
 @import '_variables.scss';
+@import '~bootstrap/scss/mixins/_breakpoints.scss';
 
 body {
   width: 100%;
@@ -97,4 +98,16 @@ body {
 
 .text-sm {
   font-size: 85%;
+}
+
+.hidden-xs {
+  @include media-breakpoint-only(xs) {
+    display: none;
+  }
+}
+
+.hidden-sm {
+  @include media-breakpoint-only(sm) {
+    display: none;
+  }
 }
