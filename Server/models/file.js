@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../modules/database-new/connection').getSequelizeConnection()
 const fs = require('fs')
-const filesize = require('filesize')
+
+const makePath = (id) => {
+  return `${__dirname}/../../data/files/${id}`
+}
 
 const File = sequelize.define('file', {
   name: Sequelize.STRING,
@@ -12,16 +15,12 @@ const File = sequelize.define('file', {
   filePath: {
     type: Sequelize.VIRTUAL,
     get () {
-      return `${__dirname}/../../data/files/${this.id}`
+      return makePath(this.id)
     },
   },
-  fileSize: {
-    type: Sequelize.VIRTUAL,
-    get () {
-      const stats = fs.statSync(`${__dirname}/../../data/files/${this.id}`)
-      return filesize(stats["size"])
-    }
-  }
+  fileSize: Sequelize.STRING,
+  linesCount: Sequelize.INTEGER,
+  columnsCount: Sequelize.INTEGER,
 }, {
   paranoid: true
 })

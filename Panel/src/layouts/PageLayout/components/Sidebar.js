@@ -92,14 +92,14 @@ class Sidebar extends React.Component {
                   <SidebarTabIcon
                     icon={<QueueRunningIcon />}
                     iconCount={notifications.running.value}
-                    iconCountColor='warning'
+                    iconCountColor={notifications.running.value === 0 ? 'success' : 'warning'}
                   >
                     running tasks
                   </SidebarTabIcon>
                   <SidebarTabIcon
                     icon={<HourGlassIcon />}
                     iconCount={notifications.awaiting.value}
-                    iconCountColor='warning'
+                    iconCountColor={notifications.awaiting.value === 0 ? 'success' : 'warning'}
                   >
                     awaiting tasks
                   </SidebarTabIcon>

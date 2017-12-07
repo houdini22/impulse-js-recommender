@@ -73,6 +73,10 @@ export class FilesView extends React.Component {
                       </td>
                       <td>
                         {file.fileSize}
+                        <br/>
+                        <strong>{file.linesCount}</strong> lines.
+                        <br/>
+                        <strong>{file.columnsCount}</strong> columns.
                       </td>
                       <td className='actions'>
                         <Link to={`/app/index/from_file/${file.id}`}>

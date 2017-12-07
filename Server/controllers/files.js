@@ -3,6 +3,7 @@ const router = express.Router()
 const fs = require('fs')
 const Papa = require('papaparse')
 const md5 = require('md5')
+const filesize = require('filesize')
 
 const DB = require('../modules/database-new/connection')
 const FileModel = require('../models/file').model
@@ -58,14 +59,30 @@ router.post('/upload', async (req, res) => {
     format: data.format,
     hasHeaderRow: true,
   }).then((createdFile) => {
-    file.mv(`./../data/files/${createdFile.id}`)
-    res.json({
-      status: 'OK',
-      data: {
-        id: createdFile.id,
-        name: createdFile.get('name'),
-        format: createdFile.get('format')
-      }
+    file.mv(`./../data/files/${createdFile.id}`, () => {
+      const stats = fs.statSync(`./../data/files/${createdFile.id}`)
+      const content = fs.readFileSync(`./../data/files/${createdFile.id}`, 'UTF-8')
+
+      Papa.parse(content, {
+        complete: (results) => {
+          const columnsCount = results.data && results.data[0] ? results.data[0].length : 0
+
+          createdFile.update({
+            fileSize: filesize(stats['size']),
+            linesCount: content.split('\n').length,
+            columnsCount,
+          }).then(() => {
+            res.json({
+              status: 'OK',
+              data: {
+                id: createdFile.id,
+                name: createdFile.get('name'),
+                format: createdFile.get('format')
+              }
+            })
+          })
+        }
+      })
     })
   })
 })
@@ -91,6 +108,9 @@ router.get('/paginate', async (req, res) => {
           'createdAt',
           'hasHeaderRow',
           'format',
+          'linesCount',
+          'columnsCount',
+          'fileSize',
           [sequelize.literal('(' +
             'IF(' +
             '(SELECT COUNT(*) FROM snapshots AS _snapshots WHERE _snapshots.fileId = file.id AND _snapshots.status IN(\'ADDED_TO_QUEUE\',\'RUNNING\') ) = 0' +
