@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CSSModules from 'react-css-modules'
 import { Field } from 'redux-form'
-import { Button, Row, Col, Table } from 'reactstrap'
+import { Button, Row, Col } from 'reactstrap'
 import { TextField, Fieldset, Checkbox, FilePreview } from 'components'
 import styles from './EditFile.module.scss'
 
@@ -40,12 +40,10 @@ export class Form extends React.Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        {(!!fileInfo && !!fileInfo.firstRows) && (
-          <FilePreview
-            fileInfo={fileInfo}
-            highlightFirstRow={hasHeaderRow}
-          />
-          )}
+        <FilePreview
+          fileInfo={fileInfo}
+          highlightFirstRow={hasHeaderRow}
+        />
         <Fieldset title='File properties'>
           <div>
             <Field

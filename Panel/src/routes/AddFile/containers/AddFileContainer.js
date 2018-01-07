@@ -9,8 +9,4 @@ const mapDispatchToProps = {
   httpUploadFile,
 }
 
-const mapStateToProps = (state) => ({
-  files: { ...(state.files) }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddFile)
+export default connect(null, mapDispatchToProps)(AddFile)

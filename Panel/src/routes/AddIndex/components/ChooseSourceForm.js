@@ -12,7 +12,7 @@ export class ChooseSourceForm extends React.Component {
     getDatabases: PropTypes.func.isRequired,
     databases: PropTypes.object.isRequired,
     loadForFilesList: PropTypes.func.isRequired,
-    files: PropTypes.object.isRequired,
+    files: PropTypes.array.isRequired,
     setUploadedFile: PropTypes.func.isRequired,
     fileId: PropTypes.string.isRequired,
     databaseId: PropTypes.string.isRequired,
@@ -28,7 +28,7 @@ export class ChooseSourceForm extends React.Component {
   render () {
     const {
       databases: { databases },
-      files: { files },
+      files,
       handleSubmit,
       fileId,
       databaseId,

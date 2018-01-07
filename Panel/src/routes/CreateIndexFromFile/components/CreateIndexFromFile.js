@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CSxsodules from 'react-css-modules'
+import CSSmodules from 'react-css-modules'
 import { Field } from 'redux-form'
 import { Button, Table, Row, Col, ButtonGroup, Alert } from 'reactstrap'
 import { HeaderBar } from 'layouts/PageLayout/components'
 import ExclamationIcon from 'react-icons/lib/fa/exclamation-circle'
 import CheckIcon from 'react-icons/lib/fa/check-circle-o'
-import { Fieldset, TextField } from 'components'
+import { Fieldset, TextField, LoadingOverlay } from 'components'
 import styles from './CreateIndexFromFile.module.scss'
 
 export class CreateIndexFromFile extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     loadForCreateIndex: PropTypes.func.isRequired,
-    files: PropTypes.object.isRequired,
+    file: PropTypes.object.isRequired,
+    fileInfo: PropTypes.object.isRequired,
     change: PropTypes.func.isRequired,
     itemsColumn: PropTypes.number,
     ratedByColumn: PropTypes.number,
@@ -39,7 +40,7 @@ export class CreateIndexFromFile extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { files: { file }, change } = nextProps
+    const { file, change } = nextProps
     if (this.props.name === null && file.name) {
       change('name', file.name)
       change('fileId', file.id)
@@ -53,7 +54,8 @@ export class CreateIndexFromFile extends React.Component {
       itemsColumn,
       ratedByColumn,
       ratingColumn,
-      files: { file, fileInfo }
+      file,
+      fileInfo,
     } = this.props
 
     const {
@@ -186,6 +188,9 @@ export class CreateIndexFromFile extends React.Component {
                     />
                   </div>
                 )}
+                {(!fileInfo.firstRows) && (
+                  <LoadingOverlay />
+                )}
               </Fieldset>
               <Fieldset
                 title='Common'
@@ -212,4 +217,4 @@ export class CreateIndexFromFile extends React.Component {
   }
 }
 
-export default CSxsodules(CreateIndexFromFile, styles)
+export default CSSmodules(CreateIndexFromFile, styles)

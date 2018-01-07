@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Files from '../components/Files'
-import { loadForFilesList, removeFile } from 'reducers/files'
+import { loadForFilesList, removeFile, getFiles, getPagination } from 'reducers/files'
 
 const mapDispatchToProps = {
   loadForFilesList,
@@ -8,7 +8,8 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => ({
-  files: { ...(state.files) }
+  files: getFiles(state),
+  pagination: getPagination(state)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Files)

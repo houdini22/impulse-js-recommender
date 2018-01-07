@@ -15,7 +15,7 @@ export class Form extends React.Component {
     setFile: PropTypes.func.isRequired,
     setFileInfo: PropTypes.func.isRequired,
     format: PropTypes.string.isRequired,
-    files: PropTypes.object.isRequired,
+    fileInfo: PropTypes.object.isRequired,
   }
 
   constructor (props) {
@@ -59,7 +59,7 @@ export class Form extends React.Component {
     const {
       handleSubmit,
       format,
-      files: { fileInfo }
+      fileInfo,
     } = this.props
     const { files, progress, hasHeaderRow } = this.state
 

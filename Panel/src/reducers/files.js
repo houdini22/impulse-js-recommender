@@ -146,6 +146,25 @@ export const setFileInfo = (info) => async (dispatch) => {
 export const setFiles = (files) => async (dispatch) => {
   dispatch({ type: FILES_LOADED, payload: files })
 }
+
+// getters
+export const getRootState = state => state.files
+
+export const getFiles = (state) => {
+  return getRootState(state).files
+}
+
+export const getPagination = (state) => {
+  return getRootState(state).pagination
+}
+
+export const getFile = (state) => {
+  return getRootState(state).file
+}
+
+export const getFileInfo = (state) => {
+  return getRootState(state).fileInfo
+}
 // ------------------------------------
 // Action Handlers
 // ------------------------------------

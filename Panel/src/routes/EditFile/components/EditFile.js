@@ -4,12 +4,14 @@ import PropTypes from 'prop-types'
 import FormContainer from '../containers/Form'
 import styles from './EditFile.module.scss'
 import { HeaderBar } from 'layouts/PageLayout/components'
+import { LoadingOverlay } from 'components/index'
 
 class EditFile extends React.Component {
   static propTypes = {
     routeParams: PropTypes.object.isRequired,
     loadForEditFile: PropTypes.func.isRequired,
-    files: PropTypes.object.isRequired,
+    file: PropTypes.object.isRequired,
+    fileInfo: PropTypes.object.isRequired,
   }
 
   componentDidMount () {
@@ -18,7 +20,7 @@ class EditFile extends React.Component {
   }
 
   render () {
-    const { files: { file, fileInfo } } = this.props
+    const { file, fileInfo } = this.props
     return (
       <div>
         <HeaderBar
@@ -26,11 +28,14 @@ class EditFile extends React.Component {
           back='/app/file'
         />
         <div className='page-content'>
-          {(file && fileInfo) && (
+          {(!!file && !!fileInfo) && (
             <FormContainer
               file={file}
               fileInfo={fileInfo}
             />
+          )}
+          {(!file || !fileInfo) && (
+            <LoadingOverlay />
           )}
         </div>
       </div>

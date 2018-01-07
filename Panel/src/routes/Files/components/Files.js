@@ -12,9 +12,10 @@ import styles from './Files.module.scss'
 
 export class FilesView extends React.Component {
   static propTypes = {
-    files: PropTypes.object.isRequired,
+    files: PropTypes.array.isRequired,
     loadForFilesList: PropTypes.func.isRequired,
-    removeFile: PropTypes.func.isRequired
+    removeFile: PropTypes.func.isRequired,
+    pagination: PropTypes.object.isRequired,
   }
 
   componentDidMount () {
@@ -23,7 +24,7 @@ export class FilesView extends React.Component {
   }
 
   render () {
-    const { files: { files, pagination }, removeFile, loadForFilesList, } = this.props
+    const { files, pagination, removeFile, loadForFilesList } = this.props
 
     return (
       <div>

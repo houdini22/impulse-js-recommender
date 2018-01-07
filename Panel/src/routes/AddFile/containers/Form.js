@@ -8,6 +8,8 @@ import {
   editFile,
   loadForFilesList,
   setFileInfo,
+  getFileInfo,
+  getFile,
 } from 'reducers/files'
 
 const FORM_NAME = 'index-choose-database-form'
@@ -26,7 +28,7 @@ const validate = (values) => {
 }
 
 const onSubmit = (values, dispatch, props) => {
-  const { files: { file } } = props
+  const { file } = props
   dispatch(editFile(file.id, {
     name: values.name,
     hasHeaderRow: values.hasHeaderRow,
@@ -54,7 +56,8 @@ export default connect(state => {
     name,
     format,
     hasHeaderRow,
-    files: { ...state.files },
+    fileInfo: getFileInfo(state),
+    file: getFile(state),
   }
 }, {
   httpUploadFile,

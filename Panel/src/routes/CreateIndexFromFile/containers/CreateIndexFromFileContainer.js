@@ -8,6 +8,8 @@ import {
 } from 'reducers/snapshots'
 import {
   loadForCreateIndex,
+  getFile,
+  getFileInfo,
 } from 'reducers/files'
 
 const FORM_NAME = 'create-index-from-file-form'
@@ -69,7 +71,8 @@ export default connect(state => {
       ratingColumn: -1,
       fileId: null,
     },
-    files: { ...state.files },
+    file: getFile(state),
+    fileInfo: getFileInfo(state),
   }
 }, {
   loadForCreateIndex,

@@ -26,7 +26,7 @@ class LoadingOverlay extends React.Component {
 }
 
 LoadingOverlay.propTypes = {
-  size: PropTypes.string.isRequired,
+  size: PropTypes.string,
   noBackground: PropTypes.bool,
 }
 

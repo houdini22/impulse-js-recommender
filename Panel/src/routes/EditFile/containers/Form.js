@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import Form from '../components/Form'
 import {
   editFile,
+  getFile,
 } from 'reducers/files'
 
 const FORM_NAME = 'edit-file-form'
@@ -35,7 +36,7 @@ const _reduxForm = reduxForm({
 
 export default connect(
   state => {
-    const { file } = state.files
+    const file = getFile(state)
     return {
       initialValues: {
         id: file.id,
